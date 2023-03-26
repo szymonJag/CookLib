@@ -1,0 +1,11 @@
+﻿namespace CookLib.ApplicationServices.API.Domain.Models
+{
+    public class IngredientDTO
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public int Kcal { get; set; }
+
+    }
+}
