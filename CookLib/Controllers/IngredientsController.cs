@@ -17,12 +17,20 @@ namespace CookLib.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllIngredients([FromQuery] GetIngredientsRequest request)
+        public async Task<IActionResult> GetIngredients([FromQuery] GetIngredientsRequest request)
         {
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetIngredientById([FromRoute] int id)
+        {
+            var request = new GetIngredientByIdRequest() { Id = id };
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
 
         [HttpPost]
         [Route("")]

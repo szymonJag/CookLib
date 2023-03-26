@@ -7,7 +7,7 @@ using CookLib.DataAccess.CQRS.Commands.Ingredients;
 using CookLib.DataAccess.Entities;
 using MediatR;
 
-namespace CookLib.ApplicationServices.API.Handlers
+namespace CookLib.ApplicationServices.API.Handlers.Ingredients
 {
     public class AddIngredientHandler : IRequestHandler<AddIngredientRequest, AddIngredientResponse>
     {
@@ -22,14 +22,14 @@ namespace CookLib.ApplicationServices.API.Handlers
 
         public async Task<AddIngredientResponse> Handle(AddIngredientRequest request, CancellationToken cancellationToken)
         {
-            var ingredient = this.mapper.Map<Ingredient>(request);
-            System.Console.WriteLine(ingredient);
+            var ingredient = mapper.Map<Ingredient>(request);
+            Console.WriteLine(ingredient);
             var command = new AddIngredientCommand() { Parameter = ingredient };
-            var ingredientDb = await this.commandExecutor.Execute(command);
+            var ingredientDb = await commandExecutor.Execute(command);
 
             return new AddIngredientResponse()
             {
-                Data = this.mapper.Map<IngredientDTO>(ingredientDb)
+                Data = mapper.Map<IngredientDTO>(ingredientDb)
             };
         }
     }

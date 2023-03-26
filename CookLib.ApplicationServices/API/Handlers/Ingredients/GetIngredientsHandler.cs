@@ -6,7 +6,7 @@ using CookLib.DataAccess.CQRS.Queries;
 using CookLib.DataAccess.CQRS.Queries.Ingredients;
 using MediatR;
 
-namespace CookLib.ApplicationServices.API.Handlers
+namespace CookLib.ApplicationServices.API.Handlers.Ingredients
 {
     public class GetIngredientsHandler : IRequestHandler<GetIngredientsRequest, GetIngredientsResponse>
     {
@@ -25,8 +25,8 @@ namespace CookLib.ApplicationServices.API.Handlers
             {
                 Name = request.Name
             };
-            var ingredients = await this.queryExecutor.Execute(query);
-            var mappedIngredients = this.mapper.Map<List<IngredientDTO>>(ingredients);
+            var ingredients = await queryExecutor.Execute(query);
+            var mappedIngredients = mapper.Map<List<IngredientDTO>>(ingredients);
             var response = new GetIngredientsResponse()
             {
                 Data = mappedIngredients.ToList()
