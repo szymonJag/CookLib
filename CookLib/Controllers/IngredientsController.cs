@@ -39,5 +39,24 @@ namespace CookLib.Controllers
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }
+
+
+        [HttpDelete]
+        [Route("/DeleteIngredient/{id}")]
+        public async Task<IActionResult> DeleteIngredientById([FromRoute] int id)
+        {
+            var request = new DeleteIngredientByIdRequest() { Id = id };
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
+
+        [HttpPut]
+        [Route("UpdateIngredient/{id}")]
+        public async Task<IActionResult> UpdateIngredientById([FromRoute] int id, [FromBody] UpdateIngredientByIdRequest request)
+        {
+            request.Id = id;
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
     }
 }
