@@ -1,4 +1,6 @@
-﻿namespace CookLib.ApplicationServices.API.Domain.Responses
+﻿using CookLib.ApplicationServices.API.ErrorHandling;
+
+namespace CookLib.ApplicationServices.API.Domain.Responses
 {
     public class ResponseBase<T> : ErrorResponseBase
     {

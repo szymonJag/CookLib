@@ -27,6 +27,7 @@ builder.Services.AddTransient<ICommandExecutor, CommandExecutor>();
 builder.Services.AddMvcCore()
     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddIngredientRequestValidator>());
 
+
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddAutoMapper(typeof(IngredientsProfile).Assembly);
 builder.Services.AddMediatR(typeof(ResponseBase<>));
@@ -51,3 +52,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
