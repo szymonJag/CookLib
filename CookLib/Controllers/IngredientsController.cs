@@ -1,4 +1,5 @@
 ﻿using CookLib.ApplicationServices.API.Domain.Requests.Ingredients;
+using CookLib.ApplicationServices.API.Domain.Responses.Ingredients;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,21 +7,19 @@ namespace CookLib.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class IngredientsController : ControllerBase
+    public class IngredientsController : ApiControllerBase
     {
         private readonly IMediator mediator;
 
-        public IngredientsController(IMediator mediator)
+        public IngredientsController(IMediator mediator) : base(mediator)
         {
-            this.mediator = mediator;
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetIngredients([FromQuery] GetIngredientsRequest request)
+        public Task<IActionResult> GetIngredients([FromQuery] GetIngredientsRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetIngredientsRequest, GetIngredientsResponse>(request);
         }
 
         [HttpGet]

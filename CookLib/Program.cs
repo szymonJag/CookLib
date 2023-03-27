@@ -1,9 +1,12 @@
 using CookLib.ApplicationServices.API.Domain.Responses;
 using CookLib.ApplicationServices.API.Mappings;
+using CookLib.ApplicationServices.API.Validators;
 using CookLib.DataAccess;
 using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Queries;
+using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,8 +16,16 @@ builder.Services.AddDbContext<CookLibContext>(
     opt.UseSqlServer(builder.Configuration.GetConnectionString("CookLibDatabaseConnection"))
 );
 
+builder.Services.Configure<ApiBehaviorOptions>(opt =>
+{
+    opt.SuppressModelStateInvalidFilter = true;
+});
+
 builder.Services.AddTransient<IQueryExecutor, QueryExecutor>();
 builder.Services.AddTransient<ICommandExecutor, CommandExecutor>();
+
+builder.Services.AddMvcCore()
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddIngredientRequestValidator>());
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddAutoMapper(typeof(IngredientsProfile).Assembly);
