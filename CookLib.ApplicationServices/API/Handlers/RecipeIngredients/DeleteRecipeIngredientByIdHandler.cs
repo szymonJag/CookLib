@@ -36,7 +36,7 @@ namespace CookLib.ApplicationServices.API.Handlers.RecipeIngredients
                 };
             }
 
-            var command = new DeleteRecipeIngredientByIdCommand() { Parameter = recipeIngredientToDelete }
+            var command = new DeleteRecipeIngredientByIdCommand() { Parameter = recipeIngredientToDelete };
             var deleted = await this.commandExecutor.Execute(command);
 
             return new DeleteRecipeIngredientByIdResponse()

@@ -30,8 +30,10 @@ namespace CookLib.Controllers
 
         [HttpDelete]
         [Route("delete/{id}")]
-        public Task<IActionResult> DeleteRecipeIngredientById([FromRoute] int id)
+        public async Task<IActionResult> DeleteRecipeIngredientById([FromRoute] int id)
         {
+            var request = new DeleteRecipeIngredientByIdRequest() { Id = id };
+            return await this.HandleRequest<DeleteRecipeIngredientByIdRequest, DeleteRecipeIngredientByIdResponse>(request);
         }
 
         //}
