@@ -6,7 +6,7 @@ namespace CookLib.DataAccess.Entities
     {
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public string Mail { get; set; }
 
         [Required]
         [StringLength(maximumLength: 20, MinimumLength = 6,
@@ -16,7 +16,10 @@ namespace CookLib.DataAccess.Entities
         [Required]
         [StringLength(maximumLength: 20, MinimumLength = 4,
         ErrorMessage = "Login should be between 4 and 20 characters")]
-        public string Login { get; set; }
+        public string Username { get; set; }
+
+        [Required]
+        public DateTime CreationDate { get; set; }
 
         public UserRole Role { get; set; }
         public List<Comment> Comments { get; set; }

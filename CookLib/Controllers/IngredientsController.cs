@@ -16,14 +16,14 @@ namespace CookLib.Controllers
         }
 
         [HttpGet]
-        [Route("")]
+        [Route("getByName/")]
         public async Task<IActionResult> GetIngredients([FromQuery] GetIngredientsRequest request)
         {
             return await this.HandleRequest<GetIngredientsRequest, GetIngredientsResponse>(request);
         }
 
         [HttpGet]
-        [Route("{id}/")]
+        [Route("getById/{id}/")]
         public async Task<IActionResult> GetIngredientById([FromRoute] int id)
         {
             var request = new GetIngredientByIdRequest() { Id = id };
