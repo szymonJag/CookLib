@@ -23,7 +23,7 @@ namespace CookLib.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("{id}/")]
         public async Task<IActionResult> GetIngredientById([FromRoute] int id)
         {
             var request = new GetIngredientByIdRequest() { Id = id };
@@ -31,7 +31,7 @@ namespace CookLib.Controllers
         }
 
         [HttpPost]
-        [Route("")]
+        [Route("add/")]
         public async Task<IActionResult> AddIngredient([FromBody] AddIngredientRequest request)
         {
             return await this.HandleRequest<AddIngredientRequest, AddIngredientResponse>(request);
@@ -39,7 +39,7 @@ namespace CookLib.Controllers
 
 
         [HttpDelete]
-        [Route("/DeleteIngredient/{id}")]
+        [Route("delete/{id}")]
         public async Task<IActionResult> DeleteIngredientById([FromRoute] int id)
         {
             var request = new DeleteIngredientByIdRequest() { Id = id };
@@ -47,7 +47,7 @@ namespace CookLib.Controllers
         }
 
         [HttpPut]
-        [Route("UpdateIngredient/{id}")]
+        [Route("update/{id}")]
         public async Task<IActionResult> UpdateIngredientById([FromRoute] int id, [FromBody] UpdateIngredientByIdRequest request)
         {
             request.Id = id;

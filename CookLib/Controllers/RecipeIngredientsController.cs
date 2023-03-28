@@ -1,9 +1,12 @@
 ﻿using CookLib.ApplicationServices.API.Domain.Requests.RecipeIngredient;
+using CookLib.ApplicationServices.API.Domain.Requests.RecipeIngredients;
 using CookLib.ApplicationServices.API.Domain.Responses.RecipeIngredients;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace CookLib.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class RecipeIngredientsController : ApiControllerBase
     {
         public RecipeIngredientsController(IMediator mediator) : base(mediator)
@@ -11,19 +14,19 @@ namespace CookLib.Controllers
         }
 
         [HttpGet]
-        [Route("/recipeId/{recipeId}")]
-        public Task<IActionResult> GetAllIngredientsByRecipeId([FromRoute] int recipeId)
+        [Route("recipeId/{recipeId}")]
+        public async Task<IActionResult> GetAllIngredientsByRecipeId([FromRoute] int recipeId)
         {
             var request = new GetAllIngredientsByRecipeIdRequest() { Id = recipeId };
-            return HandleRequest<GetAllIngredientsByRecipeIdRequest, GetAllIngredientsByRecipeIdResponse>(request);
+            return await this.HandleRequest<GetAllIngredientsByRecipeIdRequest, GetAllIngredientsByRecipeIdResponse>(request);
         }
 
-        //[HttpPost]
-        //[Route("add/")]
-        //public Task<IActionResult> AddRecipeIngredient([FromBody] AddRecipeIngredientRequest request)
-        //{
-
-        //}
+        [HttpPost]
+        [Route("add/")]
+        public async Task<IActionResult> AddRecipeIngredient([FromBody] AddRecipeIngredientRequest request)
+        {
+            return await this.HandleRequest<AddRecipeIngredientRequest, AddRecipeIngredientResponse>(request);
+        }
 
         //[HttpDelete]
         //[Route("delete/{id}")]

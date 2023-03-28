@@ -1,6 +1,4 @@
-﻿using CookLib.DataAccess.Entities;
-
-namespace CookLib.ApplicationServices.API.Domain.Models
+﻿namespace CookLib.ApplicationServices.API.Domain.Models
 {
     public class RecipeIngredientDTO
     {
@@ -8,7 +6,7 @@ namespace CookLib.ApplicationServices.API.Domain.Models
         public string Name { get; set; }
         public int Kcal { get; set; }
         public int Amount { get; set; }
-        public Measurement Measurement { get; set; }
-        public IngredientType Type { get; set; }
+        public string Measurement { get; set; }
+        public string Type { get; set; }
     }
 }
