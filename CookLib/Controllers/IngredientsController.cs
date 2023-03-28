@@ -17,9 +17,9 @@ namespace CookLib.Controllers
 
         [HttpGet]
         [Route("")]
-        public Task<IActionResult> GetIngredients([FromQuery] GetIngredientsRequest request)
+        public async Task<IActionResult> GetIngredients([FromQuery] GetIngredientsRequest request)
         {
-            return this.HandleRequest<GetIngredientsRequest, GetIngredientsResponse>(request);
+            return await this.HandleRequest<GetIngredientsRequest, GetIngredientsResponse>(request);
         }
 
         [HttpGet]
@@ -27,16 +27,14 @@ namespace CookLib.Controllers
         public async Task<IActionResult> GetIngredientById([FromRoute] int id)
         {
             var request = new GetIngredientByIdRequest() { Id = id };
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return await this.HandleRequest<GetIngredientByIdRequest, GetIngredientByIdResponse>(request); ;
         }
 
         [HttpPost]
         [Route("")]
         public async Task<IActionResult> AddIngredient([FromBody] AddIngredientRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return await this.HandleRequest<AddIngredientRequest, AddIngredientResponse>(request);
         }
 
 
@@ -45,8 +43,7 @@ namespace CookLib.Controllers
         public async Task<IActionResult> DeleteIngredientById([FromRoute] int id)
         {
             var request = new DeleteIngredientByIdRequest() { Id = id };
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return await this.HandleRequest<DeleteIngredientByIdRequest, DeleteIngredientByIdResponse>(request);
         }
 
         [HttpPut]
@@ -54,8 +51,7 @@ namespace CookLib.Controllers
         public async Task<IActionResult> UpdateIngredientById([FromRoute] int id, [FromBody] UpdateIngredientByIdRequest request)
         {
             request.Id = id;
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return await this.HandleRequest<UpdateIngredientByIdRequest, UpdateIngredientByIdResponse>(request);
         }
     }
 }

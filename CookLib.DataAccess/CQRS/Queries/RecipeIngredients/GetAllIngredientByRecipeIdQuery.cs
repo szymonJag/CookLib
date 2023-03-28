@@ -8,7 +8,7 @@ namespace CookLib.DataAccess.CQRS.Queries.RecipeIngredients
         public int Id { get; set; }
         public override async Task<List<RecipeIngredient>> Execute(CookLibContext context)
         {
-            var recipeIngredients = await context.RecipeIngredients.Where(x => x.RecipeId == Id).ToListAsync();
+            var recipeIngredients = await context.RecipeIngredients.Where(x => x.RecipeId == Id).Include(x => x.Ingredient).ToListAsync();
             return recipeIngredients;
         }
     }

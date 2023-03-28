@@ -12,9 +12,9 @@ namespace CookLib.Controllers
 
         [HttpGet]
         [Route("/recipeId/{recipeId}")]
-        public Task<IActionResult> GetAllIngredientsByRecipeId(int id)
+        public Task<IActionResult> GetAllIngredientsByRecipeId([FromRoute] int recipeId)
         {
-            var request = new GetAllIngredientsByRecipeIdRequest() { Id = id };
+            var request = new GetAllIngredientsByRecipeIdRequest() { Id = recipeId };
             return HandleRequest<GetAllIngredientsByRecipeIdRequest, GetAllIngredientsByRecipeIdResponse>(request);
         }
 

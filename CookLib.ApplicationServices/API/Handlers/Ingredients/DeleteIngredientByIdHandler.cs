@@ -2,6 +2,7 @@
 using CookLib.ApplicationServices.API.Domain.Models;
 using CookLib.ApplicationServices.API.Domain.Requests.Ingredients;
 using CookLib.ApplicationServices.API.Domain.Responses.Ingredients;
+using CookLib.ApplicationServices.API.ErrorHandling;
 using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Commands.Ingredients;
 using CookLib.DataAccess.CQRS.Queries;
@@ -26,6 +27,14 @@ namespace CookLib.ApplicationServices.API.Handlers.Ingredients
         {
             var query = new GetIngredientByIdQuery() { Id = request.Id };
             var ingredientToDelete = await this.queryExecutor.Execute(query);
+
+            if (ingredientToDelete == null)
+            {
+                return new DeleteIngredientByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.NotFound)
+                };
+            }
 
             var command = new DeleteIngredientByIdCommand() { Parameter = ingredientToDelete };
             var deleted = await this.commandExecutor.Execute(command);

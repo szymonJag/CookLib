@@ -2,6 +2,7 @@
 using CookLib.ApplicationServices.API.Domain.Models;
 using CookLib.ApplicationServices.API.Domain.Requests.Ingredients;
 using CookLib.ApplicationServices.API.Domain.Responses.Ingredients;
+using CookLib.ApplicationServices.API.ErrorHandling;
 using CookLib.DataAccess.CQRS.Queries;
 using CookLib.DataAccess.CQRS.Queries.Ingredients;
 using MediatR;
@@ -26,6 +27,15 @@ namespace CookLib.ApplicationServices.API.Handlers.Ingredients
                 Name = request.Name
             };
             var ingredients = await queryExecutor.Execute(query);
+
+            if (ingredients == null)
+            {
+                return new GetIngredientsResponse()
+                {
+                    Error = new ErrorModel(ErrorType.NotFound)
+                };
+            }
+
             var mappedIngredients = mapper.Map<List<IngredientDTO>>(ingredients);
             var response = new GetIngredientsResponse()
             {
