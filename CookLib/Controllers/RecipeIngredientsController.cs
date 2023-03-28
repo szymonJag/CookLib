@@ -28,10 +28,11 @@ namespace CookLib.Controllers
             return await this.HandleRequest<AddRecipeIngredientRequest, AddRecipeIngredientResponse>(request);
         }
 
-        //[HttpDelete]
-        //[Route("delete/{id}")]
-        //public Task<IActionResult> DeleteRecipeIngredientById([FromRoute] int id)
-        //{
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public Task<IActionResult> DeleteRecipeIngredientById([FromRoute] int id)
+        {
+        }
 
         //}
         //[HttpPut]
