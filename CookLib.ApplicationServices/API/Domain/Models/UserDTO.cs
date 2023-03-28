@@ -1,6 +1,4 @@
-﻿using CookLib.DataAccess.Entities;
-
-namespace CookLib.ApplicationServices.API.Domain.Models
+﻿namespace CookLib.ApplicationServices.API.Domain.Models
 {
     public class UserDTO
     {
@@ -8,7 +6,7 @@ namespace CookLib.ApplicationServices.API.Domain.Models
         public string Username { get; set; }
         public string Mail { get; set; }
         public string CreationDate { get; set; }
-        public UserRole Role { get; set; }
+        public string Role { get; set; }
 
     }
 }

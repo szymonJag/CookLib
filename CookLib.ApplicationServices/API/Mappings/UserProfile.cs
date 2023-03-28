@@ -12,7 +12,7 @@ namespace CookLib.ApplicationServices.API.Mappings
             this.CreateMap<UserDTO, User>()
                 .ForMember(x => x.Mail, y => y.MapFrom(z => z.Mail))
                 .ForMember(x => x.Username, y => y.MapFrom(z => z.Username))
-                .ForMember(x => x.Role, y => y.MapFrom(z => z.Role))
+                .ForMember(x => x.Role, y => y.MapFrom(z => z.Role.ToString()))
                 .ForMember(x => x.CreationDate, y => y.MapFrom(z => z.CreationDate))
                 .ReverseMap();
 
