@@ -2,7 +2,7 @@
 
 namespace CookLib.ApplicationServices.API.Domain.Responses.RecipeIngredients
 {
-    public class DeleteRecipeIngredientByIdResponse : ResponseBase<RecipeIngredient>
+    public class UpdateRecipeIngredientByIdResponse : ResponseBase<RecipeIngredient>
     {
     }
 }

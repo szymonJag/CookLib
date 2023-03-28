@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CookLib.DataAccess.CQRS.Queries.RecipeIngredients
 {
-    public class GetRecipeIngredientById : QueryBase<RecipeIngredient>
+    public class GetRecipeIngredientByIdQuery : QueryBase<RecipeIngredient>
     {
         public int Id { get; set; }
         public override async Task<RecipeIngredient> Execute(CookLibContext context)

@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using CookLib.ApplicationServices.API.Domain.Responses.RecipeIngredients;
+using MediatR;
 
 namespace CookLib.ApplicationServices.API.Domain.Requests.RecipeIngredients
 {
-    public class DeleteRecipeIngredientsByIdRequest : IRequest<DeleteRecipeIngredientsByIdResponse>
+    public class DeleteRecipeIngredientByIdRequest : IRequest<DeleteRecipeIngredientByIdResponse>
     {
         public int Id { get; set; }
     }
