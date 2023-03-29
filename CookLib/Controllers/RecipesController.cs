@@ -23,7 +23,8 @@ namespace CookLib.Controllers
         [Route("getById/{id}")]
         public async Task<IActionResult> GetRecipeById([FromRoute] int id)
         {
-            return Ok();
+            var request = new GetRecipeByIdRequest() { Id = id };
+            return await this.HandleRequest<GetRecipeByIdRequest, GetRecipeByIdResponse>(request);
         }
     }
 }
