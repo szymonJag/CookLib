@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CookLib.ApplicationServices.API.Domain.Models;
+using CookLib.ApplicationServices.API.Domain.Requests.Recipes;
 using CookLib.DataAccess.Entities;
 
 namespace CookLib.ApplicationServices.API.Mappings
@@ -19,6 +20,13 @@ namespace CookLib.ApplicationServices.API.Mappings
                 .ForMember(x => x.Comments, y => y.MapFrom(z => z.Comments))
                 .ForMember(x => x.RecipeTags, y => y.MapFrom(z => z.RecipeTags))
                 .ForMember(x => x.Author, y => y.MapFrom(y => y.Author))
+                .ReverseMap();
+
+            this.CreateMap<Recipe, AddRecipeRequest>()
+                .ForMember(x => x.AuthorId, y => y.MapFrom(z => z.AuthorId))
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
+                .ForMember(x => x.PreparationTime, y => y.MapFrom(z => z.PreparationTime))
+                .ForMember(x => x.ServingSize, y => y.MapFrom(z => z.ServingSize))
                 .ReverseMap();
         }
     }
