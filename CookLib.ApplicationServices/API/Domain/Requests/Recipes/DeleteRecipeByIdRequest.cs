@@ -5,5 +5,6 @@ namespace CookLib.ApplicationServices.API.Domain.Requests.Recipes
 {
     public class DeleteRecipeByIdRequest : IRequest<DeleteRecipeByIdResponse>
     {
+        public int Id { get; set; }
     }
 }

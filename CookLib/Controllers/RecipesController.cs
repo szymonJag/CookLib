@@ -33,5 +33,21 @@ namespace CookLib.Controllers
         {
             return await this.HandleRequest<AddRecipeRequest, AddRecipeResponse>(request);
         }
+
+        [HttpDelete]
+        [Route("deleteRecipeById/{id}")]
+        public async Task<IActionResult> DeleteRecipeById([FromRoute] int id)
+        {
+            var request = new DeleteRecipeByIdRequest() { Id = id };
+            return await this.HandleRequest<DeleteRecipeByIdRequest, DeleteRecipeByIdResponse>(request);
+        }
+
+        [HttpPut]
+        [Route("update/{id}")]
+        public async Task UpdateRecipeById([FromRoute] int id, [FromBody] UpdateRecipeByIdRequest request)
+        {
+            request.Id = id;
+            return await this.HandleRequest<UpdateRecipeByIdRequest, UpdateRecipeByIdResponse>(request);
+        }
     }
 }
