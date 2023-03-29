@@ -17,10 +17,10 @@ namespace CookLib.DataAccess.Entities
         public int ServingSize { get; set; }
         public DateTime CreateDate { get; set; }
 
-        public List<RecipeIngredient> IngredientsList { get; set; } = new List<RecipeIngredient>();
+        public List<RecipeIngredient> Ingredients { get; set; } = new List<RecipeIngredient>();
         public List<PreparationStep> PreparationSteps { get; set; } = new List<PreparationStep>();
         public List<Comment> Comments { get; set; } = new List<Comment>();
-        public List<RecipeTags> RecipeTags { get; set; } = new List<RecipeTags>();
+        public List<RecipeTag> RecipeTags { get; set; } = new List<RecipeTag>();
         [Required]
         public int UserId { get; set; }
         public User Author { get; set; }

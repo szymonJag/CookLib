@@ -21,6 +21,11 @@ namespace CookLib.ApplicationServices.API.Mappings
                 .ForMember(x => x.Username, y => y.MapFrom(z => z.Username))
                 .ForMember(x => x.Password, y => y.MapFrom(z => z.Password))
                 .ForMember(x => x.Role, y => y.MapFrom(z => z.Role));
+
+            this.CreateMap<AuthorDTO, User>()
+                .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Username, y => y.MapFrom(z => z.Username))
+                .ReverseMap();
         }
     }
 }

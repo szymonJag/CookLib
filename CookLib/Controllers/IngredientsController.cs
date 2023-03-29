@@ -9,7 +9,6 @@ namespace CookLib.Controllers
     [Route("[controller]")]
     public class IngredientsController : ApiControllerBase
     {
-        private readonly IMediator mediator;
 
         public IngredientsController(IMediator mediator) : base(mediator)
         {

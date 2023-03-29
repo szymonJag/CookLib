@@ -2,7 +2,7 @@
 
 namespace CookLib.DataAccess.Entities
 {
-    public class RecipeTags : EntityBase
+    public class RecipeTag : EntityBase
     {
         [Required]
         public int RecipeId { get; set; }

@@ -13,7 +13,7 @@ namespace CookLib.DataAccess
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
-        public DbSet<RecipeTags> RecipeTags { get; set; }
+        public DbSet<RecipeTag> RecipeTags { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<FavouriteRecipe> FavouriteRecipes { get; set; }
