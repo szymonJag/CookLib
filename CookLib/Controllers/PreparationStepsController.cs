@@ -35,5 +35,13 @@ namespace CookLib.Controllers
             var request = new DeletePreparationStepByIdRequest() { Id = id };
             return await this.HandleRequest<DeletePreparationStepByIdRequest, DeletePreparationStepByIdResponse>(request);
         }
+
+        [HttpPut]
+        [Route("update/{id}")]
+        public async Task<IActionResult> UpdatePreparationStepById([FromRoute] int id, [FromBody] UpdatePreparationStepByIdRequest request)
+        {
+            request.Id = id;
+            return await this.HandleRequest<UpdatePreparationStepByIdRequest, UpdatePreparationStepByIdResponse>(request);
+        }
     }
 }

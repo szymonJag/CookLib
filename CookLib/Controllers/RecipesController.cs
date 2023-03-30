@@ -44,10 +44,10 @@ namespace CookLib.Controllers
 
         [HttpPut]
         [Route("update/{id}")]
-        public async Task UpdateRecipeById([FromRoute] int id, [FromBody] UpdateRecipeByIdRequest request)
+        public Task UpdateRecipeById([FromRoute] int id, [FromBody] UpdateRecipeByIdRequest request)
         {
             request.Id = id;
-            return await this.HandleRequest<UpdateRecipeByIdRequest, UpdateRecipeByIdResponse>(request);
+            return this.HandleRequest<UpdateRecipeByIdRequest, UpdateRecipeByIdResponse>(request);
         }
     }
 }

@@ -7,45 +7,44 @@ using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Commands.PreparationSteps;
 using CookLib.DataAccess.CQRS.Queries;
 using CookLib.DataAccess.CQRS.Queries.PreparationSteps;
+using CookLib.DataAccess.Entities;
 using MediatR;
 
 namespace CookLib.ApplicationServices.API.Handlers.PreparationSteps
 {
-    public class DeletePreparationStepByIdHandler : IRequestHandler<DeletePreparationStepByIdRequest, DeletePreparationStepByIdResponse>
+    public class UpdatePreparationStepByIdHandler : IRequestHandler<UpdatePreparationStepByIdRequest, UpdatePreparationStepByIdResponse>
     {
         private readonly IMapper mapper;
         private readonly IQueryExecutor queryExecutor;
         private readonly ICommandExecutor commandExecutor;
 
-        public DeletePreparationStepByIdHandler(IMapper mapper, IQueryExecutor queryExecutor, ICommandExecutor commandExecutor)
+        public UpdatePreparationStepByIdHandler(IMapper mapper, IQueryExecutor queryExecutor, ICommandExecutor commandExecutor)
         {
             this.mapper = mapper;
             this.queryExecutor = queryExecutor;
             this.commandExecutor = commandExecutor;
         }
-        public async Task<DeletePreparationStepByIdResponse> Handle(DeletePreparationStepByIdRequest request, CancellationToken cancellationToken)
-        {
-            var query = new GetPreparationStepByIdQuery() { Id = request.Id };
-            var toDelete = await this.queryExecutor.Execute(query);
-            var recipeId = toDelete.RecipeId;
 
-            if (toDelete == null)
+        public async Task<UpdatePreparationStepByIdResponse> Handle(UpdatePreparationStepByIdRequest request, CancellationToken cancellationToken)
+        {
+            var prepStepToUpdate = this.mapper.Map<PreparationStep>(request);
+            var query = new GetPreparationStepByIdQuery() { Id = request.Id };
+            var toChange = await this.queryExecutor.Execute(query);
+
+            if (toChange == null)
             {
-                return new DeletePreparationStepByIdResponse()
+                return new UpdatePreparationStepByIdResponse()
                 {
                     Error = new ErrorModel(ErrorType.NotFound)
                 };
             }
 
-            var command = new DeletePreparationStepByIdCommand() { Parameter = toDelete };
-            var deleted = await this.commandExecutor.Execute(command);
+            var command = new UpdatePreparationStepByIdCommand() { Parameter = prepStepToUpdate };
+            var updated = await this.commandExecutor.Execute(command);
 
-            var commandUpdateOrder = new UpdatePreparationStepsOrderCommand() { Parameter = recipeId };
-            await this.commandExecutor.Execute(commandUpdateOrder);
-
-            return new DeletePreparationStepByIdResponse()
+            return new UpdatePreparationStepByIdResponse()
             {
-                Data = this.mapper.Map<PreparationStepDTO>(deleted)
+                Data = this.mapper.Map<PreparationStepDTO>(updated)
             };
         }
     }
