@@ -36,8 +36,8 @@ namespace CookLib.ApplicationServices.API.Handlers.PreparationSteps
 
             return new AddPreparationStepResponse()
             {
-                Data = this.mapper.Map<PreparationStepDTO>(addedPrepStep);
+                Data = this.mapper.Map<PreparationStepDTO>(addedPrepStep)
+            };
         }
     }
-}
 }
