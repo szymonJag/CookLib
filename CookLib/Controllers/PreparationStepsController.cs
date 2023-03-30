@@ -20,5 +20,12 @@ namespace CookLib.Controllers
             var request = new GetAllPreparationStepsByRecipeIdRequest() { Id = id };
             return await this.HandleRequest<GetAllPreparationStepsByRecipeIdRequest, GetAllPreparationStepsByRecipeIdResponse>(request);
         }
+
+        [HttpPost]
+        [Route("add/")]
+        public async Task<IActionResult> AddPreparationStep(AddPreparationStepRequest request)
+        {
+            return await this.HandleRequest<AddPreparationStepRequest, AddPreparationStepResponse>(request);
+        }
     }
 }
