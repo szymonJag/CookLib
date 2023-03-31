@@ -24,7 +24,7 @@ namespace CookLib.DataAccess.Entities
         public List<RecipeTag> RecipeTags { get; set; } = new List<RecipeTag>();
         [Required]
 
-        [ForeignKey("UserId")]
+        [ForeignKey("Author")]
         public int AuthorId { get; set; }
         public User Author { get; set; }
 
