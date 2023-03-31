@@ -2,7 +2,7 @@
 
 namespace CookLib.ApplicationServices.API.Domain.Responses.Comments
 {
-    public class AddCommentResponse : ResponseBase<CommentDTO>
+    public class UpdateCommentByIdResponse : ResponseBase<CommentDTO>
     {
     }
 }

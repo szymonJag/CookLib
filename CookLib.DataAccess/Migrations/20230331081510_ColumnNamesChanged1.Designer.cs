@@ -4,6 +4,7 @@ using CookLib.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookLib.DataAccess.Migrations
 {
     [DbContext(typeof(CookLibContext))]
-    partial class CookLibContextModelSnapshot : ModelSnapshot
+    [Migration("20230331081510_ColumnNamesChanged1")]
+    partial class ColumnNamesChanged1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,6 +135,9 @@ namespace CookLib.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -146,12 +152,9 @@ namespace CookLib.DataAccess.Migrations
                     b.Property<int>("ServingSize")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("Recipes");
                 });
@@ -302,7 +305,7 @@ namespace CookLib.DataAccess.Migrations
                 {
                     b.HasOne("CookLib.DataAccess.Entities.User", "Author")
                         .WithMany("Recipes")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

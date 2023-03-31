@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CookLib.DataAccess.Entities
 {
@@ -24,9 +23,8 @@ namespace CookLib.DataAccess.Entities
         public List<RecipeTag> RecipeTags { get; set; } = new List<RecipeTag>();
         [Required]
 
-        [ForeignKey("UserId")]
-        public int AuthorId { get; set; }
-        public User Author { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
 
     }
 }

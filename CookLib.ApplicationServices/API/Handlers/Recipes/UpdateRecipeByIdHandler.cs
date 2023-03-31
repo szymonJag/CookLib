@@ -31,6 +31,8 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
             var query = new GetRecipeByIdQuery() { Id = recipeToUpdate.Id };
             var ingredientToUpdate = await this.queryExecutor.Execute(query);
 
+            recipeToUpdate.UserId = ingredientToUpdate.UserId;
+
             if (ingredientToUpdate == null)
             {
                 return new UpdateRecipeByIdResponse()

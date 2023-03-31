@@ -2,7 +2,7 @@
 
 namespace CookLib.ApplicationServices.API.Domain.Responses.Comments
 {
-    public class GetAllCommentsByRecipeIdResponse : ResponseBase<List<CommentDTO>>
+    public class DeleteCommentByIdResponse : ResponseBase<CommentDTO>
     {
     }
 }

@@ -6,6 +6,7 @@ namespace CookLib.DataAccess.CQRS.Commands.RecipeIngredients
     {
         public override async Task<RecipeIngredient> Execute(CookLibContext context)
         {
+            context.ChangeTracker.Clear();
             context.RecipeIngredients.Update(this.Parameter);
             await context.SaveChangesAsync();
             return this.Parameter;
