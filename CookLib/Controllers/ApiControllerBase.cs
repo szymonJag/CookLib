@@ -33,7 +33,9 @@ namespace CookLib.Controllers
                 return this.ErrorResponse(response.Error);
             }
 
-            return this.Ok(response);
+            var res = this.Ok(response);
+
+            return res;
         }
 
         private IActionResult ErrorResponse(ErrorModel errorModel)

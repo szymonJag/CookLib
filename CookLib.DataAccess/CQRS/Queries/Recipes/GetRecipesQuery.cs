@@ -18,6 +18,7 @@ namespace CookLib.DataAccess.CQRS.Queries.Recipes
                           .Include(x => x.RecipeTags)
                             .ThenInclude(x => x.Tag)
                           .Include(x => x.Author)
+                          .AsNoTracking()
                           .ToList();
 
             return string.IsNullOrEmpty(this.Name) ?

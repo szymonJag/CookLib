@@ -22,8 +22,8 @@ namespace CookLib.DataAccess.Entities
         public List<PreparationStep> PreparationSteps { get; set; } = new List<PreparationStep>();
         public List<Comment> Comments { get; set; } = new List<Comment>();
         public List<RecipeTag> RecipeTags { get; set; } = new List<RecipeTag>();
-        [Required]
 
+        [Required]
         [ForeignKey("Author")]
         public int AuthorId { get; set; }
         public User Author { get; set; }

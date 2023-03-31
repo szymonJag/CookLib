@@ -26,12 +26,10 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
         }
         public async Task<UpdateRecipeByIdResponse> Handle(UpdateRecipeByIdRequest request, CancellationToken cancellationToken)
         {
-            var recipeToUpdate = this.mapper.Map<Recipe>(request);
+            var query = new GetRecipeByIdQuery() { Id = request.Id };
+            var getRecipe = await this.queryExecutor.Execute(query);
 
-            var query = new GetRecipeByIdQuery() { Id = recipeToUpdate.Id };
-            var ingredientToUpdate = await this.queryExecutor.Execute(query);
-
-            if (ingredientToUpdate == null)
+            if (getRecipe == null)
             {
                 return new UpdateRecipeByIdResponse()
                 {
@@ -39,13 +37,18 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
                 };
             }
 
-            var command = new UpdateRecipeByIdCommand() { Parameter = recipeToUpdate };
-            var updated = await this.commandExecutor.Execute(command);
+            var mappedCommand = this.mapper.Map<Recipe>(request);
+            mappedCommand.AuthorId = getRecipe.AuthorId;
+            mappedCommand.CreateDate = getRecipe.CreateDate;
 
-            return new UpdateRecipeByIdResponse()
+            var command = new UpdateRecipeByIdCommand()
             {
-                Data = this.mapper.Map<RecipeDTO>(updated)
+                Parameter = mappedCommand,
             };
+            var updatedRecipe = await this.commandExecutor.Execute(command);
+            var response = new UpdateRecipeByIdResponse() { Data = this.mapper.Map<RecipeDTO>(updatedRecipe) };
+
+            return response;
         }
     }
 }

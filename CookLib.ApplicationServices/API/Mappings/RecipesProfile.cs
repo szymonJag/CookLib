@@ -33,6 +33,8 @@ namespace CookLib.ApplicationServices.API.Mappings
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.ServingSize, y => y.MapFrom(z => z.ServingSize))
                 .ForMember(x => x.PreparationTime, y => y.MapFrom(z => z.PreparationTime))
+                .ForMember(x => x.CreationDate, y => y.MapFrom(z => z.CreateDate))
+                .ForMember(x => x.AuthorId, y => y.MapFrom(z => z.AuthorId))
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
                 .ReverseMap();
         }

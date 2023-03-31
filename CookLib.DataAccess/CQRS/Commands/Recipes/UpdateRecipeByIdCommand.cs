@@ -4,9 +4,11 @@
     {
         public override async Task<Entities.Recipe> Execute(CookLibContext context)
         {
-            context.Recipes.Update(this.Parameter);
+            var par = this.Parameter;
+
+            context.Recipes.Update(par);
             await context.SaveChangesAsync();
-            return this.Parameter;
+            return par;
         }
     }
 }
