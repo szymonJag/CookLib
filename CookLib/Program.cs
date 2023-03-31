@@ -1,6 +1,7 @@
 using CookLib.ApplicationServices.API.Domain.Responses;
 using CookLib.ApplicationServices.API.Mappings;
 using CookLib.ApplicationServices.API.Validators;
+using CookLib.ApplicationServices.Components.Helpers;
 using CookLib.DataAccess;
 using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Queries;
@@ -23,6 +24,7 @@ builder.Services.Configure<ApiBehaviorOptions>(opt =>
 
 builder.Services.AddTransient<IQueryExecutor, QueryExecutor>();
 builder.Services.AddTransient<ICommandExecutor, CommandExecutor>();
+builder.Services.AddTransient<IHelperMethods, HelperMethods>();
 
 builder.Services.AddMvcCore()
     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddIngredientRequestValidator>());

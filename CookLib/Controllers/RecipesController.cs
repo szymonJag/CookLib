@@ -28,6 +28,13 @@ namespace CookLib.Controllers
         }
 
         [HttpPost]
+        [Route("getByIngredientsId/")]
+        public async Task<IActionResult> GetRecipesByIngredientsId([FromBody] GetRecipesByIngredientsIdRequest request)
+        {
+            return await this.HandleRequest<GetRecipesByIngredientsIdRequest, GetRecipesByIngredientsIdResponse>(request);
+        }
+
+        [HttpPost]
         [Route("addRecipe/")]
         public async Task<IActionResult> AddRecipe([FromBody] AddRecipeRequest request)
         {

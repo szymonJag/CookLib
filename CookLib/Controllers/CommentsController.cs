@@ -20,4 +20,12 @@ namespace CookLib.Controllers
             var request = new GetAllCommentsByRecipeIdRequest() { Id = id };
             return await this.HandleRequest<GetAllCommentsByRecipeIdRequest, GetAllCommentsByRecipeIdResponse>(request);
         }
+
+        [HttpPost]
+        [Route("add/")]
+        public async Task<IActionResult> AddComment([FromBody] AddCommentRequest request)
+        {
+            return await this.HandleRequest<AddCommentRequest, AddCommentResponse>(request);
+        }
     }
+}

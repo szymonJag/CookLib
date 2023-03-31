@@ -24,7 +24,7 @@ namespace CookLib.DataAccess
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.Author)
                 .WithMany(u => u.Comments)
-                .HasForeignKey(c => c.UserId)
+                .HasForeignKey(c => c.AuthorId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Comment>()

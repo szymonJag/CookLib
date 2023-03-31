@@ -10,7 +10,7 @@ namespace CookLib.DataAccess.Entities
         public DateTime CreationDate { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public int AuthorId { get; set; }
         public User Author { get; set; }
 
         [Required]
