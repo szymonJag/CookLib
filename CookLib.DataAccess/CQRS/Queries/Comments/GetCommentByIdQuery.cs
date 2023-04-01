@@ -8,7 +8,9 @@ namespace CookLib.DataAccess.CQRS.Queries.Comments
         public int Id { get; set; }
         public override async Task<Comment> Execute(CookLibContext context)
         {
-            return await context.Comments.FirstOrDefaultAsync(x => x.Id == Id);
+            return await context.Comments
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == Id);
         }
     }
 }

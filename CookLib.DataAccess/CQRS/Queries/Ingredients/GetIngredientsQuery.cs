@@ -9,8 +9,14 @@ namespace CookLib.DataAccess.CQRS.Queries.Ingredients
         public override async Task<List<Ingredient>> Execute(CookLibContext context)
         {
             return string.IsNullOrEmpty(this.Name) ?
-                await context.Ingredients.ToListAsync() :
-                await context.Ingredients.Where(x => x.Name.ToLower().Contains(this.Name.ToLower())).ToListAsync();
+                await context.Ingredients
+                .AsNoTracking()
+                .ToListAsync() :
+                await context.Ingredients
+                .Where(x => x.Name.ToLower()
+                .Contains(this.Name.ToLower()))
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

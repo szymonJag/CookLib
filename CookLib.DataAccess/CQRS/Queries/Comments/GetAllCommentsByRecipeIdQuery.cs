@@ -11,6 +11,7 @@ namespace CookLib.DataAccess.CQRS.Queries.Comments
             return await context.Comments
                                     .Include(x => x.Author)
                                 .Where(x => x.RecipeId == RecipeId)
+                                .AsNoTracking()
                                 .ToListAsync();
         }
     }

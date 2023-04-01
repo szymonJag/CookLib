@@ -8,7 +8,11 @@ namespace CookLib.DataAccess.CQRS.Queries.PreparationSteps
         public int Id { get; set; }
         public override Task<List<PreparationStep>> Execute(CookLibContext context)
         {
-            return context.PreparationSteps.Where(x => x.RecipeId == Id).OrderBy(x => x.Step).ToListAsync();
+            return context.PreparationSteps
+                .Where(x => x.RecipeId == Id)
+                .OrderBy(x => x.Step)
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

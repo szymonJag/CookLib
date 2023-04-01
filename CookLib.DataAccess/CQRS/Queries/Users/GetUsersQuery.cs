@@ -9,8 +9,13 @@ namespace CookLib.DataAccess.CQRS.Queries.Users
         public override async Task<List<User>> Execute(CookLibContext context)
         {
             return string.IsNullOrEmpty(this.Username) ?
-                await context.Users.AsNoTracking().ToListAsync() :
-                await context.Users.Where(x => x.Username.ToLower().Contains(this.Username.ToLower())).AsNoTracking().ToListAsync();
+                await context.Users
+                .AsNoTracking()
+                .ToListAsync() :
+                await context.Users
+                .Where(x => x.Username.ToLower().Contains(this.Username.ToLower()))
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

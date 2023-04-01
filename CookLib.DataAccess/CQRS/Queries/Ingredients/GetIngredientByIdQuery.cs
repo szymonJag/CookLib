@@ -9,7 +9,9 @@ namespace CookLib.DataAccess.CQRS.Queries.Ingredients
 
         public override async Task<Ingredient> Execute(CookLibContext context)
         {
-            var ingredient = await context.Ingredients.FirstOrDefaultAsync(x => x.Id == Id);
+            var ingredient = await context.Ingredients
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == Id);
 
             return ingredient;
         }
