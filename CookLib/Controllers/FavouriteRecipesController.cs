@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using CookLib.ApplicationServices.API.Domain.Requests.FavouriteRecipes;
+using CookLib.ApplicationServices.API.Domain.Responses.FavouriteRecipes;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookLib.Controllers
@@ -15,8 +17,23 @@ namespace CookLib.Controllers
         [Route("userId/{id}")]
         public async Task<IActionResult> GetAllFavouriteRecipesByUserId([FromRoute] int id)
         {
-            var request = new GetAllFavouriteRecipesByIdRequest() { Id = id };
-            return this.HandleRequest<GetAllFavouriteRecipesByUserIdRequest, GetAllFavouriteRecipesByUserIdResponse>(request);
+            var request = new GetAllFavouriteRecipesByUserIdRequest() { Id = id };
+            return await this.HandleRequest<GetAllFavouriteRecipesByUserIdRequest, GetAllFavouriteRecipesByUserIdResponse>(request);
+        }
+
+        [HttpPost]
+        [Route("add/")]
+        public async Task<IActionResult> AddFavouriteRecipe([FromBody] AddFavouriteRecipeRequest request)
+        {
+            return await this.HandleRequest<AddFavouriteRecipeRequest, AddFavouriteRecipeResponse>(request);
+        }
+
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public async Task<IActionResult> DeleteFavouriteRecipeById([FromRoute] int id)
+        {
+            var request = new DeleteFavouriteRecipeByIdRequest() { Id = id };
+            return await this.HandleRequest<DeleteFavouriteRecipeByIdRequest, DeleteFavouriteRecipeByIdResponse>(request);
         }
     }
 }
