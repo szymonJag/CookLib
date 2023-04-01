@@ -3,6 +3,15 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+CookLib/bin/
+CookLib/obj/
+
+CookLib.ApplicationServices/bin/
+CookLib.ApplicationServices/obj/
+
+CookLib.DataAccess/bin/
+CookLib.DataAccess/obj/
+
 # User-specific files
 *.rsuser
 *.suo
