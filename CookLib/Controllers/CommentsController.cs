@@ -27,5 +27,13 @@ namespace CookLib.Controllers
         {
             return await this.HandleRequest<AddCommentRequest, AddCommentResponse>(request);
         }
+
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public async Task<IActionResult> DeleteCommentById([FromBody] int id)
+        {
+            var request = new DeleteCommentByIdRequest() { Id = id };
+            return await this.HandleRequest<DeleteCommentByIdRequest, DeleteCommentByIdResponse>(request);
+        }
     }
 }
