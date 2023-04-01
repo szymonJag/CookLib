@@ -1,5 +1,7 @@
 ﻿using CookLib.ApplicationServices.API.Domain.Requests.User;
+using CookLib.ApplicationServices.API.Domain.Requests.Users;
 using CookLib.ApplicationServices.API.Domain.Responses.User;
+using CookLib.ApplicationServices.API.Domain.Responses.Users;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,5 +43,14 @@ namespace CookLib.Controllers
             var request = new DeleteUserByIdRequest() { Id = id };
             return await this.HandleRequest<DeleteUserByIdRequest, DeleteUserByIdResponse>(request);
         }
+
+        [HttpPut]
+        [Route("update/{id}")]
+        public async Task<IActionResult> UpdateUserById([FromRoute] int id, [FromBody] UpdateUserByIdRequest request)
+        {
+            request.Id = id;
+            return await this.HandleRequest<UpdateUserByIdRequest, UpdateUserByIdResponse>(request);
+        }
     }
+
 }

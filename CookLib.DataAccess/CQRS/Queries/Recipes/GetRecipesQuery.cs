@@ -8,7 +8,7 @@ namespace CookLib.DataAccess.CQRS.Queries.Recipes
         public string Name { get; set; }
         public override async Task<List<Recipe>> Execute(CookLibContext context)
         {
-            var recipes = context.Recipes
+            var recipes = await context.Recipes
                           .Include(x => x.Ingredients)
                             .ThenInclude(x => x.Ingredient)
                           .Include(x => x.PreparationSteps.OrderBy(x => x.Step))
@@ -18,7 +18,7 @@ namespace CookLib.DataAccess.CQRS.Queries.Recipes
                             .ThenInclude(x => x.Tag)
                           .Include(x => x.Author)
                           .AsNoTracking()
-                          .ToList();
+                          .ToListAsync();
 
             return string.IsNullOrEmpty(this.Name) ?
                                   recipes.ToList() :
