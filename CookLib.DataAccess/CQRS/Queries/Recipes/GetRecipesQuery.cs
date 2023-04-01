@@ -11,7 +11,6 @@ namespace CookLib.DataAccess.CQRS.Queries.Recipes
             var recipes = context.Recipes
                           .Include(x => x.Ingredients)
                             .ThenInclude(x => x.Ingredient)
-                          .Include(x => x.Ingredients)
                           .Include(x => x.PreparationSteps.OrderBy(x => x.Step))
                           .Include(x => x.Comments)
                             .ThenInclude(x => x.Author)

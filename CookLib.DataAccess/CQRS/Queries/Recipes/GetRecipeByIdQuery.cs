@@ -11,7 +11,6 @@ namespace CookLib.DataAccess.CQRS.Queries.Recipes
             return context.Recipes
                 .Include(x => x.Ingredients)
                     .ThenInclude(x => x.Ingredient)
-                .Include(x => x.Ingredients)
                 .Include(x => x.PreparationSteps)
                 .Include(x => x.Comments)
                     .ThenInclude(x => x.Author)

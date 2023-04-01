@@ -1,3 +1,3 @@
 # CookLib
 
-test patrze czy się
+Tutaj kiedyś będzie dokończone README :)

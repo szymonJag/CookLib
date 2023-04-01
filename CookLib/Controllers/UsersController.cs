@@ -7,9 +7,9 @@ namespace CookLib.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ApiControllerBase
+    public class UsersController : ApiControllerBase
     {
-        public UserController(IMediator mediator) : base(mediator)
+        public UsersController(IMediator mediator) : base(mediator)
         {
         }
 
