@@ -10,10 +10,14 @@ namespace CookLib.DataAccess.CQRS.Queries.Users
         {
             return string.IsNullOrEmpty(this.Username) ?
                 await context.Users
+                .Include(x => x.Favourites)
+                    .ThenInclude(x => x.Recipe)
                 .AsNoTracking()
                 .ToListAsync() :
                 await context.Users
                 .Where(x => x.Username.ToLower().Contains(this.Username.ToLower()))
+                .Include(x => x.Favourites)
+                    .ThenInclude(x => x.Recipe)
                 .AsNoTracking()
                 .ToListAsync();
         }

@@ -9,6 +9,8 @@ namespace CookLib.DataAccess.CQRS.Queries.Users
         public override Task<User> Execute(CookLibContext context)
         {
             return context.Users
+                .Include(x => x.Favourites)
+                    .ThenInclude(x => x.Recipe)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == Id);
         }

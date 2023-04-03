@@ -35,5 +35,13 @@ namespace CookLib.Controllers
             var request = new DeleteFavouriteRecipeByIdRequest() { Id = id };
             return await this.HandleRequest<DeleteFavouriteRecipeByIdRequest, DeleteFavouriteRecipeByIdResponse>(request);
         }
+
+        [HttpPut]
+        [Route("update/{id}")]
+        public async Task<IActionResult> UpdateFavouriteRecipeById([FromRoute] int id, [FromBody] UpdateFavouriteRecipeByIdRequest request)
+        {
+            request.Id = id;
+            return await this.HandleRequest<UpdateFavouriteRecipeByIdRequest, UpdateFavouriteRecipeByIdResponse>(request);
+        }
     }
 }

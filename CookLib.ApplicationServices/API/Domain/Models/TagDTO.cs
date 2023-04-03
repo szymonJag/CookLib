@@ -1,6 +1,6 @@
 ﻿namespace CookLib.ApplicationServices.API.Domain.Models
 {
-    public class RecipeTagDTO
+    public class TagDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }

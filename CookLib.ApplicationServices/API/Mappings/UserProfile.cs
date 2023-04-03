@@ -10,12 +10,21 @@ namespace CookLib.ApplicationServices.API.Mappings
     {
         public UserProfile()
         {
-            this.CreateMap<UserDTO, User>()
+            this.CreateMap<User, UserDTO>()
                 .ForMember(x => x.Mail, y => y.MapFrom(z => z.Mail))
                 .ForMember(x => x.Username, y => y.MapFrom(z => z.Username))
                 .ForMember(x => x.Role, y => y.MapFrom(z => z.Role.ToString()))
                 .ForMember(x => x.CreationDate, y => y.MapFrom(z => z.CreationDate))
+                .ForMember(x => x.Favourites, y => y.MapFrom(z => z.Favourites.Select(fr => new UserFavouriteRecipes
+                {
+                    RecipeId = fr.RecipeId,
+                    Name = fr.Recipe.Name
+                }).ToList()))
                 .ReverseMap();
+
+            CreateMap<FavouriteRecipe, UserFavouriteRecipes>()
+        .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Recipe.Name));
+
 
             this.CreateMap<AddUserRequest, User>()
                 .ForMember(x => x.Mail, y => y.MapFrom(z => z.Mail))

@@ -23,6 +23,8 @@ namespace CookLib.ApplicationServices.API.Handlers.Comments
         public async Task<AddCommentResponse> Handle(AddCommentRequest request, CancellationToken cancellationToken)
         {
             var commentToAdd = this.mapper.Map<Comment>(request);
+            commentToAdd.CreationDate = DateTime.UtcNow;
+
             var command = new AddCommentCommand() { Parameter = commentToAdd };
             var added = await this.commandExecutor.Execute(command);
 

@@ -6,7 +6,10 @@ namespace CookLib.DataAccess.Entities
     {
         [Required]
         public int UserId { get; set; }
+        public User User { get; set; }
+
         [Required]
         public int RecipeId { get; set; }
+        public Recipe Recipe { get; set; }
     }
 }
