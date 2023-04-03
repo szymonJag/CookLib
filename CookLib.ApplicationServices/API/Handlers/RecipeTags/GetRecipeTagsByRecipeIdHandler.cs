@@ -9,30 +9,30 @@ using MediatR;
 
 namespace CookLib.ApplicationServices.API.Handlers.RecipeTags
 {
-    public class GetRecipeTagsByIdHandler : IRequestHandler<GetRecipeTagsByIdRequest, GetRecipeTagsByIdResponse>
+    public class GetRecipeTagsByRecipeIdHandler : IRequestHandler<GetRecipeTagsByRecipeIdRequest, GetRecipeTagsByRecipeIdResponse>
     {
         private readonly IMapper mapper;
         private readonly IQueryExecutor queryExecutor;
 
-        public GetRecipeTagsByIdHandler(IMapper mapper, IQueryExecutor queryExecutor)
+        public GetRecipeTagsByRecipeIdHandler(IMapper mapper, IQueryExecutor queryExecutor)
         {
             this.mapper = mapper;
             this.queryExecutor = queryExecutor;
         }
-        public async Task<GetRecipeTagsByIdResponse> Handle(GetRecipeTagsByIdRequest request, CancellationToken cancellationToken)
+        public async Task<GetRecipeTagsByRecipeIdResponse> Handle(GetRecipeTagsByRecipeIdRequest request, CancellationToken cancellationToken)
         {
-            var query = new GetRecipeTagsByIdQuery() { Id = request.Id };
+            var query = new GetRecipeTagsByRecipeIdQuery() { Id = request.Id };
             var recipeTags = await this.queryExecutor.Execute(query);
 
             if (recipeTags == null)
             {
-                return new GetRecipeTagsByIdResponse()
+                return new GetRecipeTagsByRecipeIdResponse()
                 {
                     Error = new ErrorModel(ErrorType.NotFound)
                 };
             }
 
-            return new GetRecipeTagsByIdResponse()
+            return new GetRecipeTagsByRecipeIdResponse()
             {
                 Data = this.mapper.Map<List<RecipeTagDTO>>(query)
             };

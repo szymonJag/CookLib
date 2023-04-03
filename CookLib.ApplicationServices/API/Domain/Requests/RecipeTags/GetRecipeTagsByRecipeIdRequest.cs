@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CookLib.ApplicationServices.API.Domain.Requests.RecipeTags
 {
-    public class GetRecipeTagsByIdRequest : IRequest<GetRecipeTagsByIdResponse>
+    public class GetRecipeTagsByRecipeIdRequest : IRequest<GetRecipeTagsByRecipeIdResponse>
     {
         public int Id { get; set; }
     }

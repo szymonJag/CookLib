@@ -7,6 +7,6 @@
         public string Mail { get; set; }
         public string CreationDate { get; set; }
         public string Role { get; set; }
-        public List<UserFavouriteRecipes> Favourites { get; set; }
+        public List<UserFavouriteRecipesDTO> Favourites { get; set; }
     }
 }

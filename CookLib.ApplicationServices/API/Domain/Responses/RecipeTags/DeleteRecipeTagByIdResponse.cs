@@ -2,7 +2,7 @@
 
 namespace CookLib.ApplicationServices.API.Domain.Responses.RecipeTags
 {
-    public class GetRecipeTagsByIdRequest : ResponseBase<List<RecipeTagDTO>>
+    public class DeleteRecipeTagByIdResponse : ResponseBase<RecipeTagDTO>
     {
     }
 }
