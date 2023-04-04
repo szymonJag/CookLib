@@ -2,11 +2,13 @@ using CookLib.ApplicationServices.API.Domain.Mappings;
 using CookLib.ApplicationServices.API.Domain.Responses;
 using CookLib.ApplicationServices.API.Domain.Validators.Ingredients;
 using CookLib.ApplicationServices.Components.Helpers;
+using CookLib.Authentication;
 using CookLib.DataAccess;
 using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Queries;
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +27,8 @@ builder.Services.Configure<ApiBehaviorOptions>(opt =>
 builder.Services.AddTransient<IQueryExecutor, QueryExecutor>();
 builder.Services.AddTransient<ICommandExecutor, CommandExecutor>();
 builder.Services.AddTransient<IHelperMethods, HelperMethods>();
+builder.Services.AddAuthentication("BasicAuthentication")
+    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
 builder.Services.AddMvcCore()
     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddIngredientRequestValidator>());
@@ -49,6 +53,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

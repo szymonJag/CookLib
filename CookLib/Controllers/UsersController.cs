@@ -3,10 +3,12 @@ using CookLib.ApplicationServices.API.Domain.Requests.Users;
 using CookLib.ApplicationServices.API.Domain.Responses.User;
 using CookLib.ApplicationServices.API.Domain.Responses.Users;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookLib.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ApiControllerBase
@@ -16,11 +18,19 @@ namespace CookLib.Controllers
         }
 
         [HttpGet]
-        [Route("getByUsername/")]
+        [Route("getUsersByUsername/")]
         public async Task<IActionResult> GetUsers([FromQuery] GetUsersRequest request)
         {
             return await this.HandleRequest<GetUsersRequest, GetUsersResponse>(request);
         }
+
+        [HttpGet]
+        [Route("getUserByUsername/")]
+        public async Task<IActionResult> GetUser([FromQuery] GetUserRequest request)
+        {
+            return await this.HandleRequest<GetUserRequest, GetUserResponse>(request);
+        }
+
         [HttpGet]
         [Route("getById/{id}")]
         public async Task<IActionResult> GetUserById([FromRoute] int id)
