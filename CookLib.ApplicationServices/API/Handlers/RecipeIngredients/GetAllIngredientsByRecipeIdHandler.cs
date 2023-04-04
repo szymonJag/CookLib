@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using CookLib.ApplicationServices.API.Domain.ErrorHandling;
 using CookLib.ApplicationServices.API.Domain.Models;
 using CookLib.ApplicationServices.API.Domain.Requests.RecipeIngredient;
 using CookLib.ApplicationServices.API.Domain.Responses.RecipeIngredients;
-using CookLib.ApplicationServices.API.ErrorHandling;
 using CookLib.DataAccess.CQRS.Queries;
 using CookLib.DataAccess.CQRS.Queries.RecipeIngredients;
 using MediatR;

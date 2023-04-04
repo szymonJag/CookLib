@@ -3,13 +3,13 @@ using CookLib.ApplicationServices.API.Domain.Models;
 using CookLib.ApplicationServices.API.Domain.Requests.Recipes;
 using CookLib.DataAccess.Entities;
 
-namespace CookLib.ApplicationServices.API.Mappings
+namespace CookLib.ApplicationServices.API.Domain.Mappings
 {
     public class RecipesProfile : Profile
     {
         public RecipesProfile()
         {
-            this.CreateMap<Recipe, RecipeDTO>()
+            CreateMap<Recipe, RecipeDTO>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
                 .ForMember(x => x.ServingSize, y => y.MapFrom(z => z.ServingSize))
@@ -22,14 +22,14 @@ namespace CookLib.ApplicationServices.API.Mappings
                 .ForMember(x => x.Author, y => y.MapFrom(y => y.Author))
                 .ReverseMap();
 
-            this.CreateMap<Recipe, AddRecipeRequest>()
+            CreateMap<Recipe, AddRecipeRequest>()
                 .ForMember(x => x.AuthorId, y => y.MapFrom(z => z.AuthorId))
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
                 .ForMember(x => x.PreparationTime, y => y.MapFrom(z => z.PreparationTime))
                 .ForMember(x => x.ServingSize, y => y.MapFrom(z => z.ServingSize))
                 .ReverseMap();
 
-            this.CreateMap<Recipe, UpdateRecipeByIdRequest>()
+            CreateMap<Recipe, UpdateRecipeByIdRequest>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.ServingSize, y => y.MapFrom(z => z.ServingSize))
                 .ForMember(x => x.PreparationTime, y => y.MapFrom(z => z.PreparationTime))
@@ -38,7 +38,7 @@ namespace CookLib.ApplicationServices.API.Mappings
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
                 .ReverseMap();
 
-            this.CreateMap<Recipe, UserFavouriteRecipesDTO>()
+            CreateMap<Recipe, UserFavouriteRecipesDTO>()
                 .ForMember(x => x.RecipeId, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name));
         }

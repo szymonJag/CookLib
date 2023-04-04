@@ -16,6 +16,7 @@ namespace CookLib.DataAccess.Entities
         [Required]
         [Range(1, 999, ErrorMessage = "Serving size should be higher then 0")]
         public int ServingSize { get; set; }
+        [Required]
         public DateTime CreateDate { get; set; }
 
         public List<RecipeIngredient> Ingredients { get; set; } = new List<RecipeIngredient>();

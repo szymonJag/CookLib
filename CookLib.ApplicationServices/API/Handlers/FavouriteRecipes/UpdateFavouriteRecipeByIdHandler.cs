@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using CookLib.ApplicationServices.API.Domain.ErrorHandling;
 using CookLib.ApplicationServices.API.Domain.Models;
 using CookLib.ApplicationServices.API.Domain.Requests.FavouriteRecipes;
 using CookLib.ApplicationServices.API.Domain.Responses.FavouriteRecipes;
-using CookLib.ApplicationServices.API.ErrorHandling;
 using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Commands.FavouriteRecipes;
 using CookLib.DataAccess.CQRS.Queries;

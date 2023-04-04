@@ -1,4 +1,4 @@
-﻿using CookLib.ApplicationServices.API.ErrorHandling;
+﻿using CookLib.ApplicationServices.API.Domain.ErrorHandling;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

@@ -1,4 +1,4 @@
-﻿namespace CookLib.ApplicationServices.API.ErrorHandling
+﻿namespace CookLib.ApplicationServices.API.Domain.ErrorHandling
 {
     public class ErrorResponseBase
     {

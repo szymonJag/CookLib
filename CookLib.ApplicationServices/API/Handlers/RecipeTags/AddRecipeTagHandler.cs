@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using CookLib.ApplicationServices.API.Domain.ErrorHandling;
 using CookLib.ApplicationServices.API.Domain.Models;
 using CookLib.ApplicationServices.API.Domain.Requests.RecipeTags;
 using CookLib.ApplicationServices.API.Domain.Responses.RecipeTags;
-using CookLib.ApplicationServices.API.ErrorHandling;
 using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Commands.RecipeTags;
 using CookLib.DataAccess.Entities;

@@ -1,6 +1,6 @@
+using CookLib.ApplicationServices.API.Domain.Mappings;
 using CookLib.ApplicationServices.API.Domain.Responses;
-using CookLib.ApplicationServices.API.Mappings;
-using CookLib.ApplicationServices.API.Validators;
+using CookLib.ApplicationServices.API.Domain.Validators.Ingredients;
 using CookLib.ApplicationServices.Components.Helpers;
 using CookLib.DataAccess;
 using CookLib.DataAccess.CQRS.Commands;

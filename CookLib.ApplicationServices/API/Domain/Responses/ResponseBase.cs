@@ -1,4 +1,4 @@
-﻿using CookLib.ApplicationServices.API.ErrorHandling;
+﻿using CookLib.ApplicationServices.API.Domain.ErrorHandling;
 
 namespace CookLib.ApplicationServices.API.Domain.Responses
 {
