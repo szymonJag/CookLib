@@ -21,6 +21,7 @@ namespace CookLib.DataAccess.Entities
         [Required]
         public DateTime CreationDate { get; set; }
 
+        [Required]
         public UserRole Role { get; set; }
         public List<Comment> Comments { get; set; }
         public List<Recipe> Recipes { get; set; }
