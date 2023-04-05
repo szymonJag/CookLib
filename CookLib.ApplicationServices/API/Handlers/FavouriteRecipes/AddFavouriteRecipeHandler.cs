@@ -23,7 +23,7 @@ namespace CookLib.ApplicationServices.API.Handlers.FavouriteRecipes
 
         public async Task<AddFavouriteRecipeResponse> Handle(AddFavouriteRecipeRequest request, CancellationToken cancellationToken)
         {
-            var favouriteRecipe = mapper.Map<FavouriteRecipe>(request);
+            var favouriteRecipe = mapper.Map<FavoriteRecipe>(request);
             var command = new AddFavouriteRecipeCommand() { Parameter = favouriteRecipe };
             var ingredientDb = await commandExecutor.Execute(command);
 

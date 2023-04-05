@@ -2,6 +2,7 @@ using CookLib.ApplicationServices.API.Domain.Mappings;
 using CookLib.ApplicationServices.API.Domain.Responses;
 using CookLib.ApplicationServices.API.Domain.Validators.Ingredients;
 using CookLib.ApplicationServices.Components.Helpers;
+using CookLib.ApplicationServices.Components.PasswordHasher;
 using CookLib.Authentication;
 using CookLib.DataAccess;
 using CookLib.DataAccess.CQRS.Commands;
@@ -24,6 +25,7 @@ builder.Services.Configure<ApiBehaviorOptions>(opt =>
     opt.SuppressModelStateInvalidFilter = true;
 });
 
+builder.Services.AddTransient<IHasher, Hasher>();
 builder.Services.AddTransient<IQueryExecutor, QueryExecutor>();
 builder.Services.AddTransient<ICommandExecutor, CommandExecutor>();
 builder.Services.AddTransient<IHelperMethods, HelperMethods>();

@@ -53,23 +53,20 @@ namespace CookLib.DataAccess.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("CookLib.DataAccess.Entities.FavouriteRecipe", b =>
+            modelBuilder.Entity("CookLib.DataAccess.Entities.FavoriteRecipe", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("RecipeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "RecipeId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("RecipeId");
 
                     b.ToTable("FavouriteRecipes");
                 });
@@ -237,17 +234,20 @@ namespace CookLib.DataAccess.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("HashedPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Mail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
                     b.Property<int>("Role")
                         .HasColumnType("int");
+
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -278,13 +278,23 @@ namespace CookLib.DataAccess.Migrations
                     b.Navigation("Recipe");
                 });
 
-            modelBuilder.Entity("CookLib.DataAccess.Entities.FavouriteRecipe", b =>
+            modelBuilder.Entity("CookLib.DataAccess.Entities.FavoriteRecipe", b =>
                 {
-                    b.HasOne("CookLib.DataAccess.Entities.User", null)
-                        .WithMany("Favourites")
-                        .HasForeignKey("UserId")
+                    b.HasOne("CookLib.DataAccess.Entities.Recipe", "Recipe")
+                        .WithMany("UsersFavorite")
+                        .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("CookLib.DataAccess.Entities.User", "User")
+                        .WithMany("Favorites")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CookLib.DataAccess.Entities.PreparationStep", b =>
@@ -356,13 +366,15 @@ namespace CookLib.DataAccess.Migrations
                     b.Navigation("PreparationSteps");
 
                     b.Navigation("RecipeTags");
+
+                    b.Navigation("UsersFavorite");
                 });
 
             modelBuilder.Entity("CookLib.DataAccess.Entities.User", b =>
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("Favourites");
+                    b.Navigation("Favorites");
 
                     b.Navigation("Recipes");
                 });

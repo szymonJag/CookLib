@@ -39,6 +39,7 @@ namespace CookLib.Controllers
             return await this.HandleRequest<GetUserByIdRequest, GetUserByIdResponse>(request);
 
         }
+        [AllowAnonymous]
         [HttpPost]
         [Route("add/")]
         public async Task<IActionResult> AddUser([FromBody] AddUserRequest request)

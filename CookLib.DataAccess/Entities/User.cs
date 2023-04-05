@@ -9,14 +9,15 @@ namespace CookLib.DataAccess.Entities
         public string Mail { get; set; }
 
         [Required]
-        [StringLength(maximumLength: 20, MinimumLength = 6,
-        ErrorMessage = "Password should be between 6 and 20 characters")]
-        public string Password { get; set; }
-
-        [Required]
         [StringLength(maximumLength: 20, MinimumLength = 4,
         ErrorMessage = "Login should be between 4 and 20 characters")]
         public string Username { get; set; }
+
+        [Required]
+        public string HashedPassword { get; set; }
+
+        [Required]
+        public string Salt { get; set; }
 
         [Required]
         public DateTime CreationDate { get; set; }
@@ -25,7 +26,7 @@ namespace CookLib.DataAccess.Entities
         public UserRole Role { get; set; }
         public List<Comment> Comments { get; set; }
         public List<Recipe> Recipes { get; set; }
-        public List<FavouriteRecipe> Favourites { get; set; }
+        public List<FavoriteRecipe> Favorites { get; set; }
 
     }
 

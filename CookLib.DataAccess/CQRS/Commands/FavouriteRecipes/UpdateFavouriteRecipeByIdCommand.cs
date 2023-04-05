@@ -2,9 +2,9 @@
 
 namespace CookLib.DataAccess.CQRS.Commands.FavouriteRecipes
 {
-    public class UpdateFavouriteRecipeByIdCommand : CommandBase<FavouriteRecipe, FavouriteRecipe>
+    public class UpdateFavouriteRecipeByIdCommand : CommandBase<FavoriteRecipe, FavoriteRecipe>
     {
-        public override async Task<FavouriteRecipe> Execute(CookLibContext context)
+        public override async Task<FavoriteRecipe> Execute(CookLibContext context)
         {
             context.FavouriteRecipes.Update(this.Parameter);
             await context.SaveChangesAsync();

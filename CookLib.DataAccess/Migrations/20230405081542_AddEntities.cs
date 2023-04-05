@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CookLib.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class addedEntities : Migration
+    public partial class AddEntities : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -45,34 +45,15 @@ namespace CookLib.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Login = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FavouriteRecipes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    RecipeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FavouriteRecipes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FavouriteRecipes_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,14 +66,14 @@ namespace CookLib.DataAccess.Migrations
                     PreparationTime = table.Column<int>(type: "int", nullable: false),
                     ServingSize = table.Column<int>(type: "int", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    AuthorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Recipes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Recipes_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Recipes_Users_AuthorId",
+                        column: x => x.AuthorId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -106,7 +87,7 @@ namespace CookLib.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    AuthorId = table.Column<int>(type: "int", nullable: false),
                     RecipeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -119,10 +100,35 @@ namespace CookLib.DataAccess.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comments_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Comments_Users_AuthorId",
+                        column: x => x.AuthorId,
                         principalTable: "Users",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FavouriteRecipes",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RecipeId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FavouriteRecipes", x => new { x.UserId, x.RecipeId });
+                    table.ForeignKey(
+                        name: "FK_FavouriteRecipes_Recipes_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FavouriteRecipes_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -201,19 +207,19 @@ namespace CookLib.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_AuthorId",
+                table: "Comments",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comments_RecipeId",
                 table: "Comments",
                 column: "RecipeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_UserId",
-                table: "Comments",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FavouriteRecipes_UserId",
+                name: "IX_FavouriteRecipes_RecipeId",
                 table: "FavouriteRecipes",
-                column: "UserId");
+                column: "RecipeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PreparationSteps_RecipeId",
@@ -231,9 +237,9 @@ namespace CookLib.DataAccess.Migrations
                 column: "RecipeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Recipes_UserId",
+                name: "IX_Recipes_AuthorId",
                 table: "Recipes",
-                column: "UserId");
+                column: "AuthorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RecipeTags_RecipeId",

@@ -2,7 +2,7 @@
 
 namespace CookLib.DataAccess.Entities
 {
-    public class FavouriteRecipe : EntityBase
+    public class FavoriteRecipe : EntityBase
     {
         [Required]
         public int UserId { get; set; }

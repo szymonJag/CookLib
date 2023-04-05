@@ -15,21 +15,20 @@ namespace CookLib.ApplicationServices.API.Domain.Mappings
                 .ForMember(x => x.Username, y => y.MapFrom(z => z.Username))
                 .ForMember(x => x.Role, y => y.MapFrom(z => z.Role.ToString()))
                 .ForMember(x => x.CreationDate, y => y.MapFrom(z => z.CreationDate))
-                .ForMember(x => x.Favourites, y => y.MapFrom(z => z.Favourites.Select(fr => new UserFavouriteRecipesDTO
+                .ForMember(x => x.Favourites, y => y.MapFrom(z => z.Favorites.Select(fr => new UserFavouriteRecipesDTO
                 {
                     RecipeId = fr.RecipeId,
                     Name = fr.Recipe.Name
                 }).ToList()))
                 .ReverseMap();
 
-            CreateMap<FavouriteRecipe, UserFavouriteRecipesDTO>()
+            CreateMap<FavoriteRecipe, UserFavouriteRecipesDTO>()
         .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Recipe.Name));
 
 
             CreateMap<AddUserRequest, User>()
                 .ForMember(x => x.Mail, y => y.MapFrom(z => z.Mail))
                 .ForMember(x => x.Username, y => y.MapFrom(z => z.Username))
-                .ForMember(x => x.Password, y => y.MapFrom(z => z.Password))
                 .ForMember(x => x.Role, y => y.MapFrom(z => z.Role));
 
 
@@ -37,7 +36,6 @@ namespace CookLib.ApplicationServices.API.Domain.Mappings
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.Mail, y => y.MapFrom(z => z.Mail))
                 .ForMember(x => x.Username, y => y.MapFrom(z => z.Username))
-                .ForMember(x => x.Password, y => y.MapFrom(z => z.Password))
                 .ForMember(x => x.Role, y => y.MapFrom(z => z.Role))
                 .ReverseMap();
 

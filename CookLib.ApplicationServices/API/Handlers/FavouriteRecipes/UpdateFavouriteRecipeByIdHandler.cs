@@ -26,7 +26,7 @@ namespace CookLib.ApplicationServices.API.Handlers.FavouriteRecipes
         }
         public async Task<UpdateFavouriteRecipeByIdResponse> Handle(UpdateFavouriteRecipeByIdRequest request, CancellationToken cancellationToken)
         {
-            var favRecipeRequest = this.mapper.Map<FavouriteRecipe>(request);
+            var favRecipeRequest = this.mapper.Map<FavoriteRecipe>(request);
 
             var query = new GetFavouriteRecipeByIdQuery() { Id = favRecipeRequest.Id };
             var favRecipeFromDb = await this.queryExecutor.Execute(query);
