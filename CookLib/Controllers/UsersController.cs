@@ -31,6 +31,7 @@ namespace CookLib.Controllers
             return await this.HandleRequest<GetUserRequest, GetUserResponse>(request);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("getById/{id}")]
         public async Task<IActionResult> GetUserById([FromRoute] int id)

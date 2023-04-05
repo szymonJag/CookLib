@@ -1,7 +1,9 @@
 ﻿using CookLib.ApplicationServices.API.Domain.ErrorHandling;
+using CookLib.ApplicationServices.API.Domain.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Security.Claims;
 
 namespace CookLib.Controllers
 {
@@ -23,6 +25,12 @@ namespace CookLib.Controllers
                     this.ModelState
                         .Where(x => x.Value.Errors.Any())
                         .Select(x => new { property = x.Key, errors = x.Value.Errors }));
+            }
+
+            if (User.Claims.Any())
+            {
+                (request as RequestBase).AuthenticatedUsername = this.User.FindFirstValue(ClaimTypes.Name);
+                (request as RequestBase).AuthenticatedRole = this.User.FindFirstValue(ClaimTypes.Role);
             }
 
             var response = await this.mediator.Send(request);
