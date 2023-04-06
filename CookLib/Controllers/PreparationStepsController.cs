@@ -1,10 +1,12 @@
 ﻿using CookLib.ApplicationServices.API.Domain.Requests.PreparationSteps;
 using CookLib.ApplicationServices.API.Domain.Responses.PreparationSteps;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookLib.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PreparationStepsController : ApiControllerBase

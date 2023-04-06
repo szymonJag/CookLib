@@ -16,6 +16,7 @@ namespace CookLib.Controllers
         {
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("getByName/")]
         public async Task<IActionResult> GetIngredients([FromQuery] GetIngredientsRequest request)

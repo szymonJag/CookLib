@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CookLib.ApplicationServices.API.Domain.Requests.PreparationSteps
 {
-    public class GetAllPreparationStepsByRecipeIdRequest : IRequest<GetAllPreparationStepsByRecipeIdResponse>
+    public class GetAllPreparationStepsByRecipeIdRequest : RequestBase, IRequest<GetAllPreparationStepsByRecipeIdResponse>
     {
         public int Id { get; set; }
     }
