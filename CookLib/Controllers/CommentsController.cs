@@ -1,10 +1,12 @@
 ﻿using CookLib.ApplicationServices.API.Domain.Requests.Comments;
 using CookLib.ApplicationServices.API.Domain.Responses.Comments;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookLib.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[Controller]")]
     public class CommentsController : ApiControllerBase
@@ -30,7 +32,7 @@ namespace CookLib.Controllers
 
         [HttpDelete]
         [Route("delete/{id}")]
-        public async Task<IActionResult> DeleteCommentById([FromBody] int id)
+        public async Task<IActionResult> DeleteCommentById([FromRoute] int id)
         {
             var request = new DeleteCommentByIdRequest() { Id = id };
             return await this.HandleRequest<DeleteCommentByIdRequest, DeleteCommentByIdResponse>(request);

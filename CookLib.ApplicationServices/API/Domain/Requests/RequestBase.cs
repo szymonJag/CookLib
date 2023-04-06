@@ -2,7 +2,8 @@
 {
     public class RequestBase
     {
-        public string AuthenticatedUsername { get; set; }
-        public string AuthenticatedRole { get; set; }
+        public string AuthenticatedUserId;
+        public string AuthenticatedUsername;
+        public string AuthenticatedRole;
     }
 }

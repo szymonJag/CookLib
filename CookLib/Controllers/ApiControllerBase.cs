@@ -27,10 +27,11 @@ namespace CookLib.Controllers
                         .Select(x => new { property = x.Key, errors = x.Value.Errors }));
             }
 
-            if (User.Claims.Any())
+            if (User.Claims.FirstOrDefault() != null)
             {
                 (request as RequestBase).AuthenticatedUsername = this.User.FindFirstValue(ClaimTypes.Name);
                 (request as RequestBase).AuthenticatedRole = this.User.FindFirstValue(ClaimTypes.Role);
+                (request as RequestBase).AuthenticatedUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             }
 
             var response = await this.mediator.Send(request);

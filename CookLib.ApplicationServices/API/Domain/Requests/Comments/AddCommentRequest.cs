@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CookLib.ApplicationServices.API.Domain.Requests.Comments
 {
-    public class AddCommentRequest : IRequest<AddCommentResponse>
+    public class AddCommentRequest : RequestBase, IRequest<AddCommentResponse>
     {
         public int RecipeId { get; set; }
         public int AuthorId { get; set; }

@@ -38,6 +38,14 @@ namespace CookLib.ApplicationServices.API.Handlers.Comments
                 };
             }
 
+            if (request.AuthenticatedUserId != commentFromDb.AuthorId.ToString())
+            {
+                return new UpdateCommentByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var command = new UpdateCommentByIdCommand() { Parameter = commentRequest };
             var updated = await this.commandExecutor.Execute(command);
 

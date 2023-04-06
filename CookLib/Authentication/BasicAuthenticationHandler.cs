@@ -57,6 +57,10 @@ namespace CookLib.Authentication
                     Name = username
                 };
                 user = await this.queryExecutor.Execute(query);
+
+                if (user == null)
+                    return AuthenticateResult.Fail("Resource does not exist");
+
                 var hashedPassword = this.hasher.HashPassword(password, user.Salt);
 
                 // TODO: HASH!
@@ -75,6 +79,7 @@ namespace CookLib.Authentication
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };
+
             var identity = new ClaimsIdentity(claims, Scheme.Name);
             var principal = new ClaimsPrincipal(identity);
             var ticket = new AuthenticationTicket(principal, Scheme.Name);

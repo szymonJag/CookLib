@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CookLib.ApplicationServices.API.Domain.Requests.Users
 {
-    public class UpdateUserByIdRequest : IRequest<UpdateUserByIdResponse>
+    public class UpdateUserByIdRequest : RequestBase, IRequest<UpdateUserByIdResponse>
     {
         public int Id;
         public string Mail { get; set; }

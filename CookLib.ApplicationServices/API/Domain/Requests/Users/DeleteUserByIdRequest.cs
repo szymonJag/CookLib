@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CookLib.ApplicationServices.API.Domain.Requests.User
 {
-    public class DeleteUserByIdRequest : IRequest<DeleteUserByIdResponse>
+    public class DeleteUserByIdRequest : RequestBase, IRequest<DeleteUserByIdResponse>
     {
         public int Id { get; set; }
     }

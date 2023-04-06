@@ -7,6 +7,7 @@ using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Commands.Comments;
 using CookLib.DataAccess.CQRS.Queries;
 using CookLib.DataAccess.CQRS.Queries.Comments;
+using CookLib.DataAccess.Entities;
 using MediatR;
 
 namespace CookLib.ApplicationServices.API.Handlers.Comments
@@ -37,11 +38,19 @@ namespace CookLib.ApplicationServices.API.Handlers.Comments
             }
 
             var command = new DeleteCommentByIdCommand() { Parameter = toDelete };
-            var deleted = await this.commandExecutor.Execute(command);
+
+            if (request.AuthenticatedRole == UserRole.Admin.ToString() || request.AuthenticatedUserId == toDelete.AuthorId.ToString())
+            {
+                var data = await this.commandExecutor.Execute(command);
+                return new DeleteCommentByIdResponse()
+                {
+                    Data = this.mapper.Map<CommentDTO>(data)
+                };
+            }
 
             return new DeleteCommentByIdResponse()
             {
-                Data = this.mapper.Map<CommentDTO>(deleted)
+                Error = new ErrorModel(ErrorType.Unauthorized)
             };
         }
     }

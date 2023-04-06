@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CookLib.ApplicationServices.API.Domain.Requests.User
 {
-    public class AddUserRequest : IRequest<AddUserResponse>
+    public class AddUserRequest : RequestBase, IRequest<AddUserResponse>
     {
         public string Mail { get; set; }
         public string Password { get; set; }
