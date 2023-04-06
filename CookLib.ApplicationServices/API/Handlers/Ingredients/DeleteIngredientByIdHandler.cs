@@ -7,6 +7,7 @@ using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Commands.Ingredients;
 using CookLib.DataAccess.CQRS.Queries;
 using CookLib.DataAccess.CQRS.Queries.Ingredients;
+using CookLib.DataAccess.Entities;
 using MediatR;
 
 namespace CookLib.ApplicationServices.API.Handlers.Ingredients
@@ -33,6 +34,14 @@ namespace CookLib.ApplicationServices.API.Handlers.Ingredients
                 return new DeleteIngredientByIdResponse()
                 {
                     Error = new ErrorModel(ErrorType.NotFound)
+                };
+            }
+
+            if (request.AuthenticatedRole != UserRole.Admin.ToString())
+            {
+                return new DeleteIngredientByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
                 };
             }
 
