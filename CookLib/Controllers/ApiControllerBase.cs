@@ -31,7 +31,7 @@ namespace CookLib.Controllers
             {
                 (request as RequestBase).AuthenticatedUsername = this.User.FindFirstValue(ClaimTypes.Name);
                 (request as RequestBase).AuthenticatedRole = this.User.FindFirstValue(ClaimTypes.Role);
-                (request as RequestBase).AuthenticatedUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                (request as RequestBase).AuthenticatedUserId = int.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
             }
 
             var response = await this.mediator.Send(request);

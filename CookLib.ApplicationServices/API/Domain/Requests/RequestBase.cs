@@ -2,7 +2,7 @@
 {
     public class RequestBase
     {
-        public string AuthenticatedUserId;
+        public int AuthenticatedUserId;
         public string AuthenticatedUsername;
         public string AuthenticatedRole;
     }

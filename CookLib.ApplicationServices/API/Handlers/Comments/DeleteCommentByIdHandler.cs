@@ -39,9 +39,10 @@ namespace CookLib.ApplicationServices.API.Handlers.Comments
 
             var command = new DeleteCommentByIdCommand() { Parameter = toDelete };
 
-            if (request.AuthenticatedRole == UserRole.Admin.ToString() || request.AuthenticatedUserId == toDelete.AuthorId.ToString())
+            if (request.AuthenticatedRole == UserRole.Admin.ToString() || request.AuthenticatedUserId == toDelete.AuthorId)
             {
                 var data = await this.commandExecutor.Execute(command);
+
                 return new DeleteCommentByIdResponse()
                 {
                     Data = this.mapper.Map<CommentDTO>(data)
