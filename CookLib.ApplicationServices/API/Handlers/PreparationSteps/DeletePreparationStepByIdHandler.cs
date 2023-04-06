@@ -7,6 +7,8 @@ using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Commands.PreparationSteps;
 using CookLib.DataAccess.CQRS.Queries;
 using CookLib.DataAccess.CQRS.Queries.PreparationSteps;
+using CookLib.DataAccess.CQRS.Queries.Recipes;
+using CookLib.DataAccess.Entities;
 using MediatR;
 
 namespace CookLib.ApplicationServices.API.Handlers.PreparationSteps
@@ -28,6 +30,18 @@ namespace CookLib.ApplicationServices.API.Handlers.PreparationSteps
             var query = new GetPreparationStepByIdQuery() { Id = request.Id };
             var toDelete = await this.queryExecutor.Execute(query);
             var recipeId = toDelete.RecipeId;
+
+            var queryRecipe = new GetRecipeByIdQuery() { Id = toDelete.RecipeId };
+            var recipeAuthorId = (await this.queryExecutor.Execute(queryRecipe)).AuthorId;
+
+
+            if (request.AuthenticatedUserId != recipeAuthorId || request.AuthenticatedRole != UserRole.Admin.ToString())
+            {
+                return new DeletePreparationStepByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
 
             if (toDelete == null)
             {

@@ -28,7 +28,6 @@ namespace CookLib.ApplicationServices.API.Handlers.PreparationSteps
         {
             var query = new GetRecipeByIdQuery() { Id = request.RecipeId };
             var recipeAuthorId = (await this.queryExecutor.Execute(query)).AuthorId;
-            var prepStep = this.mapper.Map<PreparationStep>(request);
 
             if (request.AuthenticatedUserId != recipeAuthorId)
             {
@@ -38,6 +37,7 @@ namespace CookLib.ApplicationServices.API.Handlers.PreparationSteps
                 };
             }
 
+            var prepStep = this.mapper.Map<PreparationStep>(request);
             var command = new AddPreparationStepCommand() { Parameter = prepStep };
             var addedPrepStep = await this.commandExecutor.Execute(command);
 
