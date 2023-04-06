@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CookLib.ApplicationServices.API.Domain.Requests.Ingredients
 {
-    public class AddIngredientRequest : IRequest<AddIngredientResponse>
+    public class AddIngredientRequest : RequestBase, IRequest<AddIngredientResponse>
     {
         public string Name { get; set; }
         public int Kcal { get; set; }

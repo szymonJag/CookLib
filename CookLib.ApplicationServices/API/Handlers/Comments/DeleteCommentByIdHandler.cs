@@ -39,20 +39,36 @@ namespace CookLib.ApplicationServices.API.Handlers.Comments
 
             var command = new DeleteCommentByIdCommand() { Parameter = toDelete };
 
+
             if (request.AuthenticatedRole == UserRole.Admin.ToString() || request.AuthenticatedUserId == toDelete.AuthorId)
             {
                 var data = await this.commandExecutor.Execute(command);
-
                 return new DeleteCommentByIdResponse()
                 {
                     Data = this.mapper.Map<CommentDTO>(data)
                 };
             }
-
             return new DeleteCommentByIdResponse()
             {
                 Error = new ErrorModel(ErrorType.Unauthorized)
             };
+
+            //var isAdmin = request.AuthenticatedRole == UserRole.Admin.ToString();
+            //var isAuthor = isAdmin ? true : request.AuthenticatedUserId == toDelete.AuthorId;
+            //var isNotAuthor = request.AuthenticatedUserId != toDelete.AuthorId;
+            //if (!isAdmin || !isAuthor)
+            //{
+            //    return new DeleteCommentByIdResponse()
+            //    {
+            //        Error = new ErrorModel(ErrorType.Unauthorized)
+            //    };
+            //}
+            //var data = await this.commandExecutor.Execute(command);
+            //return new DeleteCommentByIdResponse()
+            //{
+            //    Data = this.mapper.Map<CommentDTO>(data)
+            //};
+
         }
     }
 }

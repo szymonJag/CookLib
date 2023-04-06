@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CookLib.ApplicationServices.API.Domain.Requests.Ingredients
 {
-    public class GetIngredientsRequest : IRequest<GetIngredientsResponse>
+    public class GetIngredientsRequest : RequestBase, IRequest<GetIngredientsResponse>
     {
         public string Name { get; set; }
     }

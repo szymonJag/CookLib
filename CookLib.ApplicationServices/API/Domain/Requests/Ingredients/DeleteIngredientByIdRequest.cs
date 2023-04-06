@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CookLib.ApplicationServices.API.Domain.Requests.Ingredients
 {
-    public class DeleteIngredientByIdRequest : IRequest<DeleteIngredientByIdResponse>
+    public class DeleteIngredientByIdRequest : RequestBase, IRequest<DeleteIngredientByIdResponse>
     {
         public int Id { get; set; }
 

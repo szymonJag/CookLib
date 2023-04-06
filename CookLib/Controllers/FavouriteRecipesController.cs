@@ -1,10 +1,12 @@
 ﻿using CookLib.ApplicationServices.API.Domain.Requests.FavouriteRecipes;
 using CookLib.ApplicationServices.API.Domain.Responses.FavouriteRecipes;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookLib.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class FavouriteRecipesController : ApiControllerBase
@@ -34,14 +36,6 @@ namespace CookLib.Controllers
         {
             var request = new DeleteFavouriteRecipeByIdRequest() { Id = id };
             return await this.HandleRequest<DeleteFavouriteRecipeByIdRequest, DeleteFavouriteRecipeByIdResponse>(request);
-        }
-
-        [HttpPut]
-        [Route("update/{id}")]
-        public async Task<IActionResult> UpdateFavouriteRecipeById([FromRoute] int id, [FromBody] UpdateFavouriteRecipeByIdRequest request)
-        {
-            request.Id = id;
-            return await this.HandleRequest<UpdateFavouriteRecipeByIdRequest, UpdateFavouriteRecipeByIdResponse>(request);
         }
     }
 }

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CookLib.ApplicationServices.API.Domain.Requests.FavouriteRecipes
 {
-    public class AddFavouriteRecipeRequest : IRequest<AddFavouriteRecipeResponse>
+    public class AddFavouriteRecipeRequest : RequestBase, IRequest<AddFavouriteRecipeResponse>
     {
         public int UserId { get; set; }
         public int RecipeId { get; set; }

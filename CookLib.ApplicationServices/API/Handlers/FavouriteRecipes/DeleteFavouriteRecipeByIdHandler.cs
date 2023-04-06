@@ -36,6 +36,14 @@ namespace CookLib.ApplicationServices.API.Handlers.FavouriteRecipes
                 };
             }
 
+            if (request.AuthenticatedUserId != favouriteRecipeToDelete.UserId)
+            {
+                return new DeleteFavouriteRecipeByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             var command = new DeleteFavouriteRecipeByIdCommand() { Parameter = favouriteRecipeToDelete };
             var deleted = await this.commandExecutor.Execute(command);
 
