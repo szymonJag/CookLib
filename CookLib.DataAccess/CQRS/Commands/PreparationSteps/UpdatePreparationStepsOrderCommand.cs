@@ -23,10 +23,10 @@ namespace CookLib.DataAccess.CQRS.Commands.PreparationSteps
                 })
                 .ToList();
 
-
             foreach (var item in newOrder)
             {
                 var existing = context.PreparationSteps.Local.FirstOrDefault(e => e.Id == item.Id);
+
                 if (existing != null)
                 {
                     context.Entry(existing).State = EntityState.Detached;
@@ -35,7 +35,6 @@ namespace CookLib.DataAccess.CQRS.Commands.PreparationSteps
                 context.Entry(item).State = EntityState.Modified;
             }
 
-            //context.PreparationSteps.UpdateRange(newOrder);
             await context.SaveChangesAsync();
 
             return newOrder;

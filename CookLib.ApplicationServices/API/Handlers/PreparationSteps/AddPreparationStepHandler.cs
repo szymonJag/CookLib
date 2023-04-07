@@ -3,6 +3,7 @@ using CookLib.ApplicationServices.API.Domain.ErrorHandling;
 using CookLib.ApplicationServices.API.Domain.Models;
 using CookLib.ApplicationServices.API.Domain.Requests.PreparationSteps;
 using CookLib.ApplicationServices.API.Domain.Responses.PreparationSteps;
+using CookLib.ApplicationServices.Components.Helpers;
 using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Commands.PreparationSteps;
 using CookLib.DataAccess.CQRS.Queries;
@@ -17,19 +18,22 @@ namespace CookLib.ApplicationServices.API.Handlers.PreparationSteps
         private readonly IMapper mapper;
         private readonly ICommandExecutor commandExecutor;
         private readonly IQueryExecutor queryExecutor;
+        private readonly IHelperMethods helper;
 
-        public AddPreparationStepHandler(IMapper mapper, ICommandExecutor commandExecutor, IQueryExecutor queryExecutor)
+        public AddPreparationStepHandler(IMapper mapper, ICommandExecutor commandExecutor, IQueryExecutor queryExecutor, IHelperMethods helper)
         {
             this.mapper = mapper;
             this.commandExecutor = commandExecutor;
             this.queryExecutor = queryExecutor;
+            this.helper = helper;
         }
         public async Task<AddPreparationStepResponse> Handle(AddPreparationStepRequest request, CancellationToken cancellationToken)
         {
             var query = new GetRecipeByIdQuery() { Id = request.RecipeId };
             var recipeAuthorId = (await this.queryExecutor.Execute(query)).AuthorId;
+            var isAbleToAdd = helper.IsAuthorOrAdmin(request.AuthenticatedUserId, recipeAuthorId, request.AuthenticatedRole);
 
-            if (request.AuthenticatedUserId != recipeAuthorId)
+            if (!isAbleToAdd)
             {
                 return new AddPreparationStepResponse()
                 {
