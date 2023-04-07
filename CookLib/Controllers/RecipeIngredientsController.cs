@@ -2,9 +2,11 @@
 using CookLib.ApplicationServices.API.Domain.Requests.RecipeIngredients;
 using CookLib.ApplicationServices.API.Domain.Responses.RecipeIngredients;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace CookLib.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class RecipeIngredientsController : ApiControllerBase
@@ -13,6 +15,7 @@ namespace CookLib.Controllers
         {
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("getByRecipeId/{recipeId}")]
         public async Task<IActionResult> GetAllIngredientsByRecipeId([FromRoute] int recipeId)

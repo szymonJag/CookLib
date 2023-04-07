@@ -2,6 +2,7 @@
 using CookLib.ApplicationServices.API.Domain.ErrorHandling;
 using CookLib.ApplicationServices.API.Domain.Requests.RecipeIngredients;
 using CookLib.ApplicationServices.API.Domain.Responses.RecipeIngredients;
+using CookLib.ApplicationServices.Components.Helpers;
 using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Commands.RecipeIngredients;
 using CookLib.DataAccess.CQRS.Queries;
@@ -16,12 +17,14 @@ namespace CookLib.ApplicationServices.API.Handlers.RecipeIngredients
         private readonly IMapper mapper;
         private readonly IQueryExecutor queryExecutor;
         private readonly ICommandExecutor commandExecutor;
+        private readonly IHelperMethods helper;
 
-        public UpdateRecipeIngredientByIdHandler(IMapper mapper, IQueryExecutor queryExecutor, ICommandExecutor commandExecutor)
+        public UpdateRecipeIngredientByIdHandler(IMapper mapper, IQueryExecutor queryExecutor, ICommandExecutor commandExecutor, IHelperMethods helper)
         {
             this.mapper = mapper;
             this.queryExecutor = queryExecutor;
             this.commandExecutor = commandExecutor;
+            this.helper = helper;
         }
 
         public async Task<UpdateRecipeIngredientByIdResponse> Handle(UpdateRecipeIngredientByIdRequest request, CancellationToken cancellationToken)
@@ -35,6 +38,16 @@ namespace CookLib.ApplicationServices.API.Handlers.RecipeIngredients
                 return new UpdateRecipeIngredientByIdResponse()
                 {
                     Error = new ErrorModel(ErrorType.NotFound)
+                };
+            }
+
+            var isAbleToDelete = this.helper.IsAuthorOrAdmin(request.AuthenticatedUserId, toUpdate.Recipe.AuthorId, request.AuthenticatedRole);
+
+            if (!isAbleToDelete)
+            {
+                return new UpdateRecipeIngredientByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
                 };
             }
 
