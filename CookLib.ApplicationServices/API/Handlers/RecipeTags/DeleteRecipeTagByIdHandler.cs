@@ -3,6 +3,7 @@ using CookLib.ApplicationServices.API.Domain.ErrorHandling;
 using CookLib.ApplicationServices.API.Domain.Models;
 using CookLib.ApplicationServices.API.Domain.Requests.RecipeTags;
 using CookLib.ApplicationServices.API.Domain.Responses.RecipeTags;
+using CookLib.ApplicationServices.Components.Helpers;
 using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Commands.RecipeTags;
 using CookLib.DataAccess.CQRS.Queries;
@@ -16,12 +17,14 @@ namespace CookLib.ApplicationServices.API.Handlers.RecipeTags
         private readonly IMapper mapper;
         private readonly IQueryExecutor queryExecutor;
         private readonly ICommandExecutor commandExecutor;
+        private readonly IHelperMethods helper;
 
-        public DeleteRecipeTagByIdHandler(IMapper mapper, IQueryExecutor queryExecutor, ICommandExecutor commandExecutor)
+        public DeleteRecipeTagByIdHandler(IMapper mapper, IQueryExecutor queryExecutor, ICommandExecutor commandExecutor, IHelperMethods helper)
         {
             this.mapper = mapper;
             this.queryExecutor = queryExecutor;
             this.commandExecutor = commandExecutor;
+            this.helper = helper;
         }
         public async Task<DeleteRecipeTagByIdResponse> Handle(DeleteRecipeTagByIdRequest request, CancellationToken cancellationToken)
         {
@@ -33,6 +36,16 @@ namespace CookLib.ApplicationServices.API.Handlers.RecipeTags
                 return new DeleteRecipeTagByIdResponse()
                 {
                     Error = new ErrorModel(ErrorType.NotFound)
+                };
+            }
+
+            var isAbleToDelete = this.helper.IsAuthorOrAdmin(request.AuthenticatedUserId, toDelete.RecipeId, request.AuthenticatedRole);
+
+            if (!isAbleToDelete)
+            {
+                return new DeleteRecipeTagByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
                 };
             }
 

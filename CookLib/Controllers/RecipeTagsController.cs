@@ -1,10 +1,12 @@
 ﻿using CookLib.ApplicationServices.API.Domain.Requests.RecipeTags;
 using CookLib.ApplicationServices.API.Domain.Responses.RecipeTags;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookLib.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class RecipeTagsController : ApiControllerBase
