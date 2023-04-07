@@ -29,6 +29,16 @@ namespace CookLib.ApplicationServices.API.Handlers.Users
 
             var query = new GetUserByIdQuery() { Id = request.Id };
             var userFromDb = await this.queryExecutor.Execute(query);
+            var querySearchUser = new GetUsersQuery() { Username = request.Username };
+            var searchedUser = await this.queryExecutor.Execute(querySearchUser);
+
+            if (searchedUser.Any())
+            {
+                return new UpdateUserByIdResponse()
+                {
+                    Error = new ErrorModel("User with given username already exists")
+                };
+            }
 
             if (userFromDb == null)
             {
@@ -37,6 +47,7 @@ namespace CookLib.ApplicationServices.API.Handlers.Users
                     Error = new ErrorModel(ErrorType.NotFound)
                 };
             }
+
 
             var userRequest = this.mapper.Map<DataAccess.Entities.User>(request);
             userRequest.CreationDate = userFromDb.CreationDate;
