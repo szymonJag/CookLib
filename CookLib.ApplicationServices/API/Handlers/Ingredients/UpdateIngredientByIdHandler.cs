@@ -39,14 +39,6 @@ namespace CookLib.ApplicationServices.API.Handlers.Ingredients
                 };
             }
 
-            if (request.AuthenticatedRole != UserRole.Admin.ToString())
-            {
-                return new UpdateIngredientByIdResponse()
-                {
-                    Error = new ErrorModel(ErrorType.Unauthorized)
-                };
-            }
-
             var command = new UpdateIngredientByIdCommand() { Parameter = ingrToUpdate };
             var updated = await this.commandExecutor.Execute(command);
 

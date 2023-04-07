@@ -32,6 +32,14 @@ namespace CookLib.ApplicationServices.API.Handlers.FavouriteRecipes
                 };
             }
 
+            if (request.AuthenticatedUserId != favouriteRecipes[0].UserId)
+            {
+                return new GetAllFavouriteRecipesByUserIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
+
             return new GetAllFavouriteRecipesByUserIdResponse()
             {
                 Data = this.mapper.Map<List<FavouriteRecipeDTO>>(favouriteRecipes)

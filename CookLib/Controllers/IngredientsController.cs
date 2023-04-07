@@ -24,6 +24,7 @@ namespace CookLib.Controllers
             return await this.HandleRequest<GetIngredientsRequest, GetIngredientsResponse>(request);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("getById/{id}/")]
         public async Task<IActionResult> GetIngredientById([FromRoute] int id)

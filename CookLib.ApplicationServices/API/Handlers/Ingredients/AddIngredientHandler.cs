@@ -30,7 +30,7 @@ namespace CookLib.ApplicationServices.API.Handlers.Ingredients
             var query = new GetIngredientsQuery() { Name = request.Name };
             var fromDb = await this.queryExecutor.Execute(query);
 
-            if (fromDb != null)
+            if (fromDb.Any())
             {
                 return new AddIngredientResponse()
                 {
@@ -38,17 +38,10 @@ namespace CookLib.ApplicationServices.API.Handlers.Ingredients
                 };
             }
 
-            if (request.AuthenticatedRole != UserRole.Admin.ToString())
-            {
-                return new AddIngredientResponse()
-                {
-                    Error = new ErrorModel(ErrorType.Unauthorized)
-                };
-            }
-
             var ingredient = mapper.Map<Ingredient>(request);
             var command = new AddIngredientCommand() { Parameter = ingredient };
             var ingredientDb = await commandExecutor.Execute(command);
+
             if (ingredientDb == null)
             {
                 return new AddIngredientResponse()
