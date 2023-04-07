@@ -3,6 +3,7 @@ using CookLib.ApplicationServices.API.Domain.ErrorHandling;
 using CookLib.ApplicationServices.API.Domain.Models;
 using CookLib.ApplicationServices.API.Domain.Requests.Recipes;
 using CookLib.ApplicationServices.API.Domain.Responses.Recipes;
+using CookLib.ApplicationServices.Components.Helpers;
 using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Commands.Recipes;
 using CookLib.DataAccess.CQRS.Queries;
@@ -17,12 +18,14 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
         private readonly IMapper mapper;
         private readonly IQueryExecutor queryExecutor;
         private readonly ICommandExecutor commandExecutor;
+        private readonly IHelperMethods helper;
 
-        public UpdateRecipeByIdHandler(IMapper mapper, IQueryExecutor queryExecutor, ICommandExecutor commandExecutor)
+        public UpdateRecipeByIdHandler(IMapper mapper, IQueryExecutor queryExecutor, ICommandExecutor commandExecutor, IHelperMethods helper)
         {
             this.mapper = mapper;
             this.queryExecutor = queryExecutor;
             this.commandExecutor = commandExecutor;
+            this.helper = helper;
         }
         public async Task<UpdateRecipeByIdResponse> Handle(UpdateRecipeByIdRequest request, CancellationToken cancellationToken)
         {
@@ -34,6 +37,16 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
                 return new UpdateRecipeByIdResponse()
                 {
                     Error = new ErrorModel(ErrorType.NotFound)
+                };
+            }
+
+            var isAbleToUpdate = this.helper.IsAuthorOrAdmin(request.AuthenticatedUserId, getRecipe.AuthorId, request.AuthenticatedRole);
+
+            if (!isAbleToUpdate)
+            {
+                return new UpdateRecipeByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
                 };
             }
 

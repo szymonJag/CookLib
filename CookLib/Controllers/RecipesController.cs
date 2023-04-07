@@ -1,10 +1,12 @@
 ﻿using CookLib.ApplicationServices.API.Domain.Requests.Recipes;
 using CookLib.ApplicationServices.API.Domain.Responses.Recipes;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookLib.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class RecipesController : ApiControllerBase
@@ -13,12 +15,15 @@ namespace CookLib.Controllers
         {
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("getAll/")]
         public async Task<IActionResult> GetRecipes([FromQuery] GetAllRecipesRequest request)
         {
             return await this.HandleRequest<GetAllRecipesRequest, GetAllRecipesResponse>(request);
         }
+
+        [AllowAnonymous]
         [HttpGet]
         [Route("getById/{id}")]
         public async Task<IActionResult> GetRecipeById([FromRoute] int id)
