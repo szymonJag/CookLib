@@ -3,6 +3,7 @@ using CookLib.ApplicationServices.API.Domain.ErrorHandling;
 using CookLib.ApplicationServices.API.Domain.Models;
 using CookLib.ApplicationServices.API.Domain.Requests.Comments;
 using CookLib.ApplicationServices.API.Domain.Responses.Comments;
+using CookLib.ApplicationServices.Components.Helpers;
 using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Commands.Comments;
 using CookLib.DataAccess.CQRS.Queries;
@@ -17,12 +18,14 @@ namespace CookLib.ApplicationServices.API.Handlers.Comments
         private readonly IMapper mapper;
         private readonly IQueryExecutor queryExecutor;
         private readonly ICommandExecutor commandExecutor;
+        private readonly IHelperMethods helper;
 
-        public UpdateCommentByIdHandler(IMapper mapper, IQueryExecutor queryExecutor, ICommandExecutor commandExecutor)
+        public UpdateCommentByIdHandler(IMapper mapper, IQueryExecutor queryExecutor, ICommandExecutor commandExecutor, IHelperMethods helper)
         {
             this.mapper = mapper;
             this.queryExecutor = queryExecutor;
             this.commandExecutor = commandExecutor;
+            this.helper = helper;
         }
         public async Task<UpdateCommentByIdResponse> Handle(UpdateCommentByIdRequest request, CancellationToken cancellationToken)
         {
@@ -38,23 +41,22 @@ namespace CookLib.ApplicationServices.API.Handlers.Comments
                 };
             }
 
-            var command = new UpdateCommentByIdCommand() { Parameter = commentRequest };
+            var isAbleToDelete = helper.IsAuthorOrAdmin(request.AuthenticatedUserId, commentFromDb.AuthorId, request.AuthenticatedRole);
 
-            if (request.AuthenticatedRole == UserRole.Admin.ToString() || request.AuthenticatedUserId == commentFromDb.AuthorId)
+            if (!isAbleToDelete)
             {
-                var updated = await this.commandExecutor.Execute(command);
-
                 return new UpdateCommentByIdResponse()
                 {
-                    Data = this.mapper.Map<CommentDTO>(updated)
+                    Error = new ErrorModel(ErrorType.Unauthorized)
                 };
             }
 
+            var command = new UpdateCommentByIdCommand() { Parameter = commentRequest };
+            var updated = await this.commandExecutor.Execute(command);
             return new UpdateCommentByIdResponse()
             {
-                Error = new ErrorModel(ErrorType.Unauthorized)
+                Data = this.mapper.Map<CommentDTO>(updated)
             };
-
         }
     }
 }

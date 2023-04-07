@@ -3,11 +3,11 @@ using CookLib.ApplicationServices.API.Domain.ErrorHandling;
 using CookLib.ApplicationServices.API.Domain.Models;
 using CookLib.ApplicationServices.API.Domain.Requests.Comments;
 using CookLib.ApplicationServices.API.Domain.Responses.Comments;
+using CookLib.ApplicationServices.Components.Helpers;
 using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Commands.Comments;
 using CookLib.DataAccess.CQRS.Queries;
 using CookLib.DataAccess.CQRS.Queries.Comments;
-using CookLib.DataAccess.Entities;
 using MediatR;
 
 namespace CookLib.ApplicationServices.API.Handlers.Comments
@@ -17,12 +17,14 @@ namespace CookLib.ApplicationServices.API.Handlers.Comments
         private readonly IMapper mapper;
         private readonly IQueryExecutor queryExecutor;
         private readonly ICommandExecutor commandExecutor;
+        private readonly IHelperMethods helper;
 
-        public DeleteCommentByIdHandler(IMapper mapper, IQueryExecutor queryExecutor, ICommandExecutor commandExecutor)
+        public DeleteCommentByIdHandler(IMapper mapper, IQueryExecutor queryExecutor, ICommandExecutor commandExecutor, IHelperMethods helper)
         {
             this.mapper = mapper;
             this.queryExecutor = queryExecutor;
             this.commandExecutor = commandExecutor;
+            this.helper = helper;
         }
         public async Task<DeleteCommentByIdResponse> Handle(DeleteCommentByIdRequest request, CancellationToken cancellationToken)
         {
@@ -37,38 +39,22 @@ namespace CookLib.ApplicationServices.API.Handlers.Comments
                 };
             }
 
-            var command = new DeleteCommentByIdCommand() { Parameter = toDelete };
+            var isAbleToDelete = helper.IsAuthorOrAdmin(request.AuthenticatedUserId, toDelete.AuthorId, request.AuthenticatedRole);
 
-
-            if (request.AuthenticatedRole == UserRole.Admin.ToString() || request.AuthenticatedUserId == toDelete.AuthorId)
+            if (!isAbleToDelete)
             {
-                var data = await this.commandExecutor.Execute(command);
                 return new DeleteCommentByIdResponse()
                 {
-                    Data = this.mapper.Map<CommentDTO>(data)
+                    Error = new ErrorModel(ErrorType.Unauthorized)
                 };
             }
+
+            var command = new DeleteCommentByIdCommand() { Parameter = toDelete };
+            var data = await this.commandExecutor.Execute(command);
             return new DeleteCommentByIdResponse()
             {
-                Error = new ErrorModel(ErrorType.Unauthorized)
+                Data = this.mapper.Map<CommentDTO>(data)
             };
-
-            //var isAdmin = request.AuthenticatedRole == UserRole.Admin.ToString();
-            //var isAuthor = isAdmin ? true : request.AuthenticatedUserId == toDelete.AuthorId;
-            //var isNotAuthor = request.AuthenticatedUserId != toDelete.AuthorId;
-            //if (!isAdmin || !isAuthor)
-            //{
-            //    return new DeleteCommentByIdResponse()
-            //    {
-            //        Error = new ErrorModel(ErrorType.Unauthorized)
-            //    };
-            //}
-            //var data = await this.commandExecutor.Execute(command);
-            //return new DeleteCommentByIdResponse()
-            //{
-            //    Data = this.mapper.Map<CommentDTO>(data)
-            //};
-
         }
     }
 }
