@@ -3,8 +3,8 @@ using MediatR;
 
 namespace CookLib.ApplicationServices.API.Domain.Requests.Recipes
 {
-    public class GetRecipesByIngredientsIdRequest : RequestBase, IRequest<GetRecipesByIngredientsIdResponse>
+    public class GetRecipesByTagsIdRequest : RequestBase, IRequest<GetRecipesByTagsIdResponse>
     {
-        public List<int> IngredientsId { get; set; }
+        public List<int> TagsId { get; set; }
     }
 }

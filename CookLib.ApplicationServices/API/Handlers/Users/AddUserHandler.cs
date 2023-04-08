@@ -31,8 +31,6 @@ namespace CookLib.ApplicationServices.API.Handlers.User
             var queryByUsername = new GetUserQuery() { Name = request.Username };
             var userByUsername = await this.queryExecutor.Execute(queryByUsername);
 
-
-
             if (userByUsername != null)
             {
                 return new AddUserResponse()
