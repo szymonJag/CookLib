@@ -33,13 +33,22 @@ namespace CookLib.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         [Route("getById/{id}")]
         public async Task<IActionResult> GetUserById([FromRoute] int id)
         {
             var request = new GetUserByIdRequest() { Id = id };
             return await this.HandleRequest<GetUserByIdRequest, GetUserByIdResponse>(request);
-
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        [Route("getByEmail/")]
+        public async Task<IActionResult> GetUserByEmail([FromBody] GetUserByEmailRequest request)
+        {
+            return await this.HandleRequest<GetUserByEmailRequest, GetUserByEmailResponse>(request);
+        }
+
         [AllowAnonymous]
         [HttpPost]
         [Route("add/")]
