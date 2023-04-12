@@ -1,3 +1,31 @@
+:root {
+  --color-primary-green-1: #afede8;
+  --color-primary-green-2: #6db3a7;
+  --color-primary-green-3: #375353;
+
+  --color-primary-light-1: #ebf9f6;
+  --color-primary-light-2: #f4d9dc;
+}
+$bp-largest: 75em; //1200px
+$bp-large: 68.75em; //1100px
+$bp-medium: 56.25em; //900px
+$bp-small: 41rem; // 656px
+
+@font-face {
+  font-family: "Night Pumpkind";
+  src: url("/src/fonts/NightPumpkind-1GpGv.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Monday July";
+  src: url("/src/fonts/MondayJuly-6YKaY.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Chentalle";
+  src: url("/src/fonts/Chentalle-L3p85.otf") format("truetype");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -21,5 +49,14 @@ body {
 
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: red;
+  background: linear-gradient(
+    to right bottom,
+    var(--color-primary-light-2),
+    var(--color-primary-light-2)
+  );
+  min-height: 100vh;
+  max-height: 220vh;
+
+  display: grid;
+  place-items: center;
 }

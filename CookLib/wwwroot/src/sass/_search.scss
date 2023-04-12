@@ -1,0 +1,24 @@
+.search {
+  height: 92vh;
+  background-color: var(--color-primary-light-1);
+  border-radius: 2rem;
+}
+
+.nav {
+  padding: 2rem;
+  &__logo {
+    display: flex;
+    align-items: center;
+    img {
+      height: 8rem;
+      margin-right: 2rem;
+    }
+    h1 {
+      font-size: 4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5rem;
+      font-family: "Chentalle";
+      font-weight: 900;
+    }
+  }
+}
