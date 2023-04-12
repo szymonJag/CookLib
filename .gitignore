@@ -6,6 +6,11 @@
 CookLib/bin/
 CookLib/obj/
 
+CookLib/wwwroot/node_modules
+CookLib/wwwroot/dist
+CookLib/wwwroot/.parcel-cache
+CookLib/wwwroot/.DS_Store
+
 CookLib.ApplicationServices/bin/
 CookLib.ApplicationServices/obj/
 
