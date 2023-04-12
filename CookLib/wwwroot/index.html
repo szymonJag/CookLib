@@ -10,15 +10,32 @@
   <body>
     <main class="app">
       <div class="search">
-        <nav class="nav">
-          <div class="nav__logo">
-            <img src="src\img\image-removebg-preview.png" alt="logo">
+        <header class="header">
+          <div class="logo">
+            <img src="src\img\image-removebg-preview.png" alt="logo" />
             <h1>cooklib</h1>
           </div>
-          
-        </nav>
-      </section>
-      <div class="results"></section>
+
+          <form action="#" class="searchbar">
+            <input
+              type="text"
+              class="searchbar__input"
+              placeholder="Szukaj przepisów..."
+            />
+            <button class="searchbar__btn">Szukaj</button>
+          </form>
+
+          <li class="list">
+            <ul class="list__item">
+              <h2>Zarejestruj</h2>
+            </ul>
+            <ul class="list__item">
+              <h2>Zaloguj</h2>
+            </ul>
+          </li>
+        </header>
+      </div>
+      <div class="results"></div>
       <!-- <footer class="footer"></footer> -->
     </main>
   </body>
