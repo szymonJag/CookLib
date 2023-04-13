@@ -5,9 +5,12 @@
 
   --color-primary-light-1: #ebf9f6;
   --color-primary-light-2: #f4d9dc;
+
+  --color-primary-light-1-rgba: rgba(235, 249, 246, 0.8);
+  --color-primary-light-2-rgba: rgba(244, 217, 220, 0.8);
 }
 $bp-largest: 75em; //1200px
-$bp-large: 68.75em; //1100px
+$bp-large: 69em; //1100px
 $bp-medium: 56.25em; //900px
 $bp-small: 41rem; // 656px
 
@@ -40,6 +43,10 @@ $bp-small: 41rem; // 656px
 html {
   box-sizing: border-box;
   font-size: 62.5%;
+
+  @media only screen and (max-width: $bp-large) {
+    font-size: 50%;
+  }
 }
 
 body {
