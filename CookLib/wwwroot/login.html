@@ -12,11 +12,46 @@
     <main class="login">
       <div class="login__btns">
         <!-- <button class="login__btn" href="index.html"> -->
-        <a href="index.html" class="login__btn-login">Strona główna</a>
+        <a href="index.html" class="login__btn-login btn">Strona główna</a>
         <!-- </button> -->
-        <button class="login__btn-login">Logowanie</button>
+        <button class="login__btn-login btn">Logowanie</button>
       </div>
-      <h1 class="login__welcome">Rejestracja</h1>
+      <h1 class="login__info">Rejestracja</h1>
+      <form action="#">
+        <div class="login__row">
+          <!-- <label for="" class="login__row-label">Email:</label> -->
+          <input
+            type="email"
+            class="login__row-input"
+            placeholder="Podaj email..."
+          />
+        </div>
+        <div class="login__row">
+          <!-- <label for="" class="login__row-label">Login:</label> -->
+          <input
+            type="text"
+            class="login__row-input"
+            placeholder="Podaj login..."
+          />
+        </div>
+        <div class="login__row">
+          <!-- <label for="" class="login__row-label">Hasło:</label> -->
+          <input
+            type="password"
+            class="login__row-input"
+            placeholder="Podaj hasło..."
+          />
+        </div>
+        <div class="login__row">
+          <!-- <label for="" class="login__row-label">Powtórz hasło:</label> -->
+          <input
+            type="password"
+            class="login__row-input"
+            placeholder="Powtórz hasło..."
+          />
+        </div>
+        <button class="login__row-btn btn">Załóż konto</button>
+      </form>
     </main>
   </body>
 </html>
