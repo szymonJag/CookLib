@@ -8,8 +8,8 @@
     <title>Document</title>
   </head>
   <body>
-    <main class="app">
-      <div class="search">
+    <div class="container">
+      <div class="container-search">
         <header class="header">
           <div class="logo">
             <img src="src\img\image-removebg-preview.png" alt="logo" />
@@ -22,7 +22,7 @@
               class="searchbar__input"
               placeholder="Szukaj przepisów..."
             />
-            <button class="searchbar__btn">Szukaj</button>
+            <button class="searchbar__btn button">Szukaj</button>
           </form>
 
           <li class="list">
@@ -38,9 +38,29 @@
             </a>
           </li>
         </header>
+        <div class="content search-content">
+          <nav class="sidenav">
+            <h3 class="sidenav__text">Co masz w lodówce?</h3>
+            <form action="#" class="sidenav__searchbar">
+              <input
+                type="text"
+                class="sidenav__searchbar__input"
+                placeholder="Podaj składniki"
+              />
+              <button class="sidenav__searchbar__btn button">Szukaj</button>
+            </form>
+            <h4 class="sidenav__ingredients">Lista składników:</h4>
+            <div class="sidenav__products-list"></div>
+            <div class="sidenav__btns">
+              <button class="sidenav__btn button">Wyczyść</button>
+              <button class="sidenav__btn button">Filtruj</button>
+            </div>
+          </nav>
+          <main class="search">chujumuju</main>
+        </div>
       </div>
       <div class="results"></div>
       <!-- <footer class="footer"></footer> -->
-    </main>
+    </div>
   </body>
 </html>
