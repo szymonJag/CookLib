@@ -3,8 +3,8 @@
   width: 100vw;
   background-image: linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
+      rgba(0, 0, 0, 0.8),
+      rgba(0, 0, 0, 0.8)
     ),
     url("/src/img/login_background_img.jpg");
 
@@ -26,7 +26,7 @@
   background-image: linear-gradient(
     to bottom,
     var(--color-primary-light-1-rgba),
-    var(--color-primary-light-2-rgba)
+    var(--color-primary-light-1-rgba)
   );
 
   &__btns {
@@ -118,4 +118,11 @@
     transform: scale(97%);
     background-color: var(--color-primary-green-2);
   }
+}
+
+.hidden {
+}
+
+.log {
+  margin-top: 3rem;
 }
