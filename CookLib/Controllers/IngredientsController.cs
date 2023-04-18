@@ -33,7 +33,8 @@ namespace CookLib.Controllers
             return await this.HandleRequest<GetIngredientByIdRequest, GetIngredientByIdResponse>(request); ;
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         [HttpPost]
         [Route("add/")]
         public async Task<IActionResult> AddIngredient([FromBody] AddIngredientRequest request)

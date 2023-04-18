@@ -39,12 +39,12 @@ namespace CookLib.Controllers
             return await this.HandleRequest<GetRecipesByIngredientsIdRequest, GetRecipesByIngredientsIdResponse>(request);
         }
 
-        [HttpPost]
-        [Route("getByTagsId/")]
-        public async Task<IActionResult> GetRecipesByTagsId([FromBody] GetRecipesByTagsIdRequest request)
-        {
-            return await this.HandleRequest<GetRecipesByTagsIdRequest, GetRecipesByTagsIdResponse>(request);
-        }
+        //[HttpPost]
+        //[Route("getByTagsId/")]
+        //public async Task<IActionResult> GetRecipesByTagsId([FromBody] GetRecipesByTagsIdRequest request)
+        //{
+        //    return await this.HandleRequest<GetRecipesByTagsIdRequest, GetRecipesByTagsIdResponse>(request);
+        //}
 
         [HttpPost]
         [Route("addRecipe/")]
