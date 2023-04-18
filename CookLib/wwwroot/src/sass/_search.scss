@@ -61,7 +61,8 @@
   &__products-list {
     display: flex;
     flex-direction: column;
-    overflow: auto;
+    flex: 1;
+    overflow-y: auto;
   }
 }
 
