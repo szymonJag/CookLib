@@ -1,10 +1,13 @@
 .container-search {
-  height: 92vh;
-  background-color: var(--color-primary-light-1);
-  margin: 2rem;
-
   display: flex;
   flex-direction: column;
+  height: 92vh;
+  margin: 2rem;
+  background-color: var(--color-primary-light-1);
+
+  @media only screen and (max-width: $bp-large) {
+    margin: 0;
+  }
 }
 
 .header {
@@ -14,6 +17,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
+
+  border-bottom: 2px solid var(--color-primary-green-2);
 
   @media only screen and (max-width: $bp-large) {
     flex-direction: column;

@@ -2,14 +2,16 @@
   display: flex;
   flex-direction: row;
   flex: 1;
+  overflow: hidden;
 }
 
 .sidenav {
-  display: flex;
-  flex-direction: column;
   min-width: 30rem;
   flex: 0 0 30%;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   background-color: var(--color-primary-green-1);
 
   &__text {
@@ -45,7 +47,7 @@
   &__btns {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 2rem;
+    margin: 1rem 0;
   }
 
   &__btn {
@@ -59,25 +61,73 @@
   }
 
   &__products-list {
-    display: flex;
-    flex-direction: column;
     flex: 1;
     overflow-y: auto;
   }
 }
 
-.search {
+.ingredient {
+  display: flex;
+  flex-direction: column;
   flex: 1;
+  padding: 1rem;
+  overflow: hidden;
+
+  &__types {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: auto;
+  }
+
+  &__welcome-text {
+    margin-bottom: 2rem;
+  }
 }
 
+.type {
+  &:not(:last-child) {
+    margin-bottom: 1.5rem;
+  }
+
+  &__name {
+    margin-bottom: 1rem;
+  }
+
+  &__ingredients {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__ingredient {
+    list-style: none;
+    &-btn {
+      margin: 0.5rem;
+      padding: 0.5rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 1rem;
+      background-color: var(--color-primary-green-2);
+      color: var(--color-primary-light-1);
+
+      &:active {
+        transform: scale(105%);
+      }
+    }
+  }
+}
 .product {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 7rem;
+  transition: 0.2s all;
 
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+  }
   &:hover {
-    background-color: var(--color-primary-green-2);
+    background-color: var(--color-primary-light-1);
   }
 
   &__info {
@@ -98,8 +148,17 @@
   }
 
   &__action {
-    padding: 1rem 3rem;
+    padding: 0.5rem 1rem;
     font-size: 2rem;
-    color: red;
+    margin-right: 3rem;
+    color: var(--color-primary-light-1);
+    background-color: var(--color-primary-green-2);
+    border: none;
+    border-radius: 5rem;
+    cursor: pointer;
+
+    &:active {
+      transform: scale(105%);
+    }
   }
 }
