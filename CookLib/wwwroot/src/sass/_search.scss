@@ -73,11 +73,15 @@
   padding: 1rem;
   overflow: hidden;
 
+  border-right: 1px solid var(--color-primary-green-2);
+  border-bottom: 1px solid var(--color-primary-green-2);
+
   &__types {
     display: flex;
     flex-direction: column;
     flex: 1;
     overflow: auto;
+    padding: 2rem;
   }
 
   &__welcome-text {
@@ -92,6 +96,7 @@
 
   &__name {
     margin-bottom: 1rem;
+    border-bottom: 1px solid var(--color-primary-green-2);
   }
 
   &__ingredients {
