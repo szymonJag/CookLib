@@ -97,9 +97,53 @@
   }
 }
 
-.list {
+.navigation {
   display: flex;
   list-style: none;
+
+  &__register {
+    display: flex;
+  }
+
+  &__account {
+    display: flex;
+  }
+
+  &__parent {
+    position: relative;
+
+    &:hover .navigation__dropdown {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    right: 0;
+    width: 15rem;
+    background-color: var(--color-primary-green-1);
+    display: none;
+    &-list {
+      float: right;
+
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-el {
+      margin: 1rem 1rem;
+      font-size: 1.8em;
+      padding: 1rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--color-primary-green-2);
+      }
+    }
+  }
 
   &__item {
     padding: 3.4rem 1.5rem;
