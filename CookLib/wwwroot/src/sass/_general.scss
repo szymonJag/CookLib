@@ -5,3 +5,20 @@
 .invisible {
   visibility: hidden;
 }
+
+.button {
+  border: none;
+  cursor: pointer;
+  border-radius: 2rem;
+  background-color: var(--color-primary-light-1);
+
+  &:hover {
+    transform: scale(105%);
+  }
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}

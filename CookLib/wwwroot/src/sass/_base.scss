@@ -68,14 +68,3 @@ body {
   display: grid;
   place-items: center;
 }
-
-.button {
-  border: none;
-  cursor: pointer;
-  border-radius: 2rem;
-  background-color: var(--color-primary-light-1);
-
-  &:hover {
-    transform: scale(105%);
-  }
-}

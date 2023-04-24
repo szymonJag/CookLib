@@ -1,8 +1,8 @@
 .container-search {
   display: flex;
   flex-direction: column;
-  height: 92vh;
-  margin: 2rem;
+  height: 100vh;
+  // margin: 2rem;
   background-color: var(--color-primary-light-1);
 
   @media only screen and (max-width: $bp-large) {
