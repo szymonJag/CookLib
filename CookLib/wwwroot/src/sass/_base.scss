@@ -10,6 +10,7 @@
   --color-primary-light-2-rgba: rgba(244, 217, 220, 0.8);
 }
 // $bp-huge:
+$bp-huge: 80em; //1440px
 $bp-largest: 75em; //1200px
 $bp-large: 69em; //1100px
 $bp-medium: 56.25em; //900px
@@ -44,6 +45,10 @@ $bp-small: 41rem; // 656px
 html {
   box-sizing: border-box;
   font-size: 62.5%;
+
+  @media only screen and (max-width: $bp-huge) {
+    font-size: 100%;
+  }
 
   @media only screen and (max-width: $bp-large) {
     font-size: 50%;
