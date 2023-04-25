@@ -280,3 +280,51 @@
     margin: auto 0;
   }
 }
+
+.preparation {
+  display: flex;
+  flex-direction: column;
+  padding: 5rem 10rem;
+  height: auto;
+
+  @media only screen and (max-width: $bp-large) {
+    margin: 0;
+    align-items: center;
+  }
+
+  &__text {
+    margin-bottom: 3rem;
+    font-size: 4rem;
+  }
+
+  &__step {
+    width: 70vw;
+    margin-left: 5rem;
+
+    @media only screen and (max-width: $bp-large) {
+      margin: 0;
+      align-items: center;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 3rem;
+    }
+
+    &-number {
+      margin-bottom: 1rem;
+      font-size: 3rem;
+      width: max-content;
+      padding: 0 1rem;
+      border-bottom: 3px solid var(--color-primary-green-2);
+    }
+
+    &-text {
+      font-size: 2rem;
+      margin-left: 2rem;
+      padding: 2rem;
+    }
+  }
+}
+
+.reviews {
+}
