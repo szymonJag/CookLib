@@ -50,100 +50,233 @@
 //   }
 // }
 
+// .recipe {
+//   width: 100%;
+//   align-self: start;
+//   align-items: center;
+//   margin-top: 10rem;
+
+//   &__header {
+//     display: grid;
+//     grid-template-columns: 60% auto;
+//     overflow: visible;
+
+//     @media only screen and (max-width: $bp-large) {
+//       grid-template-columns: 1fr;
+//     }
+//   }
+
+//   &__img {
+//     width: 100%;
+//     height: auto;
+//     grid-column: 1/2;
+//     grid-row: 1/2;
+//     background-image: linear-gradient(
+//       to bottom,
+//       rgba(0, 0, 0, 0.5),
+//       rgba(0, 0, 0, 0.5)
+//     );
+
+//     @media only screen and (max-width: $bp-large) {
+//       grid-column: 1/2;
+//       grid-row: 1/2;
+//       max-height: 90vh;
+//     }
+//   }
+
+//   &__name {
+//     // background-color: var(--color-primary-green-2);
+//     // width: max-content;
+//     // justify-self: center;
+//     // align-self: end;
+//     // padding: 1.5rem;
+//     // position: relative;
+//     // transform: skew(-15deg);
+//     // font-size: 3.5rem;
+//     // color: var(--color-primary-light-1);
+
+//     // @media only screen and (max-width: $bp-large) {
+//     //   grid-column: 1/2;
+//     //   grid-row: 1/2;
+//     //   align-self: end;
+//     //   justify-self: center;
+//     //   transform: skew(-15deg) translateY(50%);
+//     // }
+//     text-align: center;
+//     padding: 1rem;
+//     margin-bottom: 2rem;
+//     background-color: var(--color-primary-green-2);
+//     width: max-content;
+//     font-size: 3rem;
+//     align-self: center;
+//     transform: skew(-15deg);
+//     z-index: -1;
+//   }
+
+//   &__info {
+//     width: 100%;
+//     height: 10rem;
+//     background-color: red;
+//     grid-row: 1/2;
+//     grid-column: 1/2;
+//     align-self: end;
+//   }
+// }
+
+// .ingredients {
+//   align-self: center;
+//   padding: 1rem 8rem;
+//   grid-column: 2/3;
+//   grid-row: 1/2;
+//   display: flex;
+//   flex-direction: column;
+//   height: 100%;
+
+//   @media only screen and (max-width: $bp-large) {
+//     grid-column: 1/2;
+//     grid-row: 2/3;
+//     align-self: center;
+//     justify-self: center;
+//     margin-top: 2rem;
+//     width: 80%;
+//   }
+//   &__item {
+//     @media only screen and (max-width: $bp-large) {
+//       list-style: none;
+//     }
+
+//     &:not(:last-child) {
+//       margin-bottom: 1rem;
+//     }
+
+//     font-size: 1.3rem;
+//   }
+
+//   &__list {
+//     flex: 1;
+//     align-items: center;
+//     justify-content: center;
+//     @media only screen and (max-width: $bp-large) {
+//       flex-wrap: wrap;
+//       max-height: 30vh;
+//     }
+//   }
+//   &__text {
+//     margin: 2rem 0;
+//     font-size: 2.5rem;
+//   }
+// }
+
 .recipe {
-  width: 100%;
-  align-self: start;
-  align-items: center;
-  margin-top: 10rem;
+  display: flex;
 
-  &__header {
-    display: grid;
-    grid-template-columns: 65% auto;
+  @media only screen and (max-width: $bp-large) {
+    flex-direction: column;
+  }
 
-    @media only screen and (max-width: $bp-large) {
-      grid-template-columns: 1fr;
-    }
+  &__info {
+    flex: 1 1 35%;
+    margin: 0;
+    padding: 0;
   }
 
   &__img {
     width: 100%;
     height: auto;
-    grid-column: 1/2;
-    grid-row: 1/2;
-    background-image: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    );
-
-    @media only screen and (max-width: $bp-large) {
-      grid-column: 1/2;
-      grid-row: 1/2;
-      max-height: 90vh;
-    }
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
   }
 
   &__name {
-    grid-column: 1/2;
+    padding: 2rem;
+    font-size: 3rem;
+    transform: skew(-15deg);
     background-color: var(--color-primary-green-2);
+    margin-bottom: 3rem;
+    text-align: center;
     width: max-content;
-    justify-self: center;
-    position: relative;
-    transform: skew(-15deg) translateY(-50%);
-    padding: 1.5rem;
-    font-size: 3.5rem;
-    color: var(--color-primary-light-1);
-    width: auto;
-    height: auto;
+    align-self: center;
+  }
 
-    @media only screen and (max-width: $bp-large) {
-      grid-column: 1/2;
-      grid-row: 1/2;
-      align-self: end;
-      justify-self: center;
-      transform: skew(-15deg) translateY(50%);
+  &__boxes {
+    height: 8rem;
+    background-color: var(--color-primary-green-2);
+    position: relative;
+    bottom: 1rem;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    &-text {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--color-primary-light-1);
     }
+  }
+
+  &__box {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    padding: 1rem;
+
+    &-likes {
+      cursor: pointer;
+      &:hover {
+        background-color: var(--color-primary-green-3);
+      }
+    }
+  }
+
+  &__svg {
+    height: 2.5rem;
+    width: 2.5rem;
+    margin-right: 2rem;
+    fill: var(--color-primary-light-1);
   }
 }
 
 .ingredients {
-  align-self: center;
-  padding: 3rem 8rem;
-  grid-column: 2/3;
-  grid-row: 1/2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 4rem;
+  justify-content: center;
 
-  @media only screen and (max-width: $bp-large) {
-    grid-column: 1/2;
-    grid-row: 2/3;
-    align-self: center;
-    justify-self: center;
-    margin-top: 3rem;
-    width: 80%;
-  }
-  &__item {
+  &__text {
+    font-size: 2.5rem;
+    padding: 1rem;
+
     @media only screen and (max-width: $bp-large) {
-      list-style: none;
+      text-align: center;
+      padding: 3rem;
     }
-
-    &:not(:last-child) {
-      margin-bottom: 1rem;
-    }
-
-    font-size: 1.5rem;
   }
 
   &__list {
     display: flex;
     flex-direction: column;
+    max-height: 55vh;
+    flex-wrap: wrap;
 
     @media only screen and (max-width: $bp-large) {
-      flex-wrap: wrap;
-      max-height: 30vh;
+      align-items: center;
     }
   }
-  &__text {
-    margin-bottom: 3rem;
-    font-size: 3.5rem;
-    text-align: center;
+
+  &__item {
+    font-size: 1.7rem;
+    margin: 1rem;
+    width: max-content;
+    list-style: none;
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__content {
+    margin: auto 0;
   }
 }

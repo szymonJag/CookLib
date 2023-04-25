@@ -4,24 +4,21 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <link rel="stylesheet" href="/src/sass/main.scss" />
-
-    <title>Document</title>
+    <title>Document
+    </title>
   </head>
   <body>
-    <div class="recipe">
+    <div class="container container__recipe">
       <header class="header sticky">
         <a href="index.html">
-        <div class="logo">
-          <img src="src\img\image-removebg-preview.png" alt="logo" />
-          <h1>cooklib
-          </h1>
-        </div>
-      </a>
-       
-
-        <ul class="navigation">
+          <div class="logo">
+            <img src="src\img\image-removebg-preview.png" alt="logo" />
+            <h1>cooklib
+            </h1>
+          </div>
+        </a>
+        <ul class="navigation ">
           <a href="index.html">
             <li class="navigation__item">
               <h2>Strona główna
@@ -45,38 +42,95 @@
                 </ul>
               </div>
             </div>
-
           </div>
-          
         </ul>
       </header>
-        <header class="recipe__header">
-        <img
-            src="https://s3.przepisy.pl/przepisy3ii/img/variants/800x0/proste-spaghetti-bolognese.jpg"
-            alt=""
-            class="recipe__img"
-        />
-        <h2 class="recipe__name">Spaghetti Bolognese</h2>
-        <div class="ingredients">
-            <h1 class="ingredients__text">Składniki:</h1>
+      <section class="recipe">
+        <div class="recipe__info">
+          <img
+               src="https://s3.przepisy.pl/przepisy3ii/img/variants/800x0/proste-spaghetti-bolognese.jpg"
+               alt=""
+               class="recipe__img"
+               />
+          <div class="recipe__boxes">
             
-            <ul class="ingredients__list">
-                
-                <li class="ingredients__item">2 Chuje</li>
-                <li class="ingredients__item">2 kg buraków</li>
-                <li class="ingredients__item">4 marchewki</li>
-                <li class="ingredients__item">Ogromny kutas</li>
-                <li class="ingredients__item">2 Chuje</li>
-                <li class="ingredients__item">2 kg buraków</li>
-                <li class="ingredients__item">4 marchewki</li>
-                <li class="ingredients__item">Ogromny kutas</li>
-                <li class="ingredients__item">2 Chuje</li>
-                <li class="ingredients__item">2 kg buraków</li>
-                <li class="ingredients__item">4 marchewki</li>
-                
-              </ul>
+            <div class="recipe__box recipe__box-likes">
+              <svg class="recipe__svg">
+                <use xlink:href="src\img\sprite.svg#icon-heart-outlined"
+              </svg>
+              <p class="recipe__boxes-text">Ilośc polubień: 12</p>
+            </div>
+            <div class="recipe__box">
+              <svg class="recipe__svg">
+                <use xlink:href="src\img\sprite.svg#icon-stopwatch"
+              </svg>
+              <p class="recipe__boxes-text">Czas przygotowania: 55 min</p>
+              
+            </div>
+            <div class="recipe__box">
+              
+              <svg class="recipe__svg">
+                <use xlink:href="src\img\sprite.svg#icon-users"
+              </svg>
+              <p class="recipe__boxes-text">Ilość osób: 4</p>
+              
+            </div>
+
+            <div class="recipe__box"><p class="recipe__boxes-text">Kalorie: 666</p></div>
+
+          </div>
         </div>
+        <div class="ingredients">
+            <h1 class="recipe__name">Spaghetti Bolognese </h1>
+            <div class="ingredients__content">
+              <h2 class="ingredients__text">Składniki:</h2>
+              <ul class="ingredients__list">
+                <li class="ingredients__item">2 kg burakówgar
+                </li>
+                <li class="ingredients__item">2 kg buraków
+                </li>
+                <li class="ingredients__item">4 marchewki
+                </li>
+                <li class="ingredients__item">Ogromny kutas
+                </li>
+                <li class="ingredients__item">2 Chuje
+                </li>
+                <li class="ingredients__item">2 kg burakówgar
+                </li>
+                <li class="ingredients__item">2 kg buraków
+                </li>
+                <li class="ingredients__item">4 marchewki
+                </li>
+                <li class="ingredients__item">Ogromny kutas
+                </li>
+                <li class="ingredients__item">2 Chuje
+                </li>
+                <li class="ingredients__item">2 kg burakówgar
+                </li>
+                <li class="ingredients__item">2 kg buraków
+                </li>
+                <li class="ingredients__item">4 marchewki
+                </li>
+                <li class="ingredients__item">Ogromny kutas
+                </li>
+                <li class="ingredients__item">2 Chuje
+                </li>
+                <li class="ingredients__item">2 kg burakówgar
+                </li>
+                <li class="ingredients__item">2 kg buraków
+                </li>
+                <li class="ingredients__item">4 marchewki
+                </li>
+                <li class="ingredients__item">Ogromny kutas
+                </li>
+                <li class="ingredients__item">2 Chuje
+                </li>
+              </ul>
+            </div>
+        </div>
+      </section>
+      <section class="preparation">
         
-        </header>
-  </body>
-</html>
+      </section>
+      </body>
+    </html>
