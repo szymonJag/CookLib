@@ -15,7 +15,7 @@
   background-color: var(--color-primary-green-1);
 
   &__text {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     text-align: center;
     margin: 2rem 0;
     color: var(--color-primary-green-3);
@@ -28,7 +28,7 @@
     &__input {
       flex: 0 0 60%;
       margin-right: 1rem;
-      height: 3rem;
+      height: 3.7rem;
       border: none;
       text-indent: 1rem;
       margin-right: -3rem;
@@ -41,22 +41,24 @@
     &__btn {
       border: none;
       padding: 0.7rem;
+      font-size: 2rem;
     }
   }
 
   &__btns {
     display: flex;
     justify-content: space-around;
-    margin: 1rem 0;
+    margin: 3rem 0;
   }
 
   &__btn {
     padding: 1rem;
     min-width: 7rem;
+    font-size: 1.5rem;
   }
 
   &__ingredients {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     padding: 1rem 2rem;
   }
 
@@ -85,7 +87,8 @@
   }
 
   &__welcome-text {
-    margin-bottom: 2rem;
+    padding: 2rem;
+    font-size: 3.5rem;
   }
 }
 
@@ -97,6 +100,7 @@
   &__name {
     margin-bottom: 1rem;
     border-bottom: 1px solid var(--color-primary-green-2);
+    font-size: 2rem;
   }
 
   &__ingredients {
@@ -114,6 +118,7 @@
       border-radius: 1rem;
       background-color: var(--color-primary-green-2);
       color: var(--color-primary-light-1);
+      font-size: 2rem;
 
       &:active {
         transform: scale(105%);
@@ -125,7 +130,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 7rem;
+  height: 10rem;
   transition: 0.2s all;
 
   &:not(:last-child) {
@@ -142,12 +147,12 @@
     padding: 1rem 3rem;
 
     &-name {
-      font-size: 1.7rem;
+      font-size: 2.5rem;
       font-weight: 900;
     }
 
     &-type {
-      font-size: 1.1rem;
+      font-size: 1.6rem;
       color: grey;
     }
   }

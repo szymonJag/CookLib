@@ -8,6 +8,7 @@
     "start": "parcel --open chrome index.html",
     "start-login": "parcel --open chrome login.html",
     "start-recipe": "parcel --open chrome recipe.html",
+    "start-addrecipe": "parcel --open chrome add-recipe.html",
     "build": "parcel build index.html"
   },
   "repository": {

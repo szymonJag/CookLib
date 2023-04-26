@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/src/sass/main.scss" />
+  </head>
+  <body>
+    <div class="container container__add-recipe">
+      <header class="header sticky">
+        <a href="index.html">
+          <div class="logo">
+            <img src="src\img\image-removebg-preview.png" alt="logo" />
+            <h1>cooklib</h1>
+          </div>
+        </a>
+        <ul class="navigation">
+          <a href="index.html">
+            <li class="navigation__item">
+              <h2>Strona główna</h2>
+            </li>
+          </a>
+          <div class="navigation__account">
+            <div class="navigation__parent">
+              <li class="navigation__item">
+                <h2>Szymon</h2>
+              </li>
+              <div class="navigation__dropdown">
+                <ul class="navigation__dropdown-list">
+                  <li class="navigation__dropdown-el">Moje konto</li>
+                  <li class="navigation__dropdown-el">Dodaj przepis</li>
+                  <li class="navigation__dropdown-el">Wyloguj</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </ul>
+      </header>
+      <main class="add-recipe">
+        <div class="add-recipe__welcome">
+          <h1 class="add-recipe__welcome-text">Dodaj przepis!</h1>
+          <button class="add-recipe__welcome-btn btn">Dodaj</button>
+        </div>
+        <form action="#" class="add-recipe__form">
+          <div class="step">
+            <h2 class="step__welcome">Podstawowe informacje</h2>
+            <div class="input__container">
+              <div class="input__box">
+                <h2 class="input__text">Nazwa przepisu</h2>
+                <input type="text" class="input input__recipe-time" />
+              </div>
+              <div class="input__box">
+                <h2 class="input__text">Ilośc osób</h2>
+                <input type="number" class="input input__recipe-servings" />
+              </div>
+              <div class="input__box">
+                <h2 class="input__text">Czas przygotowania</h2>
+                <input type="number" class="input input__recipe-name" />
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <h2 class="step__welcome">Sposób przygotowania</h2>
+          </div>
+          <div class="step">
+            <h2 class="step__welcome">Składniki</h2>
+          </div>
+        </form>
+      </main>
+    </div>
+  </body>
+</html>

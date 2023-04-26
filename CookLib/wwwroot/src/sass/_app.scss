@@ -14,4 +14,10 @@
   &__recipe {
     align-self: start;
   }
+
+  &__add-recipe {
+    align-self: start;
+    display: flex;
+    height: 100%;
+  }
 }
