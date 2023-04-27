@@ -41,32 +41,337 @@
       <main class="add-recipe">
         <div class="add-recipe__welcome">
           <h1 class="add-recipe__welcome-text">Dodaj przepis!</h1>
-          <button class="add-recipe__welcome-btn btn">Dodaj</button>
         </div>
         <form action="#" class="add-recipe__form">
-          <div class="step">
-            <h2 class="step__welcome">Podstawowe informacje</h2>
-            <div class="input__container">
-              <div class="input__box">
-                <h2 class="input__text">Nazwa przepisu</h2>
-                <input type="text" class="input input__recipe-time" />
+          <div class="step input__step-1">
+            <h2 class="step__welcome">Krok 1 - Podstawowe informacje</h2>
+            <div class="input ">
+              <div class="input__container">
+                <h3 class="input__text">Nazwa przepisu</h3>
+                <input type="text" class="input__box" />
               </div>
-              <div class="input__box">
-                <h2 class="input__text">Ilośc osób</h2>
-                <input type="number" class="input input__recipe-servings" />
+              <div class="input__container">
+                <h3 class="input__text">Ilośc osób</h3>
+                <input type="number" class="input__box" />
               </div>
-              <div class="input__box">
-                <h2 class="input__text">Czas przygotowania</h2>
-                <input type="number" class="input input__recipe-name" />
+              <div class="input__container">
+                <h3 class="input__text">Czas przygotowania (min)</h3>
+                <input type="number" class="input__box" />
               </div>
             </div>
           </div>
           <div class="step">
-            <h2 class="step__welcome">Sposób przygotowania</h2>
+            <h2 class="step__welcome">Krok 2 - Sposób przygotowania</h2>
+            <div class="input">
+              <div class="input__welcome">
+                <h3 class="input__text">
+                  Kolejny krok przygotowania
+                </h3>
+                <button class="input__welcome-btn btn">Dodaj</button>
+              </div>
+              <div class="input input__preparation-steps">
+                <div class="input__container input__container-textarea">
+                  <div class="input__info">
+                    <h3 class="input__text">Krok 1</h3>
+                    <button class="input__btn btn">Usuń</button>
+                  </div>
+                  <textarea type="text" class="input__box-textarea"></textarea>
+                </div>
+                <div class="input__container input__container-textarea">
+                  <div class="input__info">
+                    <h3 class="input__text">Krok 2</h3>
+                    <button class="input__btn btn">Usuń</button>
+                  </div>
+                  <textarea type="text" class="input__box-textarea"></textarea>
+                </div>
+                <div class="input__container input__container-textarea">
+                  <div class="input__info">
+                    <h3 class="input__text">Krok 3</h3>
+                    <button class="input__btn btn">Usuń</button>
+                  </div>
+                  <textarea type="text" class="input__box-textarea"></textarea>
+                </div>
+              </div>
           </div>
           <div class="step">
-            <h2 class="step__welcome">Składniki</h2>
-          </div>
+            <h2 class="step__welcome">Krok 3 - Składniki</h2>
+            <div class="ingredients__container">
+
+              <div class="ingredients__box">
+                <h3 class="input__text">Wybierz składniki</h3>
+
+                <div class="ingredients__search">
+                  <select class="ingredients__select">
+                    <option>Wszystkie</option>
+                    <option>Zbożowe</option>
+                    <option>Nabiał</option>
+                    <option>Mięso</option>
+                    <option>Ryby</option>
+                    <option>Tłuszcze</option>
+                    <option>Warzywa</option>
+                    <option>Owoce</option>
+                    <option>Słodycze</option>
+                    <option>Napoje</option>
+                  </select>
+                  <input
+                       type="text"
+                       class="ingredients__searchbar"
+                       placeholder="Szukaj składników"
+                       />
+                </div>
+
+                <ul class="ingredients__items">
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">bułka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">kutafon</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li> <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">bułka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">kutafon</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li> <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">bułka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">kutafon</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li> <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">bułka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">kutafon</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li> <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">bułka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">kutafon</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li> <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">bułka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">kutafon</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li> <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">bułka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">kutafon</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li> <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">bułka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">kutafon</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li> <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">bułka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">kutafon</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li> <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                  
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">bułka</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">kutafon</button>
+                  </li>
+                  <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li> <li class="ingredients__item">
+                    <button class="ingredients__item-btn btn">Monka</button>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="ingredients__box">
+                <h3 class="input__text input__text-ingredients">Lista składników</h3>
+               <ul class="ingredients__items">
+                  <li class="ingredients__list-item">
+                    <p>Jabłko</p>
+                    <select>
+                      <option>Gramy</option>
+                      <option>Kilogramy</option>
+                      <option>Mililitry</option>
+                      <option>Litry</option>
+                    </select>
+                    <input type="number">
+                    <button class="btn">Usuń</button>
+                  </li>
+                  <li class="ingredients__list-item">
+                    <p>Jabłko</p>
+                    <select>
+                      <option>Gramy</option>
+                      <option>Kilogramy</option>
+                      <option>Mililitry</option>
+                      <option>Litry</option>
+                    </select>
+                    <input type="number">
+                    <button class="btn">Usuń</button>
+                  </li>
+                  <li class="ingredients__list-item">
+                    <p>Jabłko</p>
+                    <select>
+                      <option>Gramy</option>
+                      <option>Kilogramy</option>
+                      <option>Mililitry</option>
+                      <option>Litry</option>
+                    </select>
+                    <input type="number">
+                    <button class="btn">Usuń</button>
+                  </li>
+                  <li class="ingredients__list-item">
+                    <p>Jabłko</p>
+                    <select>
+                      <option>Gramy</option>
+                      <option>Kilogramy</option>
+                      <option>Mililitry</option>
+                      <option>Litry</option>
+                    </select>
+                    <input type="number">
+                    <button class="btn">Usuń</button>
+                  </li>
+                  <li class="ingredients__list-item">
+                    <p>Jabłko</p>
+                    <select>
+                      <option>Gramy</option>
+                      <option>Kilogramy</option>
+                      <option>Mililitry</option>
+                      <option>Litry</option>
+                    </select>
+                    <input type="number">
+                    <button class="btn">Usuń</button>
+                  </li>
+                  <li class="ingredients__list-item">
+                    <p>Jabłko</p>
+                    <select>
+                      <option>Gramy</option>
+                      <option>Kilogramy</option>
+                      <option>Mililitry</option>
+                      <option>Litry</option>
+                    </select>
+                    <input type="number">
+                    <button class="btn">Usuń</button>
+                  </li>
+                  <li class="ingredients__list-item">
+                    <p>Jabłko</p>
+                    <select>
+                      <option>Gramy</option>
+                      <option>Kilogramy</option>
+                      <option>Mililitry</option>
+                      <option>Litry</option>
+                    </select>
+                    <input type="number">
+                    <button class="btn">Usuń</button>
+                  </li>
+                  <li class="ingredients__list-item">
+                    <p>Jabłko</p>
+                    <select>
+                      <option>Gramy</option>
+                      <option>Kilogramy</option>
+                      <option>Mililitry</option>
+                      <option>Litry</option>
+                    </select>
+                    <input type="number">
+                    <button class="btn">Usuń</button>
+                  </li>
+               </ul>
+              </div>
+            </div>
+            <div class="add-recipe__buttons">
+              <button class="add-recipe-btn btn">Wyczyść wszystko</button>
+              <button class="add-recipe-btn btn">Dodaj przepis</button>
+            </div>
         </form>
       </main>
     </div>
