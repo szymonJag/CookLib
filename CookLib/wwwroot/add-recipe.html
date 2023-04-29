@@ -29,9 +29,18 @@
               </li>
               <div class="navigation__dropdown">
                 <ul class="navigation__dropdown-list">
-                  <li class="navigation__dropdown-el">Moje konto</li>
-                  <li class="navigation__dropdown-el">Dodaj przepis</li>
-                  <li class="navigation__dropdown-el">Wyloguj</li>
+                  <ul class="navigation__dropdown-list">
+                    <a href="user-panel.html">
+                      <li class="navigation__dropdown-el">Moje konto
+                      </li>
+                    </a>
+                    <a href="add-recipe.html">
+                      <li class="navigation__dropdown-el">Dodaj przepis
+                      </li>
+                    </a>
+                    <li class="navigation__dropdown-el">Wyloguj
+                    </li>
+                  </ul>
                 </ul>
               </div>
             </div>
@@ -58,6 +67,10 @@
                 <h3 class="input__text">Czas przygotowania (min)</h3>
                 <input type="number" class="input__box" />
               </div>
+              <div class="input__container">
+                <h3 class="input__text">URL zdjęcia</h3>
+                <input type="text" class="input__box" />
+              </div>
             </div>
           </div>
           <div class="step">
@@ -77,6 +90,7 @@
                   </div>
                   <textarea type="text" class="input__box-textarea"></textarea>
                 </div>
+                
                 <div class="input__container input__container-textarea">
                   <div class="input__info">
                     <h3 class="input__text">Krok 2</h3>

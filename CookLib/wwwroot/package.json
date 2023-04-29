@@ -9,6 +9,7 @@
     "start-login": "parcel --open chrome login.html",
     "start-recipe": "parcel --open chrome recipe.html",
     "start-addrecipe": "parcel --open chrome add-recipe.html",
+    "start-userpanel": "parcel --open chrome user-panel.html",
     "build": "parcel build index.html"
   },
   "repository": {

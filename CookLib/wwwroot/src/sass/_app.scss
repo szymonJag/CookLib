@@ -4,6 +4,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-self: start;
 
   @media only screen and (max-width: $bp-largest) {
     margin: 0;
@@ -16,7 +17,6 @@
   }
 
   &__add-recipe {
-    align-self: start;
     display: flex;
     flex-direction: column;
     height: 100%;

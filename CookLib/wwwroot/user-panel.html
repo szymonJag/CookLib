@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/src/sass/main.scss" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header sticky">
+        <a href="index.html">
+          <div class="logo">
+            <img src="src\img\image-removebg-preview.png" alt="logo" />
+            <h1>cooklib</h1>
+          </div>
+        </a>
+        <ul class="navigation">
+          <a href="index.html">
+            <li class="navigation__item">
+              <h2>Strona główna</h2>
+            </li>
+          </a>
+          <div class="navigation__account">
+            <div class="navigation__parent">
+              <li class="navigation__item">
+                <h2>Szymon</h2>
+              </li>
+              <div class="navigation__dropdown">
+                <ul class="navigation__dropdown-list">
+                  <ul class="navigation__dropdown-list">
+                    <a href="user-panel.html">
+                      <li class="navigation__dropdown-el">Moje konto</li>
+                    </a>
+                    <a href="add-recipe.html">
+                      <li class="navigation__dropdown-el">Dodaj przepis</li>
+                    </a>
+                    <li class="navigation__dropdown-el">Wyloguj</li>
+                  </ul>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </ul>
+      </header>
+      <main class="user-panel">
+        <h1 class="user-panel__welcome">Panel użytkownika</h1>
+        <div class="panel-1">
+          <div class="panel">
+            <h1 class="panel__welcome">Ulubione przepisy</h1>
+            <ul class="panel__items">
+              <li class="panel__item">
+                <img
+                  src="https://s3.przepisy.pl/przepisy3ii/img/variants/800x0/proste-spaghetti-bolognese.jpg"
+                  alt=""
+                  class="panel__img"
+                />
+                <p class="panel__text">Spaghetti Bolognese</p>
+                <div class="panel__buttons">
+                  <button class="panel__button btn">Przejdź</button>
+                  <button class="panel__button btn">Usuń</button>
+                </div>
+              </li>
+              <li class="panel__item">
+                <img
+                  src="https://s3.przepisy.pl/przepisy3ii/img/variants/800x0/proste-spaghetti-bolognese.jpg"
+                  alt=""
+                  class="panel__img"
+                />
+                <p class="panel__text">Spaghetti Bolognese</p>
+                <div class="panel__buttons">
+                  <button class="panel__button btn">Przejdź</button>
+                  <button class="panel__button btn">Usuń</button>
+                </div>
+              </li>
+              <li class="panel__item">
+                <img
+                  src="https://s3.przepisy.pl/przepisy3ii/img/variants/800x0/proste-spaghetti-bolognese.jpg"
+                  alt=""
+                  class="panel__img"
+                />
+                <p class="panel__text">Spaghetti Bolognese</p>
+                <div class="panel__buttons">
+                  <button class="panel__button btn">Przejdź</button>
+                  <button class="panel__button btn">Usuń</button>
+                </div>
+              </li>
+              <li class="panel__item">
+                <img
+                  src="https://s3.przepisy.pl/przepisy3ii/img/variants/800x0/proste-spaghetti-bolognese.jpg"
+                  alt=""
+                  class="panel__img"
+                />
+                <p class="panel__text">Spaghetti Bolognese</p>
+                <div class="panel__buttons">
+                  <button class="panel__button btn">Przejdź</button>
+                  <button class="panel__button btn">Usuń</button>
+                </div>
+              </li>
+              <li class="panel__item">
+                <img
+                  src="https://s3.przepisy.pl/przepisy3ii/img/variants/800x0/proste-spaghetti-bolognese.jpg"
+                  alt=""
+                  class="panel__img"
+                />
+                <p class="panel__text">Spaghetti Bolognese</p>
+                <div class="panel__buttons">
+                  <button class="panel__button btn">Przejdź</button>
+                  <button class="panel__button btn">Usuń</button>
+                </div>
+              </li>
+              <li class="panel__item">
+                <img
+                  src="https://s3.przepisy.pl/przepisy3ii/img/variants/800x0/proste-spaghetti-bolognese.jpg"
+                  alt=""
+                  class="panel__img"
+                />
+                <p class="panel__text">Spaghetti Bolognese</p>
+                <div class="panel__buttons">
+                  <button class="panel__button btn">Przejdź</button>
+                  <button class="panel__button btn">Usuń</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h1 class="panel__welcome">Dodane przepisy</h1>
+            <ul class="panel__items">
+              <li class="panel__item">
+                <img
+                  src="https://s3.przepisy.pl/przepisy3ii/img/variants/800x0/proste-spaghetti-bolognese.jpg"
+                  alt=""
+                  class="panel__img"
+                />
+                <p class="panel__text">Spaghetti Bolognese</p>
+                <div class="panel__buttons">
+                  <button class="panel__button btn">Przejdź</button>
+                  <button class="panel__button btn">Edytuj</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="panel panel-2">
+          <h1 class="panel__welcome">Dane użytkownika</h1>
+          <div class="panel__username">
+            <div class="panel__password">
+              <h2 class="panel__text panel__username-welcome">Zmień hasło</h2>
+              <form action="#" class="panel__form">
+                <div class="login__row panel__row">
+                  <h3 class="panel__row-text">Podaj stare hasło:</h3>
+                  <input
+                    type="text"
+                    class="login__row-input"
+                    placeholder="Wpisz hasło..."
+                  />
+                </div>
+                <div class="login__row panel__row">
+                  <h3 class="panel__row-text">Podaj nowe hasło:</h3>
+                  <input
+                    type="password"
+                    class="login__row-input"
+                    placeholder="Wpisz hasło..."
+                  />
+                </div>
+                <div class="login__row panel__row">
+                  <h3 class="panel__row-text">Powtórz nowe hasło:</h3>
+                  <input
+                    type="password"
+                    class="login__row-input"
+                    placeholder="Wpisz hasło..."
+                  />
+                </div>
+              </form>
+              <button class="login__row-btn btn">Zmień hasło</button>
+            </div>
+            <div class="panel__information">
+              <h2 class="panel__text panel__username-welcome">
+                Informacje o koncie
+              </h2>
+
+              <div class="panel__information-content">
+                <h3 class="panel__text">Witaj Szymon!</h3>
+                <p class="panel__text-info">
+                  Twoje konto zostało założone dnia 2023-04-29 <br />
+                  Jesteś zarejestrowany od 15 dni. <br />
+                  Mail na które założone jest konto - szymonjag2@gmail.com<br />
+                  Twój login: szymonjag
+                </p>
+                <h3 class="panel__text panel__text-right">
+                  Jeśli chcesz trwale usunąć konto kliknij poniższy guzik
+                </h3>
+                <button class="panel__information-btn btn">Usuń konto</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
