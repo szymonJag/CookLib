@@ -72,6 +72,14 @@ namespace CookLib.Controllers
             request.Id = id;
             return await this.HandleRequest<UpdateUserByIdRequest, UpdateUserByIdResponse>(request);
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("authenticate/")]
+        public async Task<IActionResult> AuthenticateUser([FromBody] AuthenticateUserRequest request)
+        {
+            return await this.HandleRequest<AuthenticateUserRequest, AuthenticateUserResponse>(request);
+        }
     }
 
 }
