@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import Sidebar from './Sidebar';
 import { Outlet } from 'react-router-dom';
+import UserInfo from './UserInfo';
 
 const Layout = styled.div`
   display: grid;
@@ -10,6 +11,7 @@ const Layout = styled.div`
 
 export const MainLayout = styled.main`
   padding: 2rem;
+  overflow-y: auto;
 `;
 
 function AppLayout() {
@@ -17,6 +19,7 @@ function AppLayout() {
     <Layout>
       <Sidebar />
       <MainLayout>
+        <UserInfo />
         <Outlet />
       </MainLayout>
     </Layout>

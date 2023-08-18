@@ -2,14 +2,14 @@
 {
     public enum IngredientType
     {
-        Cereal = 1,
-        Dairy,
-        Meat,
-        Fish,
-        Fats,
-        Vegetables,
-        Fruits,
-        Sweets,
-        Drinks
+        Zbożowe = 1,
+        Mleczne = 2,
+        Mięso = 3,
+        Ryba = 4,
+        Tłuszcze = 5,
+        Warzywa = 6,
+        Owoce = 7,
+        Słodycze = 8,
+        Napoje = 9,
     }
 }

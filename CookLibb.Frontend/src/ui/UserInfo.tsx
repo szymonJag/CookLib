@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
-import Button from './Button';
+import { AnimatedButton } from './Button';
 
 const InfoLayout = styled.div`
-  margin: 2rem 0;
+  margin: 1rem 0;
   text-align: center;
   display: flex;
   gap: 1rem;
@@ -14,7 +14,7 @@ function UserInfo() {
   return (
     <InfoLayout>
       <span>Aktualnie nie jesteś zalogowany</span>
-      <Button size='small'>Zaloguj</Button>
+      <AnimatedButton size='small'>Zaloguj</AnimatedButton>
     </InfoLayout>
   );
 }

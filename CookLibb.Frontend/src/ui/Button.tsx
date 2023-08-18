@@ -65,6 +65,28 @@ const Button = styled.button<ButtonProps>`
   }
 `;
 
+export const AnimatedButton = styled(Button)`
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: all 0.2s;
+
+  &:hover {
+    transform: scale(99%);
+  }
+
+  &:active {
+    transform: scale(100%);
+  }
+`;
+
+export const ButtonForm = styled(AnimatedButton)`
+  align-self: flex-end;
+  margin-top: 1rem;
+`;
+
 Button.defaultProps = {
   variation: 'primary',
   size: 'medium',

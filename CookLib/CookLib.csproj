@@ -28,4 +28,8 @@
     <ProjectReference Include="..\CookLib.DataAccess\CookLib.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

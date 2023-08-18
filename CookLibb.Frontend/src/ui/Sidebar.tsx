@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import logoImg from '../assets/images/image-removebg-preview.png';
 import Heading from './Heading';
-import SidebarContent from './Navigation';
+import SidebarContent from './SidebarContent';
 
 const SidebarLayout = styled.aside`
   padding: 2rem;

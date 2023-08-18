@@ -1,5 +1,7 @@
+import RouteHeading from '../ui/RouteHeading';
+
 function AddRecipe() {
-  return <div>AddRecipe</div>;
+  return <RouteHeading text='Dodaj przepis' />;
 }
 
 export default AddRecipe;

@@ -8,13 +8,26 @@ import AddRecipe from './pages/AddRecipe';
 import User from './pages/User';
 import Admin from './pages/Admin';
 import PageNotFound from './pages/PageNotFound';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Toaster } from 'react-hot-toast';
+
 // import Error from './ui/Error';
 // import Search from './pages/Search';
 // import { MainLayout } from './ui/AppLayout';
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,
+    },
+  },
+});
+
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient} contextSharing={true}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
@@ -26,12 +39,33 @@ function App() {
             <Route path='add-recipe' element={<AddRecipe />} />
             <Route path='user' element={<User />} />
             <Route path='admin' element={<Admin />} />
+            <Route path='/admin/edit/product/:productId' element={<Admin />} />
             <Route path='recipes' element={<Recipes />} />
             <Route path='*' element={<PageNotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>
-    </>
+      <Toaster
+        position='top-center'
+        gutter={12}
+        containerStyle={{ margin: '8px' }}
+        toastOptions={{
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 5000,
+          },
+          style: {
+            fontSize: '16px',
+            maxWidth: '500px',
+            padding: '16px 24px',
+            backgroundColor: 'var(--color-grey-0)',
+            color: 'var(--color-grey-700)',
+          },
+        }}
+      />
+    </QueryClientProvider>
   );
 }
 

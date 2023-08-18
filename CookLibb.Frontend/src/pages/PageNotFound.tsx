@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Button from '../ui/Button';
 import { useMoveBack } from '../hooks/useMoveBack';
 import Heading from '../ui/Heading';
+import RouteHeading from '../ui/RouteHeading';
 
 const StyledPageNotFound = styled.main`
   height: 100vh;
@@ -32,6 +33,7 @@ function PageNotFound() {
 
   return (
     <StyledPageNotFound>
+      <RouteHeading text='Wystąpił błąd' />
       <Box>
         <Heading as='h1'>
           The page you are looking for could not be found 😢
