@@ -5,10 +5,16 @@ export interface IProduct {
   type: IProductType;
 }
 
-export interface IAddProductRequest {
+export interface IProductRequest {
   name: string;
   kcal: number;
   type: number;
+}
+
+export interface IAddProductRequest extends IProductRequest {}
+
+export interface IUpdateProductRequest extends IProductRequest {
+  id: number;
 }
 
 export interface IProductType {

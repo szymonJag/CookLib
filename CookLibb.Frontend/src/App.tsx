@@ -39,8 +39,9 @@ function App() {
             <Route path='add-recipe' element={<AddRecipe />} />
             <Route path='user' element={<User />} />
             <Route path='admin' element={<Admin />} />
-            <Route path='/admin/edit/product/:productId' element={<Admin />} />
+            {/* <Route path='/admin/edit/product/:productId' element={<Admin />} /> */}
             <Route path='recipes' element={<Recipes />} />
+            <Route path='/error' element={<PageNotFound />} />
             <Route path='*' element={<PageNotFound />} />
           </Route>
         </Routes>

@@ -4,11 +4,11 @@ import Table from '../../../../ui/Table';
 import Button from '../../../../ui/Button';
 import Modal from '../../../../ui/Modal';
 import ConfirmDelete from '../../../../ui/ConfirmDelete';
-import { Link } from 'react-router-dom';
 import { useDeleteProduct } from '../../hooks/Products/useDeleteProduct';
 
 interface ProductRowProps {
   product: IProduct;
+  onEditClick: (produict: IProduct) => void;
 }
 
 const Item = styled.div``;
@@ -17,7 +17,7 @@ const Buttons = styled.div`
   gap: 1rem;
 `;
 
-function ProductRow({ product }: ProductRowProps) {
+function ProductRow({ product, onEditClick }: ProductRowProps) {
   const { isDeleting, deleteProduct } = useDeleteProduct();
   const { name, kcal, type, id } = product;
 
@@ -28,9 +28,9 @@ function ProductRow({ product }: ProductRowProps) {
       <Item>{type.name}</Item>
       <Item>
         <Buttons>
-          <Link to={`/admin/edit/product/${id}`}>
-            <Button size='small'>Edytuj</Button>
-          </Link>
+          <Button size='small' onClick={() => onEditClick(product)}>
+            Edytuj
+          </Button>
           <Modal>
             <Modal.Open opens='delete'>
               <Button size='small' variation='danger'>

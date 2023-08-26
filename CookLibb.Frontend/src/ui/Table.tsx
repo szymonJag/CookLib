@@ -130,16 +130,21 @@ const Row: FC<RowProps> = ({ children }) => {
 
 interface BodyProps<T> {
   data: T[];
-  error?: string;
+  error: string;
   render: (item: T) => ReactNode;
 }
 
-function Body<T>({ data, render }: BodyProps<T>) {
-  if (!data) return <Empty>No data to show</Empty>;
+function Body<T>({ data, render, error }: BodyProps<T>) {
+  if (error.length > 0) {
+    return <Empty>{error}</Empty>;
+  }
+
+  if (!data || data.length === 0)
+    // Check if data is not defined or empty
+    return <Empty>Brak produktów spełniających kryteria</Empty>;
 
   return <StyledBody>{data.map(render)}</StyledBody>;
 }
-
 Table.Header = Header;
 Table.Body = Body;
 Table.Row = Row;

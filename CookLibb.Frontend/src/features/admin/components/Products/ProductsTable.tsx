@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import Input from '../../../../ui/Input';
 import Table from '../../../../ui/Table';
 import ProductRow from './ProductRow';
@@ -6,7 +6,7 @@ import { styled } from 'styled-components';
 import Select from '../../../../ui/Select';
 import { IngredientTypes } from '../../../../utils/constants';
 import { IProduct } from '../../../../interfaces/IProduct';
-import { useProducts } from '../../hooks/Products/useProducts';
+import { useProducts } from '../../hooks/Products/useGetProducts';
 import Spinner from '../../../../ui/Spinner';
 
 const InputName = styled(Input)`
@@ -20,40 +20,47 @@ const HeaderSearch = styled.div`
   align-items: center;
 `;
 
-function ProductsTable() {
-  const [searchName, setSearchName] = useState('');
-  const [selectedType, setSelectedType] = useState(0);
-  const { products, isLoading } = useProducts();
+interface IProductsTable {
+  handleEdit: (product: IProduct) => void;
+}
 
-  let filteredProducts: IProduct[] = products;
-  if (isLoading) return <Spinner />;
+function ProductsTable({ handleEdit }: IProductsTable) {
+  const [searchName, setSearchName] = useState<string>('');
+  const [selectedType, setSelectedType] = useState<number>(0);
+  const { products, isLoading, error } = useProducts();
+  const [filteredProducts, setFilteredProducts] =
+    useState<IProduct[]>(products);
 
-  console.log(products);
+  const fetchError = error ? error.toString() : '';
+
+  useEffect(() => {
+    if (products) {
+      const filtered = applyFilters(searchName, selectedType);
+      setFilteredProducts(filtered);
+    }
+  }, [searchName, selectedType, products]);
 
   const searchIngredients = (e: ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = e.target.value.toLowerCase();
+    const searchTerm: string = e.target.value.toLowerCase();
     setSearchName(searchTerm);
-
-    filteredProducts = applyFilters(searchTerm, selectedType);
-    // setFilteredIngredients(filtered);
   };
 
   const selectProduct = (e: ChangeEvent<HTMLSelectElement>) => {
-    const typeId = Number(e.target.value);
+    const typeId: number = Number(e.target.value);
     setSelectedType(typeId);
-
-    filteredProducts = applyFilters(searchName, typeId);
-    // setFilteredIngredients(filtered);
   };
 
-  const applyFilters = (searchTerm: string, typeId: number): IProduct[] => {
-    filteredProducts = products.filter((ingr) => {
-      const nameMatch = ingr.name.toLowerCase().includes(searchTerm);
-      const typeMatch = typeId === 0 || ingr.type.id === typeId;
+  function applyFilters(searchTerm: string, typeId: number): IProduct[] {
+    return products.filter((ingr) => {
+      const nameMatch: boolean = ingr.name.toLowerCase().includes(searchTerm);
+      const typeMatch: boolean = typeId === 0 || ingr.type.id === typeId;
       return nameMatch && typeMatch;
     });
+  }
 
-    return filteredProducts;
+  const handleEditClick = (product: IProduct) => {
+    handleEdit(product);
+    console.log('Edit clicked:', product);
   };
 
   return (
@@ -61,7 +68,9 @@ function ProductsTable() {
       <Table.Header>
         <HeaderSearch>
           <InputName
-            onChange={(e) => searchIngredients(e)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              searchIngredients(e)
+            }
             value={searchName}
             placeholder='Nazwa...'
           />
@@ -69,18 +78,27 @@ function ProductsTable() {
         <div>Kcal</div>
         <div>
           <Select
-            options={[{ id: 0, name: 'Typ produktu' }, ...IngredientTypes]}
-            onChange={(e) => selectProduct(e)}
+            options={[...IngredientTypes]}
+            onChange={(e: ChangeEvent<HTMLSelectElement>) => selectProduct(e)}
           />
         </div>
-        <div></div>
+        <div>
+          <span>Produkty: {filteredProducts && filteredProducts.length}</span>
+        </div>
       </Table.Header>
 
       {isLoading && <Spinner />}
 
       <Table.Body
         data={filteredProducts}
-        render={(ingr) => <ProductRow product={ingr} key={ingr.id} />}
+        error={fetchError}
+        render={(ingr: IProduct) => (
+          <ProductRow
+            product={ingr}
+            key={ingr.id}
+            onEditClick={handleEditClick}
+          />
+        )}
       />
     </Table>
   );

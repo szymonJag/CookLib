@@ -8,7 +8,9 @@ export function useDeleteProduct() {
 
   const { isLoading: isDeleting, mutate: deleteProduct } = useMutation({
     mutationFn: deleteProductById,
-    onSuccess: () => {
+    onSuccess: (context) => {
+      if (context.response && context.response.status === 400)
+        toast.error('Coś poszło nie tak');
       toast.success('Produkt został usunięty');
 
       queryClient.invalidateQueries({

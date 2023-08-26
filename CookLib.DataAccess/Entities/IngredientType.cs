@@ -11,5 +11,7 @@
         Owoce = 7,
         Słodycze = 8,
         Napoje = 9,
+        Inne = 10,
+        Bakalie = 11
     }
 }

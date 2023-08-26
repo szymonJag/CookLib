@@ -3,6 +3,7 @@ import { IProductType } from '../interfaces/IProduct';
 export const API_URL = `https://localhost:7059`;
 
 export const IngredientTypes: IProductType[] = [
+  { id: 0, name: 'Wybierz typ' },
   { id: 1, name: 'Zbożowe' },
   { id: 2, name: 'Mleczne' },
   { id: 3, name: 'Mięso' },
@@ -12,4 +13,6 @@ export const IngredientTypes: IProductType[] = [
   { id: 7, name: 'Owoce' },
   { id: 8, name: 'Słodycze' },
   { id: 9, name: 'Napoje' },
+  { id: 11, name: 'Bakalie' },
+  { id: 10, name: 'Inne' },
 ];

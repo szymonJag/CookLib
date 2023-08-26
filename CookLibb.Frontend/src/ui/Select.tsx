@@ -6,7 +6,7 @@ interface StyledSelectProps {
   type?: 'white';
 }
 
-const StyledSelect = styled.select<StyledSelectProps>`
+export const StyledSelect = styled.select<StyledSelectProps>`
   font-size: 1.4rem;
   padding: 0.8rem 1.2rem;
   border: 1px solid
