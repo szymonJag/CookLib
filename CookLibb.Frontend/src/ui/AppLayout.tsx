@@ -5,7 +5,7 @@ import UserInfo from './UserInfo';
 
 const Layout = styled.div`
   display: grid;
-  grid-template-columns: minmax(40rem, 1fr) 5fr;
+  grid-template-columns: minmax(30rem, 1fr) 5fr;
   height: 100vh;
 `;
 

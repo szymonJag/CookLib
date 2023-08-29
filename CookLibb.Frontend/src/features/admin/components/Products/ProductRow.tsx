@@ -11,7 +11,6 @@ interface ProductRowProps {
   onEditClick: (produict: IProduct) => void;
 }
 
-const Item = styled.div``;
 const Buttons = styled.div`
   display: flex;
   gap: 1rem;
@@ -23,10 +22,10 @@ function ProductRow({ product, onEditClick }: ProductRowProps) {
 
   return (
     <Table.Row>
-      <Item>{name}</Item>
-      <Item>{kcal}</Item>
-      <Item>{type.name}</Item>
-      <Item>
+      <span>{name}</span>
+      <span>{kcal}</span>
+      <span>{type.name}</span>
+      <div>
         <Buttons>
           <Button size='small' onClick={() => onEditClick(product)}>
             Edytuj
@@ -46,7 +45,7 @@ function ProductRow({ product, onEditClick }: ProductRowProps) {
             </Modal.Window>
           </Modal>
         </Buttons>
-      </Item>
+      </div>
     </Table.Row>
   );
 }

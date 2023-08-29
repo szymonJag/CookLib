@@ -15,14 +15,6 @@ const StyledFormRow = styled.div<StyledFormRowProps>`
 
   padding: 1.2rem 0;
 
-  &:first-child {
-    padding-top: 0;
-  }
-
-  &:last-child {
-    padding-bottom: 0;
-  }
-
   &:not(:last-child) {
     border-bottom: ${(props) =>
       props.orientation === 'vertical'

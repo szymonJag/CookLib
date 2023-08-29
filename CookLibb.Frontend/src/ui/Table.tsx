@@ -36,17 +36,16 @@ const StyledHeader = styled(CommonRow)`
   z-index: 1;
 `;
 
-const StyledBody = styled.section`
+const StyledBody = styled.section<{ maxHeight: string }>`
   margin: 0.4rem 0;
-  overflow-y: auto; /* Add scroll to the body content */
-  max-height: calc(36.5rem - 3.6rem);
+  overflow-y: auto;
+  max-height: ${(props) => props.maxHeight}; // Apply maxHeight
 `;
 
 const StyledRow = styled(CommonRow)`
   padding: 1rem;
   transition: all 0.2s;
   margin: 0.5rem;
-
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
   }
@@ -76,6 +75,7 @@ const Empty = styled.p`
 
 interface TableContextProps {
   columns: string;
+  height: string;
 }
 
 const TableContext = React.createContext<TableContextProps | undefined>(
@@ -84,6 +84,7 @@ const TableContext = React.createContext<TableContextProps | undefined>(
 
 interface TableProps {
   columns: string;
+  height: string;
   children: ReactNode;
 }
 
@@ -94,10 +95,16 @@ interface TableStaticProps {
   Footer: typeof Footer;
 }
 
-const Table: FC<TableProps> & TableStaticProps = ({ columns, children }) => {
+const Table: FC<TableProps> & TableStaticProps = ({
+  columns,
+  height,
+  children,
+}) => {
   return (
-    <TableContext.Provider value={{ columns }}>
-      <StyledTable role='table'>{children}</StyledTable>
+    <TableContext.Provider value={{ columns, height }}>
+      <StyledTable role='table' style={{ height }}>
+        {children}
+      </StyledTable>
     </TableContext.Provider>
   );
 };
@@ -135,6 +142,8 @@ interface BodyProps<T> {
 }
 
 function Body<T>({ data, render, error }: BodyProps<T>) {
+  const { height } = useContext(TableContext)!;
+
   if (error.length > 0) {
     return <Empty>{error}</Empty>;
   }
@@ -143,7 +152,7 @@ function Body<T>({ data, render, error }: BodyProps<T>) {
     // Check if data is not defined or empty
     return <Empty>Brak produktów spełniających kryteria</Empty>;
 
-  return <StyledBody>{data.map(render)}</StyledBody>;
+  return <StyledBody maxHeight={height}>{data.map(render)}</StyledBody>;
 }
 Table.Header = Header;
 Table.Body = Body;

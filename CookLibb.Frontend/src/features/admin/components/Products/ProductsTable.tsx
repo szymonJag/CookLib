@@ -64,7 +64,7 @@ function ProductsTable({ handleEdit }: IProductsTable) {
   };
 
   return (
-    <Table columns='1fr .5fr 1fr .7fr'>
+    <Table columns='1fr .5fr 1fr .7fr' height='40rem'>
       <Table.Header>
         <HeaderSearch>
           <InputName
@@ -92,10 +92,10 @@ function ProductsTable({ handleEdit }: IProductsTable) {
       <Table.Body
         data={filteredProducts}
         error={fetchError}
-        render={(ingr: IProduct) => (
+        render={(product: IProduct) => (
           <ProductRow
-            product={ingr}
-            key={ingr.id}
+            product={product}
+            key={product.id}
             onEditClick={handleEditClick}
           />
         )}
