@@ -11,14 +11,15 @@ interface ProductsCartProps {
   products: IProductMeasuremenet[];
   onDeleteButton: (productId: number) => void;
   onSelectButton: (measurementId: number, productId: number) => void;
+  onValueChange: (value: number, productId: number) => void;
 }
 
 function ProductsCart({
   products,
   onDeleteButton,
   onSelectButton,
+  onValueChange,
 }: ProductsCartProps) {
-  console.log(`chujek`, products);
   return (
     <ProductsCartLayout>
       <Table columns='.2fr 1fr 1fr .7fr' height='50rem'>
@@ -31,9 +32,12 @@ function ProductsCart({
 
         <Table.Body
           data={products}
-          error={''}
+          error={'Dodaj produkty z listy obok'}
           render={(product: IProductMeasuremenet) => (
             <ProductCartRow
+              onValueChange={(value: number) =>
+                onValueChange(value, product.product.id)
+              }
               productMeasurement={product}
               key={product.product.id}
               onDeleteButton={() => {

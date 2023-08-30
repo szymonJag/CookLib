@@ -137,20 +137,20 @@ const Row: FC<RowProps> = ({ children }) => {
 
 interface BodyProps<T> {
   data: T[];
-  error: string;
+  error?: string;
   render: (item: T) => ReactNode;
 }
 
-function Body<T>({ data, render, error }: BodyProps<T>) {
+function Body<T>({
+  data,
+  render,
+  error = 'Brak produktów spełniających kryteria',
+}: BodyProps<T>) {
   const { height } = useContext(TableContext)!;
-
-  if (error.length > 0) {
-    return <Empty>{error}</Empty>;
-  }
 
   if (!data || data.length === 0)
     // Check if data is not defined or empty
-    return <Empty>Brak produktów spełniających kryteria</Empty>;
+    return <Empty>{error}</Empty>;
 
   return <StyledBody maxHeight={height}>{data.map(render)}</StyledBody>;
 }

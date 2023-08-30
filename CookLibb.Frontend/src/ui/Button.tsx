@@ -63,6 +63,10 @@ const Button = styled.button<ButtonProps>`
   &:focus {
     outline: none;
   }
+
+  &:disabled {
+    background-color: var(--color-grey-300);
+  }
 `;
 
 export const AnimatedButton = styled(Button)`

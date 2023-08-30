@@ -5,20 +5,31 @@ import Input from '../../../ui/Input';
 import Heading from '../../../ui/Heading';
 import AddProductTable from './AddProductTable';
 import ProductsCart from './ProductsCart';
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import { IProduct } from '../../../interfaces/IProduct';
 import { IProductMeasuremenet } from '../../../interfaces/IProductMeasurement';
+import Button from '../../../ui/Button';
+import TextArea from '../../../ui/TextArea';
 
-const FormSection = styled.div`
+interface SectionProps {
+  orientation?: 'column' | 'row';
+}
+
+const FormSection = styled.div<SectionProps>`
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  flex-direction: ${(props) =>
+    props.orientation === 'column' ? 'column' : 'row'};
+  align-items: center;
   justify-content: space-around;
   background-color: var(--color-grey-200);
   border-radius: var(--border-radius-md);
   padding: 1rem 2rem;
   gap: 4rem;
 `;
+
+FormSection.defaultProps = {
+  orientation: 'row',
+};
 
 const RecipeForm = styled(Form)`
   background-color: transparent;
@@ -37,10 +48,33 @@ const RecipeStep = styled.div`
   gap: 1rem;
 `;
 
+const Buttons = styled.div`
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+`;
+
 function AddRecipeForm() {
   const [products, setProducts] = useState<IProductMeasuremenet[]>([]);
+  const [textAreas, setTextAreas] = useState<string[]>(['', '', '']);
 
-  function handleAddProduct(product: IProduct) {
+  const handleAddTextArea = (e: MouseEvent) => {
+    e.preventDefault();
+    setTextAreas((prevTextAreas) => [...prevTextAreas, '']); // Add an empty text area
+  };
+  const handleRemoveTextArea = (index: number) => {
+    if (textAreas.length > 1)
+      setTextAreas(
+        (prevTextAreas) => prevTextAreas.filter((_, i) => i !== index) // Remove the text area at the specified index
+      );
+  };
+
+  const handleClearTextAreas = (e: MouseEvent) => {
+    e.preventDefault();
+    setTextAreas(['']);
+  };
+
+  const handleAddProduct = (product: IProduct) => {
     const newProduct: IProductMeasuremenet = {
       product: product,
       amount: 0,
@@ -52,10 +86,12 @@ function AddRecipeForm() {
         ? [...prev]
         : [...prev, newProduct]
     );
-  }
+    console.log(products);
+  };
 
   function handleDeleteProduct(id: number) {
     setProducts((prev) => prev.filter((x) => x.product.id !== id));
+    console.log(products);
   }
 
   function handleSelectMeasurement(measurementId: number, productId: number) {
@@ -66,10 +102,19 @@ function AddRecipeForm() {
           : { ...x }
       )
     );
-    console.log(`measurementId`, measurementId);
-    console.log(`productId`, productId);
-    console.log(`products`, products);
+    console.log(products);
   }
+
+  const handleValueChange = (value: number, productId: number) => {
+    setProducts((prev) =>
+      prev.map((x) => {
+        console.log(x);
+        return x.product.id === productId ? { ...x, amount: value } : { ...x };
+      })
+    );
+
+    console.log(products);
+  };
 
   return (
     <RecipeForm>
@@ -97,6 +142,9 @@ function AddRecipeForm() {
           <AddProductTable onAddProduct={handleAddProduct} />
           <ProductsCart
             products={products}
+            onValueChange={(value: number, productId: number) =>
+              handleValueChange(value, productId)
+            }
             onDeleteButton={handleDeleteProduct}
             onSelectButton={handleSelectMeasurement}
           />
@@ -106,7 +154,33 @@ function AddRecipeForm() {
         <Heading as='h3'>
           <StepText>Krok trzeci </StepText> - dodaj kroki przygotowania
         </Heading>
-        <FormSection>chuj</FormSection>
+        <Buttons>
+          <Button onClick={(e: MouseEvent) => handleAddTextArea(e)}>
+            Dodaj krok
+          </Button>
+          <Button
+            variation={'danger'}
+            onClick={(e: MouseEvent) => handleClearTextAreas(e)}
+          >
+            Wyczyść
+          </Button>
+        </Buttons>
+        <FormSection orientation='column'>
+          {textAreas.map((text, index) => (
+            <TextArea
+              key={index}
+              value={text}
+              onChange={(newValue) => {
+                const newTextAreas = [...textAreas];
+                newTextAreas[index] = newValue;
+                setTextAreas(newTextAreas);
+              }}
+              index={index}
+              handleRemove={handleRemoveTextArea}
+            />
+          ))}
+          {/* Button to add a new text area */}
+        </FormSection>
       </RecipeStep>
       <RecipeStep>
         <Heading as='h3'>
