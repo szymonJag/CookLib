@@ -1,4 +1,4 @@
-import AddRecipeLayout from '../features/addRecipe/AddRecipeLayout';
+import AddRecipeLayout from '../features/addRecipe/components/AddRecipeLayout';
 import RouteHeading from '../ui/RouteHeading';
 
 function AddRecipe() {

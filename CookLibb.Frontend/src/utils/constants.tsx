@@ -1,5 +1,5 @@
 import { IMeasurementType } from '../interfaces/IMeasurementType';
-import { IProductType } from '../interfaces/IProduct';
+import { IProductType } from '../interfaces/IIngredient';
 
 export const API_URL = `https://localhost:7059`;
 

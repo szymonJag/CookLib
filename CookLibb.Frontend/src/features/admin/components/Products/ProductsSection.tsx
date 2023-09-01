@@ -5,7 +5,7 @@ import ProductsTable from './ProductsTable';
 import {
   IProduct,
   IUpdateProductRequest,
-} from '../../../../interfaces/IProduct';
+} from '../../../../interfaces/IIngredient';
 
 function ProductsSection() {
   const [productToEdit, setProductToEdit] = useState<

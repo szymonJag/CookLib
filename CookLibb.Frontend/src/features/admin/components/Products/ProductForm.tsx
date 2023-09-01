@@ -6,12 +6,11 @@ import { IngredientTypes } from '../../../../utils/constants';
 import { ButtonForm } from '../../../../ui/Button';
 import { useForm, FieldErrors, SubmitHandler } from 'react-hook-form';
 import {
-  IAddProductRequest,
-  // IProduct,
-  IUpdateProductRequest,
-} from '../../../../interfaces/IProduct';
-import { useCreateProduct } from '../../hooks/Products/useCreateProduct';
-import { useUpdateProduct } from '../../hooks/Products/useUpdateProduct';
+  IAddIngredientRequest,
+  IUpdateIngredientRequest,
+} from '../../../../interfaces/IIngredient';
+import { useCreateProduct } from '../../hooks/Products/useCreateIngredient';
+import { useUpdateProduct } from '../../hooks/Products/useUpdateIngredient';
 import Select, { StyledSelect } from '../../../../ui/Select';
 import { useEffect } from 'react';
 
@@ -33,10 +32,10 @@ const AddButton = styled(ButtonForm)`
   margin-left: auto;
 `;
 
-type FormValues = IAddProductRequest;
+type FormValues = IAddIngredientRequest;
 
 interface IProductFormProps {
-  product: IUpdateProductRequest | undefined;
+  product: IUpdateIngredientRequest | undefined;
   handleBackClick: () => void;
   isEditable: boolean;
 }
@@ -72,7 +71,7 @@ function ProductForm({
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data);
-    const productData: IAddProductRequest = {
+    const productData: IAddIngredientRequest = {
       name: data.name,
       kcal: data.kcal,
       type: Number(data.type),
@@ -86,7 +85,7 @@ function ProductForm({
     }
 
     if (isEditable) {
-      const editProduct: IUpdateProductRequest = {
+      const editProduct: IUpdateIngredientRequest = {
         id: product!.id, // Assuming product is defined when editing
         ...productData,
       };

@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import Button from '../../../ui/Button';
 import Table from '../../../ui/Table';
 import { MouseEvent } from 'react';
-import { IProduct } from '../../../interfaces/IProduct';
+import { IProduct } from '../../../interfaces/IIngredient';
 
 const Btn = styled(Button)`
   width: max-content;

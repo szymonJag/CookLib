@@ -6,10 +6,15 @@ import Heading from '../../../ui/Heading';
 import AddProductTable from './AddProductTable';
 import ProductsCart from './ProductsCart';
 import { useState, MouseEvent } from 'react';
-import { IProduct } from '../../../interfaces/IProduct';
-import { IProductMeasuremenet } from '../../../interfaces/IProductMeasurement';
+import { IIngredient } from '../../../interfaces/IIngredient';
+import { IIngredientMeasuremenet } from '../../../interfaces/IIngredientMeasurement';
 import Button from '../../../ui/Button';
 import TextArea from '../../../ui/TextArea';
+// import { IRecipeTag } from '../../../interfaces/IRecipe';
+import Checkboxes from './Checkboxes';
+import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
+import { IAddRecipeRequest, IRecipeRequest } from '../../../interfaces/IRecipe';
+import { useCreateRecipe } from '../hooks/useCreateRecipe';
 
 interface SectionProps {
   orientation?: 'column' | 'row';
@@ -23,7 +28,7 @@ const FormSection = styled.div<SectionProps>`
   justify-content: space-around;
   background-color: var(--color-grey-200);
   border-radius: var(--border-radius-md);
-  padding: 1rem 2rem;
+  padding: 2rem;
   gap: 4rem;
 `;
 
@@ -51,12 +56,56 @@ const RecipeStep = styled.div`
 const Buttons = styled.div`
   display: flex;
   gap: 1rem;
+  width: 100%;
   justify-content: space-between;
 `;
 
+type FormValues = IRecipeRequest;
+
 function AddRecipeForm() {
-  const [products, setProducts] = useState<IProductMeasuremenet[]>([]);
+  const [ingredients, setIngredients] = useState<IIngredientMeasuremenet[]>([]);
   const [textAreas, setTextAreas] = useState<string[]>(['', '', '']);
+  const [selectedTags, setSelectedTags] = useState<number[]>([]);
+  const { isCreating, createRecipeMt } = useCreateRecipe();
+
+  const { register, handleSubmit } = useForm<FormValues>();
+
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const recipe: IAddRecipeRequest = {
+      authorId: 1,
+      name: data.name,
+      preparationTime: data.preparationTime,
+      servingSize: Number(data.servingSize),
+      ingredients: ingredients.map((ingredient) => {
+        return {
+          ingredientId: ingredient.product.id,
+          amount: ingredient.amount,
+          measurementTypeId: ingredient.measurementId,
+        };
+      }),
+      preparationSteps: textAreas.map((step, index) => {
+        return { step: index + 1, description: step };
+      }),
+      recipeTags: selectedTags,
+    };
+
+    console.log(`stworzony przepis`, JSON.stringify(recipe));
+    createRecipeMt(recipe);
+  };
+
+  function onError(errors: FieldErrors) {
+    console.log('Error:', errors);
+  }
+
+  const handleTagCheckboxChange = (tagId: number) => {
+    setSelectedTags((prevSelectedTags) => {
+      if (prevSelectedTags.includes(tagId)) {
+        return prevSelectedTags.filter((id) => id !== tagId);
+      } else {
+        return [...prevSelectedTags, tagId];
+      }
+    });
+  };
 
   const handleAddTextArea = (e: MouseEvent) => {
     e.preventDefault();
@@ -74,63 +123,77 @@ function AddRecipeForm() {
     setTextAreas(['']);
   };
 
-  const handleAddProduct = (product: IProduct) => {
-    const newProduct: IProductMeasuremenet = {
-      product: product,
+  const handleAddProduct = (ingredient: IIngredient) => {
+    const newProduct: IIngredientMeasuremenet = {
+      product: ingredient,
       amount: 0,
       measurementId: 0,
     };
 
-    setProducts((prev) =>
-      products.find((x) => x.product.id === product.id)
+    setIngredients((prev) =>
+      ingredients.find((x) => x.product.id === ingredient.id)
         ? [...prev]
         : [...prev, newProduct]
     );
-    console.log(products);
+    console.log(ingredient);
   };
 
   function handleDeleteProduct(id: number) {
-    setProducts((prev) => prev.filter((x) => x.product.id !== id));
-    console.log(products);
+    setIngredients((prev) => prev.filter((x) => x.product.id !== id));
   }
 
   function handleSelectMeasurement(measurementId: number, productId: number) {
-    setProducts((prev) =>
+    setIngredients((prev) =>
       prev.map((x) =>
         x.product.id === productId
           ? { ...x, measurementId: measurementId }
           : { ...x }
       )
     );
-    console.log(products);
   }
 
   const handleValueChange = (value: number, productId: number) => {
-    setProducts((prev) =>
+    setIngredients((prev) =>
       prev.map((x) => {
         console.log(x);
         return x.product.id === productId ? { ...x, amount: value } : { ...x };
       })
     );
-
-    console.log(products);
   };
 
   return (
-    <RecipeForm>
+    <RecipeForm onSubmit={handleSubmit(onSubmit, onError)}>
       <RecipeStep>
         <Heading as='h3'>
           <StepText>Krok pierwszy </StepText>- podstawowe informacje
         </Heading>
         <FormSection>
           <FormRow label='Nazwa przepisu' orientation='vertical'>
-            <Input type='text' id='name' />
+            <Input
+              type='text'
+              id='name'
+              {...register('name', { required: 'To pole jest wymagane' })}
+            />
           </FormRow>
           <FormRow label='Czas przygotowania (min)' orientation='vertical'>
-            <Input type='number' id='name' min='1' />
+            <Input
+              type='number'
+              id='preparationTime'
+              min='1'
+              {...register('preparationTime', {
+                required: 'To pole jest wymagane',
+              })}
+            />
           </FormRow>
           <FormRow label='Ilość porcji' orientation='vertical'>
-            <Input type='number' id='name' min='1' />
+            <Input
+              type='number'
+              id='servingSize'
+              min='1'
+              {...register('servingSize', {
+                required: 'To pole jest wymagane',
+              })}
+            />
           </FormRow>
         </FormSection>
       </RecipeStep>
@@ -139,9 +202,9 @@ function AddRecipeForm() {
           <StepText>Krok drugi </StepText> - dodaj składniki
         </Heading>
         <FormSection>
-          <AddProductTable onAddProduct={handleAddProduct} />
+          <AddProductTable onAddIngredient={handleAddProduct} />
           <ProductsCart
-            products={products}
+            products={ingredients}
             onValueChange={(value: number, productId: number) =>
               handleValueChange(value, productId)
             }
@@ -154,18 +217,20 @@ function AddRecipeForm() {
         <Heading as='h3'>
           <StepText>Krok trzeci </StepText> - dodaj kroki przygotowania
         </Heading>
-        <Buttons>
-          <Button onClick={(e: MouseEvent) => handleAddTextArea(e)}>
-            Dodaj krok
-          </Button>
-          <Button
-            variation={'danger'}
-            onClick={(e: MouseEvent) => handleClearTextAreas(e)}
-          >
-            Wyczyść
-          </Button>
-        </Buttons>
+
         <FormSection orientation='column'>
+          <Buttons>
+            <Button
+              variation={'danger'}
+              disabled={textAreas.length === 1}
+              onClick={(e: MouseEvent) => handleClearTextAreas(e)}
+            >
+              Wyczyść
+            </Button>
+            <Button onClick={(e: MouseEvent) => handleAddTextArea(e)}>
+              Dodaj krok
+            </Button>
+          </Buttons>
           {textAreas.map((text, index) => (
             <TextArea
               key={index}
@@ -179,15 +244,22 @@ function AddRecipeForm() {
               handleRemove={handleRemoveTextArea}
             />
           ))}
-          {/* Button to add a new text area */}
         </FormSection>
       </RecipeStep>
       <RecipeStep>
         <Heading as='h3'>
           <StepText>Krok czwarty </StepText> - dodaj tagi
         </Heading>
-        <FormSection>chuj</FormSection>
+        <FormSection>
+          <Checkboxes
+            selectedTags={selectedTags}
+            onTagCheckboxChange={handleTagCheckboxChange}
+          />
+        </FormSection>
       </RecipeStep>
+      <Button type='submit' disabled={isCreating}>
+        Dodaj kurwa przepisisko
+      </Button>
     </RecipeForm>
   );
 }

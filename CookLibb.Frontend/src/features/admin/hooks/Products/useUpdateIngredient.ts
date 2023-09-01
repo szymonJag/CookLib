@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateProduct } from '../../../../services/apiProducts';
+import { updateIngredient } from '../../../../services/apiIngredients';
 import { toast } from 'react-hot-toast';
-import { IUpdateProductRequest } from '../../../../interfaces/IProduct';
+import { IUpdateIngredientRequest } from '../../../../interfaces/IIngredient';
 // import { IProduct } from '../../../../interfaces/IProduct';
 
 interface IUpdateProps {
-  product: IUpdateProductRequest;
+  product: IUpdateIngredientRequest;
   id: number;
 }
 
@@ -13,7 +13,8 @@ export function useUpdateProduct() {
   const queryClient = useQueryClient();
 
   const { isLoading: isUpdating, mutate: updateProductMt } = useMutation({
-    mutationFn: ({ product, id }: IUpdateProps) => updateProduct(product, id),
+    mutationFn: ({ product, id }: IUpdateProps) =>
+      updateIngredient(product, id),
     onSuccess: () => {
       toast.success('Produkt został dodany');
 

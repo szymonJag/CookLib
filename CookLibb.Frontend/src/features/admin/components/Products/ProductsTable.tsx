@@ -5,8 +5,8 @@ import ProductRow from './ProductRow';
 import { styled } from 'styled-components';
 import Select from '../../../../ui/Select';
 import { IngredientTypes } from '../../../../utils/constants';
-import { IProduct } from '../../../../interfaces/IProduct';
-import { useProducts } from '../../hooks/Products/useGetProducts';
+import { IIngredient } from '../../../../interfaces/IIngredient';
+import { useIngredients } from '../../hooks/Products/useGetIngredients';
 import Spinner from '../../../../ui/Spinner';
 
 const InputName = styled(Input)`
@@ -21,22 +21,22 @@ const HeaderSearch = styled.div`
 `;
 
 interface IProductsTable {
-  handleEdit: (product: IProduct) => void;
+  handleEdit: (product: IIngredient) => void;
 }
 
 function ProductsTable({ handleEdit }: IProductsTable) {
   const [searchName, setSearchName] = useState<string>('');
   const [selectedType, setSelectedType] = useState<number>(0);
-  const { products, isLoading, error } = useProducts();
-  const [filteredProducts, setFilteredProducts] =
-    useState<IProduct[]>(products);
+  const { products, isLoading, error } = useIngredients();
+  const [filteredIngredients, setFilteredIngredients] =
+    useState<IIngredient[]>(products);
 
   const fetchError = error ? error.toString() : '';
 
   useEffect(() => {
     if (products) {
       const filtered = applyFilters(searchName, selectedType);
-      setFilteredProducts(filtered);
+      setFilteredIngredients(filtered);
     }
   }, [searchName, selectedType, products]);
 
@@ -50,7 +50,7 @@ function ProductsTable({ handleEdit }: IProductsTable) {
     setSelectedType(typeId);
   };
 
-  function applyFilters(searchTerm: string, typeId: number): IProduct[] {
+  function applyFilters(searchTerm: string, typeId: number): IIngredient[] {
     return products.filter((ingr) => {
       const nameMatch: boolean = ingr.name.toLowerCase().includes(searchTerm);
       const typeMatch: boolean = typeId === 0 || ingr.type.id === typeId;
@@ -58,7 +58,7 @@ function ProductsTable({ handleEdit }: IProductsTable) {
     });
   }
 
-  const handleEditClick = (product: IProduct) => {
+  const handleEditClick = (product: IIngredient) => {
     handleEdit(product);
     console.log('Edit clicked:', product);
   };
@@ -83,16 +83,18 @@ function ProductsTable({ handleEdit }: IProductsTable) {
           />
         </div>
         <div>
-          <span>Produkty: {filteredProducts && filteredProducts.length}</span>
+          <span>
+            Produkty: {filteredIngredients && filteredIngredients.length}
+          </span>
         </div>
       </Table.Header>
 
       {isLoading && <Spinner />}
 
       <Table.Body
-        data={filteredProducts}
+        data={filteredIngredients}
         error={fetchError}
-        render={(product: IProduct) => (
+        render={(product: IIngredient) => (
           <ProductRow
             product={product}
             key={product.id}

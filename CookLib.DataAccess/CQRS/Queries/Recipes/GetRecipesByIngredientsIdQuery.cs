@@ -1,4 +1,5 @@
-﻿using CookLib.DataAccess.Entities;
+﻿
+using CookLib.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CookLib.DataAccess.CQRS.Queries.Recipes

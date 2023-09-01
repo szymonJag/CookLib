@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getProductById } from '../../../../services/apiProducts';
-import { IProduct } from '../../../../interfaces/IProduct';
+import { getIngredientById } from '../../../../services/apiIngredients';
+import { IIngredient } from '../../../../interfaces/IIngredient';
 import { useParams } from 'react-router-dom';
 
 export function useGetProduct() {
@@ -11,12 +11,12 @@ export function useGetProduct() {
 
   const { isLoading, data, error } = useQuery({
     queryKey: ['product', productId],
-    queryFn: () => getProductById(Number(productId)),
+    queryFn: () => getIngredientById(Number(productId)),
     enabled: productId !== typeof undefined,
     // onError: navigate('/error'),
   });
 
-  const product: IProduct = data;
+  const product: IIngredient = data;
 
   return { isLoading, product, error };
 }

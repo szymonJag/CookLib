@@ -1,8 +1,8 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import Input from '../../../ui/Input';
 import { styled } from 'styled-components';
-import { IProduct } from '../../../interfaces/IProduct';
-import { useProducts } from '../../admin/hooks/Products/useGetProducts';
+import { IIngredient } from '../../../interfaces/IIngredient';
+import { useIngredients } from '../../admin/hooks/Products/useGetIngredients';
 import Table from '../../../ui/Table';
 import Select from '../../../ui/Select';
 import { IngredientTypes } from '../../../utils/constants';
@@ -25,16 +25,16 @@ const TableContainer = styled.div`
   flex: 1;
 `;
 
-interface ProductsTableProps {
-  onAddProduct: (product: IProduct) => void;
+interface IngredientsTableProps {
+  onAddIngredient: (product: IIngredient) => void;
 }
 
-function ProductsTable({ onAddProduct }: ProductsTableProps) {
+function IngredientsTable({ onAddIngredient }: IngredientsTableProps) {
   const [searchName, setSearchName] = useState<string>('');
   const [selectedType, setSelectedType] = useState<number>(0);
-  const { products, isLoading, error } = useProducts();
+  const { products, isLoading, error } = useIngredients();
   const [filteredProducts, setFilteredProducts] =
-    useState<IProduct[]>(products);
+    useState<IIngredient[]>(products);
 
   const fetchError = error ? error.toString() : '';
 
@@ -50,12 +50,12 @@ function ProductsTable({ onAddProduct }: ProductsTableProps) {
     setSearchName(searchTerm);
   };
 
-  const selectProduct = (e: ChangeEvent<HTMLSelectElement>) => {
+  const selectIIngredient = (e: ChangeEvent<HTMLSelectElement>) => {
     const typeId: number = Number(e.target.value);
     setSelectedType(typeId);
   };
 
-  function applyFilters(searchTerm: string, typeId: number): IProduct[] {
+  function applyFilters(searchTerm: string, typeId: number): IIngredient[] {
     return products.filter((ingr) => {
       const nameMatch: boolean = ingr.name.toLowerCase().includes(searchTerm);
       const typeMatch: boolean = typeId === 0 || ingr.type.id === typeId;
@@ -79,7 +79,9 @@ function ProductsTable({ onAddProduct }: ProductsTableProps) {
           <div>
             <Select
               options={[...IngredientTypes]}
-              onChange={(e: ChangeEvent<HTMLSelectElement>) => selectProduct(e)}
+              onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                selectIIngredient(e)
+              }
             />
           </div>
           <div>
@@ -92,12 +94,12 @@ function ProductsTable({ onAddProduct }: ProductsTableProps) {
         <Table.Body
           data={filteredProducts}
           error={fetchError}
-          render={(product: IProduct) => (
+          render={(ingredient: IIngredient) => (
             <AddProductRow
-              product={product}
-              key={product.id}
+              product={ingredient}
+              key={ingredient.id}
               onAddProduct={() => {
-                onAddProduct(product);
+                onAddIngredient(ingredient);
               }}
             />
           )}
@@ -107,4 +109,4 @@ function ProductsTable({ onAddProduct }: ProductsTableProps) {
   );
 }
 
-export default ProductsTable;
+export default IngredientsTable;

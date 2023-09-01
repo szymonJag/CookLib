@@ -19,6 +19,10 @@ namespace CookLib.ApplicationServices.API.Domain.Mappings
                 .ForMember(x => x.Step, y => y.MapFrom(z => z.Step))
                 .ForMember(x => x.Description, y => y.MapFrom(z => z.Description));
 
+            CreateMap<PreparationStepRequestDTO, PreparationStep>()
+               .ForMember(x => x.Step, y => y.MapFrom(z => z.Step))
+               .ForMember(x => x.Description, y => y.MapFrom(z => z.Description));
+
             CreateMap<UpdatePreparationStepByIdRequest, PreparationStep>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.RecipeId, y => y.MapFrom(z => z.RecipeId))

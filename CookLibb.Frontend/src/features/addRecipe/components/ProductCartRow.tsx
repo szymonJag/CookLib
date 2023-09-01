@@ -5,7 +5,7 @@ import { ChangeEvent, MouseEvent } from 'react';
 import AmountInput from './AmountInput';
 // import Button from '../../../ui/Button';
 import { styled } from 'styled-components';
-import { IProductMeasuremenet } from '../../../interfaces/IProductMeasurement';
+import { IProductMeasuremenet } from '../../../interfaces/IIngredientMeasurement';
 import { MdDeleteForever } from 'react-icons/md';
 
 // const DeleteButton = styled(Button)`

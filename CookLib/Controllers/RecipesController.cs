@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CookLib.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class RecipesController : ApiControllerBase
@@ -45,7 +44,7 @@ namespace CookLib.Controllers
         //{
         //    return await this.HandleRequest<GetRecipesByTagsIdRequest, GetRecipesByTagsIdResponse>(request);
         //}
-
+        [AllowAnonymous]
         [HttpPost]
         [Route("addRecipe/")]
         public async Task<IActionResult> AddRecipe([FromBody] AddRecipeRequest request)
@@ -53,6 +52,7 @@ namespace CookLib.Controllers
             return await this.HandleRequest<AddRecipeRequest, AddRecipeResponse>(request);
         }
 
+        [AllowAnonymous]
         [HttpDelete]
         [Route("deleteRecipeById/{id}")]
         public async Task<IActionResult> DeleteRecipeById([FromRoute] int id)

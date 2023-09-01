@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { IProduct } from '../interfaces/IProduct';
+import { IProduct } from '../interfaces/IIngredient';
 import Heading from './Heading';
 import Button from './Button';
 

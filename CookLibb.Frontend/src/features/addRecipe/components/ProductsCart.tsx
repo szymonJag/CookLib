@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import Table from '../../../ui/Table';
-import { IProductMeasuremenet } from '../../../interfaces/IProductMeasurement';
+import { IProductMeasuremenet } from '../../../interfaces/IIngredientMeasurement';
 import ProductCartRow from './ProductCartRow';
 
 const ProductsCartLayout = styled.div`

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, ReactNode } from 'react';
 import styled from 'styled-components';
-import { IProductType } from '../interfaces/IProduct';
+import { IProductType } from '../interfaces/IIngredient';
 
 interface StyledSelectProps {
   type?: 'white';

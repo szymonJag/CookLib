@@ -1,10 +1,10 @@
 import { styled } from 'styled-components';
-import { IProduct } from '../../../../interfaces/IProduct';
+import { IProduct } from '../../../../interfaces/IIngredient';
 import Table from '../../../../ui/Table';
 import Button from '../../../../ui/Button';
 import Modal from '../../../../ui/Modal';
 import ConfirmDelete from '../../../../ui/ConfirmDelete';
-import { useDeleteProduct } from '../../hooks/Products/useDeleteProduct';
+import { useDeleteProduct } from '../../hooks/Products/useDeleteIngredient';
 
 interface ProductRowProps {
   product: IProduct;

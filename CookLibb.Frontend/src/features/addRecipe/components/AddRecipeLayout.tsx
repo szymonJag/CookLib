@@ -1,5 +1,5 @@
-import { Layout } from '../../ui/SiteSections';
-import AddRecipeForm from './components/AddRecipeForm';
+import { Layout } from '../../../ui/SiteSections';
+import AddRecipeForm from './AddRecipeForm';
 
 function AddRecipeLayout() {
   return (

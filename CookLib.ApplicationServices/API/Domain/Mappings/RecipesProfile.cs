@@ -22,7 +22,14 @@ namespace CookLib.ApplicationServices.API.Domain.Mappings
                 .ForMember(x => x.Author, y => y.MapFrom(y => y.Author))
                 .ReverseMap();
 
-            CreateMap<Recipe, AddRecipeRequest>()
+            CreateMap<RecipeRequestDTO, AddRecipeRequest>()
+                .ForMember(x => x.AuthorId, y => y.MapFrom(z => z.AuthorId))
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
+                .ForMember(x => x.PreparationTime, y => y.MapFrom(z => z.PreparationTime))
+                .ForMember(x => x.ServingSize, y => y.MapFrom(z => z.ServingSize))
+                .ReverseMap();
+
+            CreateMap<Recipe, RecipeRequestDTO>()
                 .ForMember(x => x.AuthorId, y => y.MapFrom(z => z.AuthorId))
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
                 .ForMember(x => x.PreparationTime, y => y.MapFrom(z => z.PreparationTime))

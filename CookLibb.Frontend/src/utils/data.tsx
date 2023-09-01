@@ -1,4 +1,4 @@
-import { IProduct } from '../interfaces/IProduct';
+import { IProduct } from '../interfaces/IIngredient';
 import { IngredientTypes } from './constants';
 
 export const IngredientsData: IProduct[] = [
