@@ -19,6 +19,7 @@ namespace CookLib.DataAccess
         public DbSet<FavoriteRecipe> FavouriteRecipes { get; set; }
         public DbSet<PreparationStep> PreparationSteps { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Image> Images { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Comment>()

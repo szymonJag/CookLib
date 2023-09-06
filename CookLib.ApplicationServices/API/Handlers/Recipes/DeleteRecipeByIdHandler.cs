@@ -39,15 +39,15 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
                 };
             }
 
-            //var isAbleToDelete = this.helper.IsAuthorOrAdmin(request.AuthenticatedUserId, recipeToDelete.AuthorId, request.AuthenticatedRole);
+            var isAbleToDelete = this.helper.IsAuthorOrAdmin(request.AuthenticatedUserId, recipeToDelete.AuthorId, request.AuthenticatedRole);
 
-            //if (!isAbleToDelete)
-            //{
-            //    return new DeleteRecipeByIdResponse()
-            //    {
-            //        Error = new ErrorModel(ErrorType.Unauthorized)
-            //    };
-            //}
+            if (!isAbleToDelete)
+            {
+                return new DeleteRecipeByIdResponse()
+                {
+                    Error = new ErrorModel(ErrorType.Unauthorized)
+                };
+            }
 
             var command = new DeleteRecipeByIdCommand() { Parameter = recipeToDelete };
             var deleted = await this.commandExecutor.Execute(command);

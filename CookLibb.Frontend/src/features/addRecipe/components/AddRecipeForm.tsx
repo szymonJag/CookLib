@@ -5,16 +5,17 @@ import Input from '../../../ui/Input';
 import Heading from '../../../ui/Heading';
 import AddProductTable from './AddProductTable';
 import ProductsCart from './ProductsCart';
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useRef } from 'react';
 import { IIngredient } from '../../../interfaces/IIngredient';
 import { IIngredientMeasuremenet } from '../../../interfaces/IIngredientMeasurement';
-import Button from '../../../ui/Button';
+import Button, { InputFile } from '../../../ui/Button';
 import TextArea from '../../../ui/TextArea';
 // import { IRecipeTag } from '../../../interfaces/IRecipe';
 import Checkboxes from './Checkboxes';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 import { IAddRecipeRequest, IRecipeRequest } from '../../../interfaces/IRecipe';
 import { useCreateRecipe } from '../hooks/useCreateRecipe';
+import { useUploadImage } from '../hooks/useUploadImage';
 
 interface SectionProps {
   orientation?: 'column' | 'row';
@@ -35,6 +36,13 @@ const FormSection = styled.div<SectionProps>`
 FormSection.defaultProps = {
   orientation: 'row',
 };
+
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+`;
 
 const RecipeForm = styled(Form)`
   background-color: transparent;
@@ -61,14 +69,18 @@ const Buttons = styled.div`
 `;
 
 type FormValues = IRecipeRequest;
+// export type FileList = File[];
 
 function AddRecipeForm() {
   const [ingredients, setIngredients] = useState<IIngredientMeasuremenet[]>([]);
-  const [textAreas, setTextAreas] = useState<string[]>(['', '', '']);
+  const [textAreas, setTextAreas] = useState<string[]>(['']);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
-  const { isCreating, createRecipeMt } = useCreateRecipe();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { isCreating, createRecipeMt, recipeId } = useCreateRecipe();
 
   const { register, handleSubmit } = useForm<FormValues>();
+  const [selectedImages, setSelectedImage] = useState<FileList | null>(null);
+  const { uploadImageMt } = useUploadImage();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const recipe: IAddRecipeRequest = {
@@ -89,13 +101,28 @@ function AddRecipeForm() {
       recipeTags: selectedTags,
     };
 
-    console.log(`stworzony przepis`, JSON.stringify(recipe));
     createRecipeMt(recipe);
+    if (selectedImages && recipeId)
+      uploadImageMt({ images: selectedImages, recipeId: recipeId });
   };
 
   function onError(errors: FieldErrors) {
     console.log('Error:', errors);
   }
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    console.log(`selected files`, selectedImages);
+    console.log(`fjiles`, files);
+    if (files) {
+      setSelectedImage(files);
+    }
+  };
+
+  const handleButtonClick = () => {
+    // Trigger the file input click event
+    fileInputRef.current?.click();
+  };
 
   const handleTagCheckboxChange = (tagId: number) => {
     setSelectedTags((prevSelectedTags) => {
@@ -155,7 +182,6 @@ function AddRecipeForm() {
   const handleValueChange = (value: number, productId: number) => {
     setIngredients((prev) =>
       prev.map((x) => {
-        console.log(x);
         return x.product.id === productId ? { ...x, amount: value } : { ...x };
       })
     );
@@ -167,33 +193,54 @@ function AddRecipeForm() {
         <Heading as='h3'>
           <StepText>Krok pierwszy </StepText>- podstawowe informacje
         </Heading>
-        <FormSection>
-          <FormRow label='Nazwa przepisu' orientation='vertical'>
-            <Input
-              type='text'
-              id='name'
-              {...register('name', { required: 'To pole jest wymagane' })}
+        <FormSection orientation='column'>
+          <Row>
+            <FormRow label='Nazwa przepisu' orientation='vertical'>
+              <Input
+                type='text'
+                id='name'
+                {...register('name', { required: 'To pole jest wymagane' })}
+              />
+            </FormRow>
+            <FormRow label='Czas przygotowania (min)' orientation='vertical'>
+              <Input
+                type='number'
+                id='preparationTime'
+                min='1'
+                {...register('preparationTime', {
+                  required: 'To pole jest wymagane',
+                })}
+              />
+            </FormRow>
+            <FormRow label='Ilość porcji' orientation='vertical'>
+              <Input
+                type='number'
+                id='servingSize'
+                min='1'
+                {...register('servingSize', {
+                  required: 'To pole jest wymagane',
+                })}
+              />
+            </FormRow>
+          </Row>
+          <FormRow orientation='vertical'>
+            <InputFile
+              size='small'
+              variation='primary'
+              type='file'
+              accept='image/*'
+              maxLength={3}
+              multiple={true}
+              onChange={handleImageChange}
+              ref={fileInputRef}
             />
-          </FormRow>
-          <FormRow label='Czas przygotowania (min)' orientation='vertical'>
-            <Input
-              type='number'
-              id='preparationTime'
-              min='1'
-              {...register('preparationTime', {
-                required: 'To pole jest wymagane',
-              })}
-            />
-          </FormRow>
-          <FormRow label='Ilość porcji' orientation='vertical'>
-            <Input
-              type='number'
-              id='servingSize'
-              min='1'
-              {...register('servingSize', {
-                required: 'To pole jest wymagane',
-              })}
-            />
+            <Button
+              onClick={handleButtonClick}
+              size='small'
+              variation='primary'
+            >
+              Dodaj zdjęcia
+            </Button>
           </FormRow>
         </FormSection>
       </RecipeStep>

@@ -91,6 +91,15 @@ export const ButtonForm = styled(AnimatedButton)`
   margin-top: 1rem;
 `;
 
+export const InputFile = styled.input.attrs({
+  type: 'file',
+})<ButtonProps>`
+  &::file-selector-button {
+    cursor: pointer;
+    display: none;
+  }
+`;
+
 Button.defaultProps = {
   variation: 'primary',
   size: 'medium',

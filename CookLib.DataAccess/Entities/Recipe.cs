@@ -24,6 +24,7 @@ namespace CookLib.DataAccess.Entities
         public List<Comment> Comments { get; set; } = new List<Comment>();
         public List<RecipeTag> RecipeTags { get; set; } = new List<RecipeTag>();
         public List<FavoriteRecipe> UsersFavorite { get; set; }
+        public List<Image> Images { get; set; }
 
         [Required]
         [ForeignKey("Author")]
