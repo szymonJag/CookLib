@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public int RecipeId { get; set; }
-        public byte[] ImageContent { get; set; }
+        public string ImagePath { get; set; }
 
     }
 }

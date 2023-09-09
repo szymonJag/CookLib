@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { IProduct } from '../interfaces/IIngredient';
+import { IIngredient } from '../interfaces/IIngredient';
 import Heading from './Heading';
 import Button from './Button';
 
@@ -21,17 +21,21 @@ const StyledConfirmDelete = styled.div`
   }
 `;
 interface ConfirmDeleteProps {
-  product: IProduct;
+  ingredient: IIngredient;
   disabled?: boolean;
   onConfirm?: () => void;
 }
 
-function ConfirmDelete({ onConfirm, disabled, product }: ConfirmDeleteProps) {
+function ConfirmDelete({
+  onConfirm,
+  disabled,
+  ingredient,
+}: ConfirmDeleteProps) {
   return (
     <StyledConfirmDelete>
-      <Heading as='h3'>Delete {product.name}</Heading>
+      <Heading as='h3'>Delete {ingredient.name}</Heading>
       <p>
-        Czy na pewno chcesz usunąć {product.name} permamentnie? Ta czynność
+        Czy na pewno chcesz usunąć {ingredient.name} permamentnie? Ta czynność
         będzie nieodwracalna
       </p>
 

@@ -3,10 +3,10 @@ import { deleteIngredientById } from '../../../../services/apiIngredients';
 import { toast } from 'react-hot-toast';
 // import { IProduct } from '../../../../interfaces/IProduct';
 
-export function useDeleteProduct() {
+export function useDeleteIngredient() {
   const queryClient = useQueryClient();
 
-  const { isLoading: isDeleting, mutate: deleteProduct } = useMutation({
+  const { isLoading: isDeleting, mutate: deleteIngredient } = useMutation({
     mutationFn: deleteIngredientById,
     onSuccess: (context) => {
       if (context.response && context.response.status === 400)
@@ -20,5 +20,5 @@ export function useDeleteProduct() {
     onError: (err: Error) => toast.error(err.message),
   });
 
-  return { isDeleting, deleteProduct };
+  return { isDeleting, deleteIngredient };
 }

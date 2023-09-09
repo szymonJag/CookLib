@@ -1,5 +1,6 @@
 import { IPreparationStep } from './IPreparationStep';
-import { IAddRecipeIngredient } from './IIngredient';
+import { IAddRecipeIngredient, IIngredient } from './IIngredient';
+import { IImage } from './IImages';
 
 export interface IRecipeTag {
   id: number;
@@ -17,4 +18,18 @@ export interface IAddRecipeRequest extends IRecipeRequest {
   recipeTags: number[];
   authorId: number;
   ingredients: IAddRecipeIngredient[];
+}
+
+export interface IRecipe {
+  id: number;
+  name: string;
+  servingSize: number;
+  preparationTime: number;
+  createDate: Date | null;
+  ingredients: IIngredient[];
+  preparationSteps: IPreparationStep[];
+  // comments: IComments;
+  recipeTags: IRecipeTag[];
+  images: IImage[];
+  // author: IUser;
 }

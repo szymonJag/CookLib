@@ -1,14 +1,14 @@
 import { styled } from 'styled-components';
-import { IProduct } from '../../../../interfaces/IIngredient';
+import { IIngredient } from '../../../../interfaces/IIngredient';
 import Table from '../../../../ui/Table';
 import Button from '../../../../ui/Button';
 import Modal from '../../../../ui/Modal';
 import ConfirmDelete from '../../../../ui/ConfirmDelete';
-import { useDeleteProduct } from '../../hooks/Products/useDeleteIngredient';
+import { useDeleteIngredient } from '../../hooks/Products/useDeleteIngredient';
 
-interface ProductRowProps {
-  product: IProduct;
-  onEditClick: (produict: IProduct) => void;
+interface IngredientRowProps {
+  ingredient: IIngredient;
+  onEditClick: (produict: IIngredient) => void;
 }
 
 const Buttons = styled.div`
@@ -16,18 +16,18 @@ const Buttons = styled.div`
   gap: 1rem;
 `;
 
-function ProductRow({ product, onEditClick }: ProductRowProps) {
-  const { isDeleting, deleteProduct } = useDeleteProduct();
-  const { name, kcal, type, id } = product;
+function IngredientRow({ ingredient, onEditClick }: IngredientRowProps) {
+  const { isDeleting, deleteIngredient } = useDeleteIngredient();
+  const { name, kcal, type, id } = ingredient;
 
   return (
     <Table.Row>
       <span>{name}</span>
       <span>{kcal}</span>
-      <span>{type.name}</span>
+      <span>{type?.name}</span>
       <div>
         <Buttons>
-          <Button size='small' onClick={() => onEditClick(product)}>
+          <Button size='small' onClick={() => onEditClick(ingredient)}>
             Edytuj
           </Button>
           <Modal>
@@ -38,8 +38,8 @@ function ProductRow({ product, onEditClick }: ProductRowProps) {
             </Modal.Open>
             <Modal.Window name='delete'>
               <ConfirmDelete
-                product={product}
-                onConfirm={() => deleteProduct(id)}
+                ingredient={ingredient}
+                onConfirm={() => deleteIngredient(id)}
                 disabled={isDeleting}
               />
             </Modal.Window>
@@ -50,4 +50,4 @@ function ProductRow({ product, onEditClick }: ProductRowProps) {
   );
 }
 
-export default ProductRow;
+export default IngredientRow;

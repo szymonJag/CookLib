@@ -1,9 +1,11 @@
 import { IMeasurementType } from '../interfaces/IMeasurementType';
-import { IProductType } from '../interfaces/IIngredient';
+import { IIngredientType } from '../interfaces/IIngredient';
+
+export const PAGE_SIZE = 10;
 
 export const API_URL = `https://localhost:7059`;
 
-export const IngredientTypes: IProductType[] = [
+export const IngredientTypes: IIngredientType[] = [
   { id: 0, name: 'Wybierz typ' },
   { id: 1, name: 'Zbożowe' },
   { id: 2, name: 'Mleczne' },

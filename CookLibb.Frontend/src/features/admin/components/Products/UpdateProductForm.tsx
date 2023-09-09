@@ -5,7 +5,7 @@ import { ButtonForm } from '../../../../ui/Button';
 import { IngredientTypes } from '../../../../utils/constants';
 import { styled } from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
-import { InputSelect } from './ProductForm';
+import { InputSelect } from './IngredientForm';
 
 const Buttons = styled.div`
   display: flex;

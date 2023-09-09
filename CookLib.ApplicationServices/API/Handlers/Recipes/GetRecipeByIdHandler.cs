@@ -32,9 +32,11 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
                 };
             }
 
+
+            var data = this.mapper.Map<RecipeDTO>(recipe);
             return new GetRecipeByIdResponse()
             {
-                Data = this.mapper.Map<RecipeDTO>(recipe)
+                Data = data
             };
         }
     }

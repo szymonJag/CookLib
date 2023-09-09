@@ -8,7 +8,7 @@ namespace CookLib.DataAccess.CQRS.Queries.Recipes
         public int Id { get; set; }
         public override Task<Recipe> Execute(CookLibContext context)
         {
-            return context.Recipes
+            var recipes = context.Recipes
                 .Include(x => x.Ingredients)
                     .ThenInclude(x => x.Ingredient)
                 .Include(x => x.PreparationSteps)
@@ -17,8 +17,10 @@ namespace CookLib.DataAccess.CQRS.Queries.Recipes
                 .Include(x => x.RecipeTags)
                     .ThenInclude(x => x.Tag)
                 .Include(x => x.Author)
+                .Include(x => x.Images)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == Id);
+            return recipes;
         }
     }
 }

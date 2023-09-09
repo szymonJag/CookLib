@@ -13,6 +13,8 @@ namespace CookLib.ApplicationServices.API.Domain.Requests.Recipes
         public List<RecipeIngredientRequestDTO> Ingredients { get; set; }
         public List<PreparationStepRequestDTO> PreparationSteps { get; set; }
         public List<int> RecipeTags { get; set; }
+
+
     }
 
 

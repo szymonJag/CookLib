@@ -1,5 +1,5 @@
 import RouteHeading from '../../ui/RouteHeading';
-import ProductsSection from './components/Products/ProductsSection';
+import ProductsSection from './components/Products/IngredientsSection';
 import Heading from '../../ui/Heading';
 import { Layout, SiteSections } from '../../ui/SiteSections';
 

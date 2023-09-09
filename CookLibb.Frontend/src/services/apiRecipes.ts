@@ -1,11 +1,10 @@
-import { IAddRecipeRequest } from '../interfaces/IRecipe';
+import { IAddRecipeRequest, IRecipe } from '../interfaces/IRecipe';
 import { API_URL } from '../utils/constants';
 
 const API_URL_RECIPES = `${API_URL}/Recipes`;
 
 export async function addRecipe(recipe: IAddRecipeRequest) {
   try {
-    console.log('fetch add recipe');
     const url = `${API_URL_RECIPES}/addRecipe`;
     const response = await fetch(url, {
       method: 'POST',
@@ -15,7 +14,6 @@ export async function addRecipe(recipe: IAddRecipeRequest) {
       body: JSON.stringify(recipe),
     });
 
-    console.log('response', response);
     const data = await response.json();
 
     if (response.status !== 200)
@@ -24,5 +22,30 @@ export async function addRecipe(recipe: IAddRecipeRequest) {
     return data.data;
   } catch (err) {
     console.error(`Error with adding product: ${err}`);
+  }
+}
+
+export async function getRecipeById(id: number): Promise<IRecipe> {
+  const url = `${API_URL_RECIPES}/getById/${id}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log(data);
+
+  return data;
+}
+
+export async function getRecipes(recipeName: string) {
+  try {
+    const parameters = recipeName.length > 0 ? `?Name=${recipeName}` : '';
+    const url = `${API_URL_RECIPES}/getAll${parameters}`;
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.error) throw new Error(data.error);
+
+    return data.data;
+  } catch (err) {
+    console.error(`Error with fetching recipe: ${err}`);
   }
 }

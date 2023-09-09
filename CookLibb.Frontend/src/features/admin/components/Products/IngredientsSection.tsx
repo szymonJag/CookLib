@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import { AdminSectionLayout } from '../../../../ui/AdminSectionLayout';
-import ProductForm from './ProductForm';
-import ProductsTable from './ProductsTable';
-import {
-  IProduct,
-  IUpdateProductRequest,
-} from '../../../../interfaces/IIngredient';
+import ProductForm from './IngredientForm';
+import ProductsTable from './IngredientsTable';
+import {} from '../../../../interfaces/IIngredient';
 
 function ProductsSection() {
-  const [productToEdit, setProductToEdit] = useState<
+  const [ingredientToEdit, setIngredientToEdit] = useState<
     IUpdateProductRequest | undefined
   >(undefined);
   const [isEditable, setIsEditable] = useState(false);
@@ -21,16 +18,16 @@ function ProductsSection() {
       type: product.type.id,
     };
     setIsEditable(true);
-    setProductToEdit(prdct);
+    setIngredientToEdit(prdct);
   }
 
   return (
     <AdminSectionLayout>
       <ProductForm
-        product={productToEdit}
+        product={ingredientToEdit}
         isEditable={isEditable}
         handleBackClick={() => {
-          setProductToEdit(undefined);
+          setIngredientToEdit(undefined);
           setIsEditable(false);
         }}
       />

@@ -70,7 +70,7 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
 
             foreach (var tag in request.RecipeTags)
             {
-                var recipeTag = new DataAccess.Entities.RecipeTag() { RecipeId = recipeDb.Id, TagId = tag };
+                var recipeTag = new DataAccess.Entities.RecipeTag() { RecipeId = recipeDb.Id, TagId = Convert.ToInt32(tag) };
                 commandAddRecipeTag.Parameter = recipeTag;
                 await commandExecutor.Execute(commandAddRecipeTag);
             }

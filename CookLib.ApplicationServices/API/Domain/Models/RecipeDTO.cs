@@ -1,4 +1,6 @@
-﻿namespace CookLib.ApplicationServices.API.Domain.Models
+﻿using CookLib.DataAccess.Entities;
+
+namespace CookLib.ApplicationServices.API.Domain.Models
 {
     public class RecipeDTO
     {
@@ -11,6 +13,7 @@
         public List<PreparationStepDTO> PreparationSteps { get; set; }
         public List<CommentDTO> Comments { get; set; }
         public List<RecipeTagDTO> RecipeTags { get; set; }
+        public List<Image> Images { get; set; }
         public AuthorDTO Author { get; set; }
     }
 }

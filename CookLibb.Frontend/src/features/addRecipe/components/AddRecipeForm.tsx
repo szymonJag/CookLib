@@ -15,7 +15,6 @@ import Checkboxes from './Checkboxes';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 import { IAddRecipeRequest, IRecipeRequest } from '../../../interfaces/IRecipe';
 import { useCreateRecipe } from '../hooks/useCreateRecipe';
-import { useUploadImage } from '../hooks/useUploadImage';
 
 interface SectionProps {
   orientation?: 'column' | 'row';
@@ -76,11 +75,10 @@ function AddRecipeForm() {
   const [textAreas, setTextAreas] = useState<string[]>(['']);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const { isCreating, createRecipeMt, recipeId } = useCreateRecipe();
+  const { isCreating, createRecipeMt } = useCreateRecipe();
 
   const { register, handleSubmit } = useForm<FormValues>();
   const [selectedImages, setSelectedImage] = useState<FileList | null>(null);
-  const { uploadImageMt } = useUploadImage();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const recipe: IAddRecipeRequest = {
@@ -96,14 +94,12 @@ function AddRecipeForm() {
         };
       }),
       preparationSteps: textAreas.map((step, index) => {
-        return { step: index + 1, description: step };
+        return { id: 0, step: index + 1, description: step };
       }),
       recipeTags: selectedTags,
     };
 
-    createRecipeMt(recipe);
-    if (selectedImages && recipeId)
-      uploadImageMt({ images: selectedImages, recipeId: recipeId });
+    if (selectedImages) createRecipeMt({ recipe, images: selectedImages });
   };
 
   function onError(errors: FieldErrors) {
@@ -238,6 +234,7 @@ function AddRecipeForm() {
               onClick={handleButtonClick}
               size='small'
               variation='primary'
+              type='button'
             >
               Dodaj zdjęcia
             </Button>

@@ -5,6 +5,11 @@ export interface IIngredient {
   type: IIngredientType;
 }
 
+export interface IRecipeIngredient extends IIngredient {
+  amount: number;
+  measurement: string;
+}
+
 export interface IIngredientRequest {
   name: string;
   kcal: number;

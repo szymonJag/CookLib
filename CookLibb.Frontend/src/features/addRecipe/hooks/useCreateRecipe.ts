@@ -1,34 +1,71 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
-import { addRecipe } from '../../../services/apiRecipes';
 import { IAddRecipeRequest } from '../../../interfaces/IRecipe';
-import { useState } from 'react';
+import { addRecipe } from '../../../services/apiRecipes';
+import { uploadImage } from '../../../services/apiUploadImages';
+
+type CreateRecipeType = {
+  recipe: IAddRecipeRequest;
+  images: FileList;
+};
 
 export function useCreateRecipe() {
   const queryClient = useQueryClient();
-  const [recipeId, setRecipeId] = useState<number | null>(null);
 
-  const { isLoading: isCreating, mutate: createRecipeMt } = useMutation(
-    async (recipe: IAddRecipeRequest) => addRecipe(recipe),
-    {
-      onSuccess: (data) => {
-        setRecipeId(data.id + 1);
-        console.log(`data`, data);
-        toast.success(`Produkt ${data.name} został dodany!`);
-        queryClient.invalidateQueries({
-          queryKey: ['products'],
-        });
+  const { isLoading: isCreating, mutate: createRecipeMt } = useMutation({
+    mutationFn: ({ recipe, images }: CreateRecipeType) =>
+      addRecipeWithImage(recipe, images),
+    onSuccess: () => {
+      toast.success('Recipe added');
+      queryClient.invalidateQueries({
+        queryKey: ['recipes'],
+      });
+    },
+    onError: (err: Error) => {
+      console.log(`err`, err.message);
+      toast.error(`Something went wrong`);
+    },
+  });
 
-        console.log(recipeId);
-      },
-      onError: (err: Error) => {
-        console.log(`err`, err.message);
-        toast.error(
-          `Coś poszło nie tak, sprawdź console log po więcej informacji`
-        );
-      },
-    }
-  );
-
-  return { isCreating, createRecipeMt, recipeId };
+  return { isCreating, createRecipeMt };
 }
+export async function addRecipeWithImage(
+  recipe: IAddRecipeRequest,
+  images: FileList
+) {
+  try {
+    // Step 1: Add the recipe
+    const recipeData = await addRecipe(recipe);
+    console.log(`recipeData`, recipeData);
+
+    // Step 2: Upload images if available
+    if (images.length > 0) {
+      const recipeId = recipeData.id;
+      await uploadImage(images, recipeId);
+    }
+
+    // Return the recipe data
+    return recipeData;
+  } catch (err) {
+    console.error(`Error with adding recipe and uploading image: ${err}`);
+  }
+}
+
+// async function addRecipeWithImage(recipe: IAddRecipeRequest, images: FileList) {
+//   try {
+//     // Step 1: Add the recipe
+//     const recipeData = await addRecipe(recipe);
+//     console.log(`recipeData`, recipeData);
+
+//     // Step 2: Upload images if available
+//     if (images.length > 0) {
+//       const recipeId = recipeData.recipeId;
+//       await uploadImage(images, recipeId);
+//     }
+
+//     // Return the recipe data
+//     return recipeData;
+//   } catch (err) {
+//     console.error(`Error with adding recipe and uploading image: ${err}`);
+//   }
+// }
