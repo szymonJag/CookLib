@@ -11,6 +11,7 @@ namespace CookLib.ApplicationServices.API.Domain.Mappings
         {
             CreateMap<RecipeTag, RecipeTagDTO>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.TagId, y => y.MapFrom(z => z.TagId))
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Tag.Name))
                 .ReverseMap();
 

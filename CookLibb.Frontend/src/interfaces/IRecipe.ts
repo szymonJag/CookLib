@@ -4,6 +4,7 @@ import { IImage } from './IImages';
 
 export interface IRecipeTag {
   id: number;
+  tagId: number;
   name: string;
 }
 

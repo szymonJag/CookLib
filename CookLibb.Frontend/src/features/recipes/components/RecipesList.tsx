@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
-import RecipesFilter from './RecipesFilter';
 import RecipeCard from './RecipeCard';
 import { useGetRecipes } from '../hooks/useGetShortRecipes';
 import { IShortRecipe } from '../../../interfaces/IRecipe';
 import Heading from '../../../ui/Heading';
 import Spinner from '../../../ui/Spinner';
+import FormRow from '../../../ui/FormRow';
+import Input from '../../../ui/Input';
+import Checkboxes from '../../addRecipe/components/Checkboxes';
 
 const RecipesListLayout = styled.div`
   display: flex;
@@ -22,21 +24,71 @@ const RecipeCardList = styled.div`
 
 function RecipesList() {
   const { recipes, isLoading } = useGetRecipes();
-  const [filteredRecipes, setFilteredRecipes] = useState<IShortRecipe[]>([]);
+  const [filteredRecipes, setFilteredRecipes] = useState<IShortRecipe[]>(
+    recipes || []
+  );
 
-  console.log(recipes);
+  const [searchName, setSearchName] = useState<string>('');
+  const [selectedTags, setSelectedTags] = useState<number[]>([]);
 
   useEffect(() => {
-    if (recipes && recipes.length > 0) {
-      setFilteredRecipes(recipes);
+    if (recipes) {
+      const filtered = applyFilters(recipes, searchName, selectedTags);
+      setFilteredRecipes(filtered);
     }
-  }, [recipes]);
+  }, [recipes, searchName, selectedTags]);
+
+  const handleSearchName = (e: ChangeEvent<HTMLInputElement>) => {
+    const searchTerm: string = e.target.value.toLowerCase();
+    setSearchName(searchTerm);
+  };
+
+  const handleSelectTags = (id: number) => {
+    console.log(`selectedTags`, selectedTags);
+    setSelectedTags((prev) =>
+      prev.includes(id)
+        ? prev.filter((tagId) => tagId !== id)
+        : [...selectedTags, id]
+    );
+  };
+
+  function applyFilters(
+    recipes: IShortRecipe[],
+    searchTerm: string,
+    tags: number[]
+  ): IShortRecipe[] {
+    return recipes.filter((recipe) => {
+      const nameMatch: boolean = recipe.name.toLowerCase().includes(searchTerm);
+      const tagMatch: boolean =
+        tags.length === 0 || // If no tags are selected, don't filter by tags
+        recipe.recipeTags.some((tag) => tags.includes(tag.tagId));
+      return nameMatch && tagMatch;
+    });
+  }
 
   return (
     <RecipesListLayout>
-      <RecipesFilter />
+      <div className='recipes-filter'>
+        <FormRow label='Nazwa przepisu'>
+          <Input
+            type='text'
+            value={searchName}
+            onChange={handleSearchName}
+            placeholder='Szukaj po nazwie...'
+          />
+        </FormRow>
+        <div className='tag-filter'>
+          <Checkboxes
+            selectedTags={selectedTags}
+            onTagCheckboxChange={handleSelectTags}
+          />
+        </div>
+      </div>
       {isLoading ? (
-        <Spinner />
+        <>
+          <Heading as='h1'>Trwa ładowanie przepisów</Heading>
+          <Spinner />
+        </>
       ) : (
         <RecipeCardList>
           {filteredRecipes.length > 0 ? (
@@ -53,3 +105,11 @@ function RecipesList() {
 }
 
 export default RecipesList;
+
+// function applyFilters(searchTerm: string, tags: number[]): IShortRecipe[] {
+//   return recipes.filter((ingr) => {
+//     const nameMatch: boolean = ingr.name.toLowerCase().includes(searchTerm);
+//     const typeMatch: boolean = typeId === 0 || ingr.type.id === typeId;
+//     return nameMatch && typeMatch;
+//   });
+// }

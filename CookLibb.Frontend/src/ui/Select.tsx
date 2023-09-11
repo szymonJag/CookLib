@@ -1,6 +1,6 @@
-import React, { ChangeEvent, ReactNode } from 'react';
+import { ChangeEvent, ReactNode } from 'react';
 import styled from 'styled-components';
-import { IProductType } from '../interfaces/IIngredient';
+import { IIngredientType } from '../interfaces/IIngredient';
 
 interface StyledSelectProps {
   type?: 'white';
@@ -25,7 +25,7 @@ export const StyledSelect = styled.select<StyledSelectProps>`
 `;
 
 interface SelectProps {
-  options: IProductType[];
+  options: IIngredientType[];
   value?: string;
   onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
   type?: 'white';
