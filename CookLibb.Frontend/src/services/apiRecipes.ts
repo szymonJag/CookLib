@@ -34,13 +34,14 @@ export async function getRecipeById(id: number): Promise<IRecipe> {
   return data;
 }
 
-export async function getRecipes(recipeName: string) {
+export async function getShortRecipes(recipeName: string) {
   try {
     const parameters = recipeName.length > 0 ? `?Name=${recipeName}` : '';
-    const url = `${API_URL_RECIPES}/getAll${parameters}`;
+    const url = `${API_URL_RECIPES}/getShortAll${parameters}`;
 
     const response = await fetch(url);
     const data = await response.json();
+    console.log(`data`, data);
 
     if (data.error) throw new Error(data.error);
 

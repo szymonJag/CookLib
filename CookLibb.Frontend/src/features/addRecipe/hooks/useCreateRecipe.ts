@@ -29,43 +29,18 @@ export function useCreateRecipe() {
 
   return { isCreating, createRecipeMt };
 }
-export async function addRecipeWithImage(
-  recipe: IAddRecipeRequest,
-  images: FileList
-) {
+async function addRecipeWithImage(recipe: IAddRecipeRequest, images: FileList) {
   try {
-    // Step 1: Add the recipe
     const recipeData = await addRecipe(recipe);
     console.log(`recipeData`, recipeData);
 
-    // Step 2: Upload images if available
     if (images.length > 0) {
       const recipeId = recipeData.id;
       await uploadImage(images, recipeId);
     }
 
-    // Return the recipe data
     return recipeData;
   } catch (err) {
     console.error(`Error with adding recipe and uploading image: ${err}`);
   }
 }
-
-// async function addRecipeWithImage(recipe: IAddRecipeRequest, images: FileList) {
-//   try {
-//     // Step 1: Add the recipe
-//     const recipeData = await addRecipe(recipe);
-//     console.log(`recipeData`, recipeData);
-
-//     // Step 2: Upload images if available
-//     if (images.length > 0) {
-//       const recipeId = recipeData.recipeId;
-//       await uploadImage(images, recipeId);
-//     }
-
-//     // Return the recipe data
-//     return recipeData;
-//   } catch (err) {
-//     console.error(`Error with adding recipe and uploading image: ${err}`);
-//   }
-// }

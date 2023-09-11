@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import RecipesFilter from './RecipesFilter';
 import RecipeCard from './RecipeCard';
-import { useGetRecipes } from '../hooks/useGetRecipes';
-import { IRecipe } from '../../../interfaces/IRecipe';
+import { useGetRecipes } from '../hooks/useGetShortRecipes';
+import { IShortRecipe } from '../../../interfaces/IRecipe';
 import Heading from '../../../ui/Heading';
 import Spinner from '../../../ui/Spinner';
 
@@ -22,7 +22,7 @@ const RecipeCardList = styled.div`
 
 function RecipesList() {
   const { recipes, isLoading } = useGetRecipes();
-  const [filteredRecipes, setFilteredRecipes] = useState<IRecipe[]>([]);
+  const [filteredRecipes, setFilteredRecipes] = useState<IShortRecipe[]>([]);
 
   console.log(recipes);
 

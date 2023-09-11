@@ -33,3 +33,12 @@ export interface IRecipe {
   images: IImage[];
   // author: IUser;
 }
+
+export interface IShortRecipe {
+  id: number;
+  name: string;
+  servingSize: number;
+  preparationTime: number;
+  images: string[];
+  recipeTags: IRecipeTag[];
+}

@@ -1,24 +1,38 @@
 // RecipeInfo.tsx
 import React from 'react';
 import styled from 'styled-components';
-import { IRecipe } from '../../../interfaces/IRecipe';
+import { IShortRecipe } from '../../../interfaces/IRecipe';
+import Heading from '../../../ui/Heading';
+import Button from '../../../ui/Button';
+import RecipeTags from './RecipeTags';
 
 const RecipeInfoContainer = styled.div`
-  margin-top: 1rem;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  flex: 1;
+`;
+
+const CardButton = styled(Button)`
+  margin-top: auto;
+  width: max-content;
+  align-self: flex-end;
+`;
+
+const CardHeading = styled(Heading)`
+  font-weight: 600;
 `;
 
 interface RecipeInfoProps {
-  recipe: IRecipe;
+  recipe: IShortRecipe;
 }
 
 const RecipeInfo: React.FC<RecipeInfoProps> = ({ recipe }) => {
   return (
     <RecipeInfoContainer>
-      <h2>{recipe.name}</h2>
-      <p>Serving Size: {recipe.servingSize}</p>
-      <p>Preparation Time: {recipe.preparationTime} minutes</p>
-      {/* Dodaj więcej informacji o przepisie */}
+      <CardHeading as='h2'>{recipe.name}</CardHeading>
+      <RecipeTags tags={recipe.recipeTags} />
+      <CardButton size='small'>Więcej</CardButton>
     </RecipeInfoContainer>
   );
 };

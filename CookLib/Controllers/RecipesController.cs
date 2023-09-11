@@ -24,6 +24,14 @@ namespace CookLib.Controllers
 
         [AllowAnonymous]
         [HttpGet]
+        [Route("getShortAll/")]
+        public async Task<IActionResult> GetShortReicpes([FromQuery] GetAllShortRecipesRequest request)
+        {
+            return await this.HandleRequest<GetAllShortRecipesRequest, GetAllShortRecipesResponse>(request);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
         [Route("getById/{id}")]
         public async Task<IActionResult> GetRecipeById([FromRoute] int id)
         {
