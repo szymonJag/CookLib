@@ -24,9 +24,10 @@ const RecipeCardContainer = styled.div`
 
 interface RecipeCardProps {
   recipe: IShortRecipe;
+  recipeTags: number[];
 }
 
-const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
+const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, recipeTags }) => {
   if (!recipe || !recipe.images || !Array.isArray(recipe.images)) {
     return null; // Return null or handle the error gracefully
   }
@@ -36,7 +37,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
     <RecipeCardContainer>
       <SliderComponent images={images} />
       <RecipeShortInfo recipe={recipe} />
-      <RecipeInfo recipe={recipe} />
+      <RecipeInfo recipe={recipe} selectedRecipeTags={recipeTags} />
     </RecipeCardContainer>
   );
 };

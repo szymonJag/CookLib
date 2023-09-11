@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+// import { useState } from 'react';
 import { IRecipeTag } from '../../../interfaces/IRecipe';
 
 const RecipeTagsLayout = styled.div`
@@ -9,20 +10,29 @@ const RecipeTagsLayout = styled.div`
 //   font-weight: 400;
 // `;
 
-const RecipeTagItem = styled.span`
-  font-weight: 300;
+interface RecipeTagItemProps {
+  isSelected: boolean;
+}
+
+const RecipeTagItem = styled.span<RecipeTagItemProps>`
+  /* font-weight: 500 */
+  font-weight: ${(props) => (props.isSelected ? 700 : 300)};
 `;
 
 interface RecipeTagsProps {
   tags: IRecipeTag[];
+  selectedRecipeTags: number[];
 }
 
-function RecipeTags({ tags }: RecipeTagsProps) {
+function RecipeTags({ tags, selectedRecipeTags }: RecipeTagsProps) {
+  console.log(selectedRecipeTags);
   return (
     <RecipeTagsLayout>
       {/* <RecipeTagHeading>Tagi: </RecipeTagHeading> */}
       {tags.map((tag, index) => (
-        <RecipeTagItem>
+        <RecipeTagItem
+          isSelected={selectedRecipeTags.includes(tag.tagId) ? true : false}
+        >
           {tag.name}
           {index < tags.length - 1 && ', '}
         </RecipeTagItem>

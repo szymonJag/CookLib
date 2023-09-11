@@ -25,13 +25,20 @@ const CardHeading = styled(Heading)`
 
 interface RecipeInfoProps {
   recipe: IShortRecipe;
+  selectedRecipeTags: number[];
 }
 
-const RecipeInfo: React.FC<RecipeInfoProps> = ({ recipe }) => {
+const RecipeInfo: React.FC<RecipeInfoProps> = ({
+  recipe,
+  selectedRecipeTags,
+}) => {
   return (
     <RecipeInfoContainer>
       <CardHeading as='h2'>{recipe.name}</CardHeading>
-      <RecipeTags tags={recipe.recipeTags} />
+      <RecipeTags
+        tags={recipe.recipeTags}
+        selectedRecipeTags={selectedRecipeTags}
+      />
       <CardButton size='small'>Więcej</CardButton>
     </RecipeInfoContainer>
   );

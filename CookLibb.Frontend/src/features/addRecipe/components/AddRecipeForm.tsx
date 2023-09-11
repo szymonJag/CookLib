@@ -20,7 +20,7 @@ interface SectionProps {
   orientation?: 'column' | 'row';
 }
 
-const FormSection = styled.div<SectionProps>`
+export const FormSection = styled.div<SectionProps>`
   display: flex;
   flex-direction: ${(props) =>
     props.orientation === 'column' ? 'column' : 'row'};

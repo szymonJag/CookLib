@@ -1,7 +1,6 @@
 import Checkbox from '../../../ui/Checkbox';
 import { styled } from 'styled-components';
 import { useTags } from '../hooks/useGetTags';
-import Spinner from '../../../ui/Spinner';
 import { useState, useEffect } from 'react';
 import { IRecipeTag } from '../../../interfaces/IRecipe';
 
@@ -26,7 +25,7 @@ function Checkboxes({ selectedTags, onTagCheckboxChange }: CheckboxesProps) {
 
   return (
     <CheckboxLayout>
-      {isLoading && <Spinner />}
+      {isLoading && <span>{'Trwa ładowannie...'}</span>}
 
       {tags.map((tag) => (
         <Checkbox

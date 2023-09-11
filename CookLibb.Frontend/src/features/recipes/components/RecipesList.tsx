@@ -5,14 +5,15 @@ import { useGetRecipes } from '../hooks/useGetShortRecipes';
 import { IShortRecipe } from '../../../interfaces/IRecipe';
 import Heading from '../../../ui/Heading';
 import Spinner from '../../../ui/Spinner';
-import FormRow from '../../../ui/FormRow';
 import Input from '../../../ui/Input';
-import Checkboxes from '../../addRecipe/components/Checkboxes';
+import RecipeTagsCheckboxes from './RecipeTagsCheckboxes';
+import { FormSection } from '../../addRecipe/components/AddRecipeForm';
 
 const RecipesListLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  padding: 1rem;
 `;
 
 const RecipeCardList = styled.div`
@@ -68,22 +69,18 @@ function RecipesList() {
 
   return (
     <RecipesListLayout>
-      <div className='recipes-filter'>
-        <FormRow label='Nazwa przepisu'>
-          <Input
-            type='text'
-            value={searchName}
-            onChange={handleSearchName}
-            placeholder='Szukaj po nazwie...'
-          />
-        </FormRow>
-        <div className='tag-filter'>
-          <Checkboxes
-            selectedTags={selectedTags}
-            onTagCheckboxChange={handleSelectTags}
-          />
-        </div>
-      </div>
+      <FormSection orientation='column'>
+        <RecipeTagsCheckboxes
+          onTagCheckboxChange={handleSelectTags}
+          selectedTags={selectedTags}
+        />
+      </FormSection>
+      <Input
+        type='text'
+        value={searchName}
+        onChange={handleSearchName}
+        placeholder='Szukaj przepisu...'
+      />
       {isLoading ? (
         <>
           <Heading as='h1'>Trwa ładowanie przepisów</Heading>
@@ -93,7 +90,11 @@ function RecipesList() {
         <RecipeCardList>
           {filteredRecipes.length > 0 ? (
             filteredRecipes.map((recipe, index) => (
-              <RecipeCard key={index} recipe={recipe} />
+              <RecipeCard
+                key={index}
+                recipe={recipe}
+                recipeTags={selectedTags}
+              />
             ))
           ) : (
             <Heading as='h1'>Brak dostępnych przepisów</Heading>
