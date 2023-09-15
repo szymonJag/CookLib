@@ -1,5 +1,5 @@
 import { IPreparationStep } from './IPreparationStep';
-import { IAddRecipeIngredient, IIngredient } from './IIngredient';
+import { IAddRecipeIngredient, IRecipeIngredient } from './IIngredient';
 import { IImage } from './IImages';
 
 export interface IRecipeTag {
@@ -27,7 +27,7 @@ export interface IRecipe {
   servingSize: number;
   preparationTime: number;
   createDate: Date | null;
-  ingredients: IIngredient[];
+  ingredients: IRecipeIngredient[];
   preparationSteps: IPreparationStep[];
   // comments: IComments;
   recipeTags: IRecipeTag[];
@@ -42,4 +42,5 @@ export interface IShortRecipe {
   preparationTime: number;
   images: string[];
   recipeTags: IRecipeTag[];
+  ingredients: string[];
 }

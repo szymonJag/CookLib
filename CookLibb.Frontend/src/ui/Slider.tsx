@@ -10,19 +10,18 @@ const SliderContainer = styled.div`
   overflow: hidden;
   position: relative;
   width: 100%;
-  height: 15rem; // You can adjust the height as needed
 `;
 
 const SliderButton = styled.button`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  border: none;
+  border: 1px solid var(--color-grey-300);
   cursor: pointer;
   border-radius: 50%;
 
   outline: none;
-  fill: #fff;
+  fill: var(--color-grey-300);
   transition: background 0.3s ease;
 `;
 

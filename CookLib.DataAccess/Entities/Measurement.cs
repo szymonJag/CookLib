@@ -2,14 +2,13 @@
 {
     public enum Measurement
     {
-        Kilograms = 1,
-        Grams,
-        Litres,
-        Mililitres,
-        Tablespoon,
-        Teaspoon,
-        Cup,
-        Amount
-
+        Kilogram = 1,
+        Gram,
+        Litr,
+        Mililitr,
+        Łyżka,
+        Łyżeczka,
+        Szklanka,
+        Sztuk
     }
 }

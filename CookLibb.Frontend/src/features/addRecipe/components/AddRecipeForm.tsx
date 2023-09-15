@@ -48,6 +48,7 @@ const RecipeForm = styled(Form)`
   border: none;
   display: flex;
   gap: 5rem;
+  padding: 0;
 `;
 
 const StepText = styled.span`

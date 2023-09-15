@@ -8,6 +8,6 @@
         public int PreparationTime { get; set; }
         public List<string> Images { get; set; }
         public List<RecipeTagDTO> RecipeTags { get; set; }
-
+        public List<string> Ingredients { get; set; }
     }
 }

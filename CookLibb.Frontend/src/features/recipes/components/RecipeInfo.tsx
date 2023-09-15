@@ -5,18 +5,24 @@ import { IShortRecipe } from '../../../interfaces/IRecipe';
 import Heading from '../../../ui/Heading';
 import Button from '../../../ui/Button';
 import RecipeTags from './RecipeTags';
+import RecipeIngredients from './RecipeIngredients';
+import { Link } from 'react-router-dom';
 
 const RecipeInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  gap: 1rem;
+  padding: 0.5rem;
   flex: 1;
+`;
+
+const ButtonLink = styled(Link)`
+  align-self: flex-end;
 `;
 
 const CardButton = styled(Button)`
   margin-top: auto;
   width: max-content;
-  align-self: flex-end;
 `;
 
 const CardHeading = styled(Heading)`
@@ -35,11 +41,14 @@ const RecipeInfo: React.FC<RecipeInfoProps> = ({
   return (
     <RecipeInfoContainer>
       <CardHeading as='h2'>{recipe.name}</CardHeading>
+      <RecipeIngredients ingredients={recipe.ingredients} />
       <RecipeTags
         tags={recipe.recipeTags}
         selectedRecipeTags={selectedRecipeTags}
       />
-      <CardButton size='small'>Więcej</CardButton>
+      <ButtonLink to={`${recipe.id}`}>
+        <CardButton size='small'>Więcej</CardButton>
+      </ButtonLink>
     </RecipeInfoContainer>
   );
 };

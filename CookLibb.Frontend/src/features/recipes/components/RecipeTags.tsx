@@ -17,6 +17,7 @@ interface RecipeTagItemProps {
 const RecipeTagItem = styled.span<RecipeTagItemProps>`
   /* font-weight: 500 */
   font-weight: ${(props) => (props.isSelected ? 700 : 300)};
+  font-size: 1.3rem;
 `;
 
 interface RecipeTagsProps {
@@ -25,7 +26,6 @@ interface RecipeTagsProps {
 }
 
 function RecipeTags({ tags, selectedRecipeTags }: RecipeTagsProps) {
-  console.log(selectedRecipeTags);
   return (
     <RecipeTagsLayout>
       {/* <RecipeTagHeading>Tagi: </RecipeTagHeading> */}

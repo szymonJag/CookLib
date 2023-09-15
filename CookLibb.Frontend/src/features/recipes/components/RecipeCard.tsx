@@ -12,7 +12,7 @@ const RecipeCardContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  width: 27rem;
+  width: 30rem;
   height: 35rem;
   transition: 0.2s all;
 

@@ -1,4 +1,3 @@
-import RouteHeading from '../../ui/RouteHeading';
 import ProductsSection from './components/Products/IngredientsSection';
 import Heading from '../../ui/Heading';
 import { Layout, SiteSections } from '../../ui/SiteSections';
@@ -6,7 +5,6 @@ import { Layout, SiteSections } from '../../ui/SiteSections';
 function AdminLayout() {
   return (
     <Layout>
-      <RouteHeading text='Panel administratora' />
       <SiteSections>
         <Heading as='h2'>Zarządzaj produktami</Heading>
         <ProductsSection />

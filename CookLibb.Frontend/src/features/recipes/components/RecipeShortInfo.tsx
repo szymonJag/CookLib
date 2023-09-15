@@ -3,37 +3,60 @@ import { IShortRecipe } from '../../../interfaces/IRecipe';
 import { BiTimeFive } from 'react-icons/bi';
 import { BsPeople } from 'react-icons/bs';
 import { AiOutlineHeart } from 'react-icons/ai';
-const RecipeShortInfoLayout = styled.div`
-  padding: 0.5rem 1em;
-  border-bottom: solid 1px var(--color-grey-200);
-  background-color: var(--color-grey-200);
+
+interface RecipeShortInfoLayoutProps {
+  showText?: boolean;
+}
+
+const RecipeShortInfoLayout = styled.div<RecipeShortInfoLayoutProps>`
+  background-color: var(--color-grey-50);
   display: flex;
-  justify-content: space-between;
+  border: 1px solid var(--color-grey-300);
+
+  border-top: none;
+
+  & > *:not(:last-child) {
+    border-right: ${({ showText }) =>
+      showText ? '1px solid var(--color-grey-300)' : 'none'};
+  }
 `;
 
 const RecipeInfoItem = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 1rem;
+  flex: 1;
+  padding: 0.5rem;
+`;
+
+const RecipeInfoItemFavourite = styled(RecipeInfoItem)`
+  cursor: pointer;
+  &:hover {
+    background-color: var(--color-grey-300);
+  }
 `;
 
 interface RecipeShortInfoProps {
   recipe: IShortRecipe;
+  showText?: boolean;
 }
 
-function RecipeShortInfo({ recipe }: RecipeShortInfoProps) {
-  console.log(recipe);
+function RecipeShortInfo({ recipe, showText = false }: RecipeShortInfoProps) {
   return (
-    <RecipeShortInfoLayout>
-      <RecipeInfoItem>
+    <RecipeShortInfoLayout showText={showText}>
+      <RecipeInfoItemFavourite>
+        {showText && <span>Dodaj do ulubionych</span>}
         <AiOutlineHeart />
-      </RecipeInfoItem>
+      </RecipeInfoItemFavourite>
       <RecipeInfoItem>
+        {showText && <span>Czas przygotowania</span>}
         <BiTimeFive />
         <span>{recipe.preparationTime} min</span>
       </RecipeInfoItem>
       <RecipeInfoItem>
         <BsPeople />
+        {showText && <span>Porcja dla osób</span>}
         <span>{recipe.servingSize}</span>
       </RecipeInfoItem>
     </RecipeShortInfoLayout>
