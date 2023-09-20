@@ -30,9 +30,7 @@ function RecipeTags({ tags, selectedRecipeTags }: RecipeTagsProps) {
     <RecipeTagsLayout>
       {/* <RecipeTagHeading>Tagi: </RecipeTagHeading> */}
       {tags.map((tag, index) => (
-        <RecipeTagItem
-          isSelected={selectedRecipeTags.includes(tag.tagId) ? true : false}
-        >
+        <RecipeTagItem isSelected={selectedRecipeTags.includes(tag.tagId)}>
           {tag.name}
           {index < tags.length - 1 && ', '}
         </RecipeTagItem>

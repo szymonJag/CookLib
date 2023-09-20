@@ -1,12 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface CheckboxProps {
-  label: string;
-  checked: boolean;
-  onChange: () => void;
-}
-
 const CheckboxContainer = styled.label`
   display: flex;
   align-items: center;
@@ -31,6 +25,12 @@ const CheckboxInput = styled.input`
 const CheckboxLabel = styled.span`
   font-size: 1.5rem;
 `;
+
+interface CheckboxProps {
+  label: string;
+  checked?: boolean;
+  onChange?: () => void;
+}
 
 const Checkbox: React.FC<CheckboxProps> = ({ label, checked, onChange }) => (
   <CheckboxContainer>

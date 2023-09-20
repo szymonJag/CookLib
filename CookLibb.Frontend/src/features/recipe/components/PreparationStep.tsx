@@ -11,6 +11,8 @@ const PreparationStepLayout = styled.div`
 
 const PreparationStepDescription = styled.p`
   padding: 1rem;
+  background-color: var(--color-grey-200);
+  margin-top: 1rem;
 `;
 
 const PreparationHeading = styled(Heading)``;

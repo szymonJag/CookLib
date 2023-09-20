@@ -1,10 +1,11 @@
 import { styled } from 'styled-components';
 import Heading from './Heading';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navigation from './Navigation';
 import ProductCart from './ProductCart';
-import FadeInOut from './FadeInOut';
+// import FadeInOut from './FadeInOut';
 import ProductsButton from './ProductsButton';
+import { useLocation } from 'react-router-dom';
 
 const Nav = styled.nav`
   display: flex;
@@ -19,16 +20,22 @@ const HeadingInfo = styled(Heading)`
 `;
 
 function SidebarContent() {
+  const location = useLocation();
   const [showProducts, setShowProducts] = useState(false);
+  const { pathname } = location;
+
+  useEffect(() => {
+    if (pathname !== '/search') setShowProducts(false);
+  }, [location]);
+
+  console.log(`location`, pathname);
 
   return (
     <Nav>
       <HeadingInfo as='h3'>
         {showProducts ? `Twoje produkty:` : `Menu:`}
       </HeadingInfo>
-      <FadeInOut show={showProducts}>
-        {showProducts ? <ProductCart /> : <Navigation />}
-      </FadeInOut>
+      {showProducts ? <ProductCart /> : <Navigation />}
       <ProductsButton
         showProducts={showProducts}
         onClick={() => setShowProducts((prev) => !prev)}

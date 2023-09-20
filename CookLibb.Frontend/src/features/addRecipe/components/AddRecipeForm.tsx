@@ -11,7 +11,7 @@ import { IIngredientMeasuremenet } from '../../../interfaces/IIngredientMeasurem
 import Button, { InputFile } from '../../../ui/Button';
 import TextArea from '../../../ui/TextArea';
 // import { IRecipeTag } from '../../../interfaces/IRecipe';
-import Checkboxes from './Checkboxes';
+import Checkboxes from './TagCheckboxes';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 import { IAddRecipeRequest, IRecipeRequest } from '../../../interfaces/IRecipe';
 import { useCreateRecipe } from '../hooks/useCreateRecipe';

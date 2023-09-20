@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { IRecipeTag } from '../../../interfaces/IRecipe';
-import Checkboxes from '../../addRecipe/components/Checkboxes';
+import Checkboxes from '../../addRecipe/components/TagCheckboxes';
 import Input from '../../../ui/Input';
 import FormRow from '../../../ui/FormRow';
 

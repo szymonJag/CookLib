@@ -1,0 +1,6 @@
+[*.cs]
+theme = "Visual Studio 2019 Dark"
+
+
+[*.tsx,*.ts]
+theme = "Monokai Pro"

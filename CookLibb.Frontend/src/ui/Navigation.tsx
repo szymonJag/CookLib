@@ -4,7 +4,9 @@ import { FaSearch } from 'react-icons/fa';
 import { GiNotebook } from 'react-icons/gi';
 import { MdAddCircleOutline, MdAdminPanelSettings } from 'react-icons/md';
 import { FiUsers } from 'react-icons/fi';
-const List = styled.ul`
+import { motion } from 'framer-motion';
+
+const List = styled(motion.ul)`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -54,7 +56,7 @@ const StyledNavLink = styled(NavLink)`
 
 function Navigation() {
   return (
-    <List>
+    <List initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
       <Element>
         <StyledNavLink to='/recipes'>
           <GiNotebook />

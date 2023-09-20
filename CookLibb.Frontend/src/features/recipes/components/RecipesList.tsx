@@ -23,6 +23,11 @@ const RecipeCardList = styled.div`
   justify-items: center;
 `;
 
+const FilterSection = styled(FormSection)`
+  background-color: transparent;
+  padding: 0;
+`;
+
 function RecipesList() {
   const { recipes, isLoading } = useGetRecipes();
   const [filteredRecipes, setFilteredRecipes] = useState<IShortRecipe[]>(
@@ -69,12 +74,12 @@ function RecipesList() {
 
   return (
     <RecipesListLayout>
-      <FormSection orientation='column'>
+      <FilterSection orientation='column'>
         <RecipeTagsCheckboxes
           onTagCheckboxChange={handleSelectTags}
           selectedTags={selectedTags}
         />
-      </FormSection>
+      </FilterSection>
       <Input
         type='text'
         value={searchName}

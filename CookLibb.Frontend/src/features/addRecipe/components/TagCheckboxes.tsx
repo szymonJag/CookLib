@@ -15,7 +15,7 @@ const CheckboxLayout = styled.div`
   flex-wrap: wrap;
 `;
 
-function Checkboxes({ selectedTags, onTagCheckboxChange }: CheckboxesProps) {
+function TagCheckboxes({ selectedTags, onTagCheckboxChange }: CheckboxesProps) {
   const { isLoading, tags: fetchedTags } = useTags();
   const [tags, setTags] = useState<IRecipeTag[]>([]);
 
@@ -39,4 +39,4 @@ function Checkboxes({ selectedTags, onTagCheckboxChange }: CheckboxesProps) {
   );
 }
 
-export default Checkboxes;
+export default TagCheckboxes;

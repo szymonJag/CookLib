@@ -9,7 +9,7 @@ export function useIngredients() {
     queryFn: () => getIngredients(),
   });
 
-  const products: IIngredient[] = data;
+  const ingredients: IIngredient[] = data;
 
-  return { isLoading, products, error };
+  return { isLoading, ingredients, error };
 }

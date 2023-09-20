@@ -46,12 +46,12 @@ function RecipeShortInfo({ recipe, showText = false }: RecipeShortInfoProps) {
   return (
     <RecipeShortInfoLayout showText={showText}>
       <RecipeInfoItemFavourite>
-        {showText && <span>Dodaj do ulubionych</span>}
         <AiOutlineHeart />
+        {showText && <span>Dodaj do ulubionych</span>}
       </RecipeInfoItemFavourite>
       <RecipeInfoItem>
-        {showText && <span>Czas przygotowania</span>}
         <BiTimeFive />
+        {showText && <span>Czas przygotowania</span>}
         <span>{recipe.preparationTime} min</span>
       </RecipeInfoItem>
       <RecipeInfoItem>

@@ -32,18 +32,18 @@ interface IngredientsTableProps {
 function IngredientsTable({ onAddIngredient }: IngredientsTableProps) {
   const [searchName, setSearchName] = useState<string>('');
   const [selectedType, setSelectedType] = useState<number>(0);
-  const { products, isLoading, error } = useIngredients();
+  const { ingredients, isLoading, error } = useIngredients();
   const [filteredProducts, setFilteredProducts] =
-    useState<IIngredient[]>(products);
+    useState<IIngredient[]>(ingredients);
 
   const fetchError = error ? error.toString() : '';
 
   useEffect(() => {
-    if (products) {
+    if (ingredients) {
       const filtered = applyFilters(searchName, selectedType);
       setFilteredProducts(filtered);
     }
-  }, [searchName, selectedType, products]);
+  }, [searchName, selectedType, ingredients]);
 
   const searchIngredients = (e: ChangeEvent<HTMLInputElement>) => {
     const searchTerm: string = e.target.value.toLowerCase();
@@ -56,7 +56,7 @@ function IngredientsTable({ onAddIngredient }: IngredientsTableProps) {
   };
 
   function applyFilters(searchTerm: string, typeId: number): IIngredient[] {
-    return products.filter((ingr) => {
+    return ingredients.filter((ingr) => {
       const nameMatch: boolean = ingr.name.toLowerCase().includes(searchTerm);
       const typeMatch: boolean = typeId === 0 || ingr.type.id === typeId;
       return nameMatch && typeMatch;

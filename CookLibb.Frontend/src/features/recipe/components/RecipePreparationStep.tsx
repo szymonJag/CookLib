@@ -7,7 +7,7 @@ const RecipePreparationStepLayout = styled.div`
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1rem;
 `;
 
 interface RecipePreparationStepProps {
@@ -18,7 +18,7 @@ function RecipePreparationStep({ steps }: RecipePreparationStepProps) {
   console.log(steps);
   return (
     <div>
-      <Heading as='h2'>Sposób przygotowania</Heading>
+      <Heading as='h2'>Przygotowanie</Heading>
       <RecipePreparationStepLayout>
         {steps.map((step) => (
           <PreparationStep step={step} />

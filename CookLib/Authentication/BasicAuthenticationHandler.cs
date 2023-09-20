@@ -39,10 +39,6 @@ namespace CookLib.Authentication
                 return AuthenticateResult.NoResult();
             }
 
-            if (!Request.Headers.ContainsKey("Authorization"))
-            {
-                return AuthenticateResult.Fail("Missing Authorization Header");
-            }
 
             User user = null;
             try
