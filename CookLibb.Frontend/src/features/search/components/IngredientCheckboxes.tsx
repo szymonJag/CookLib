@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { IIngredient } from '../../../interfaces/IIngredient';
 import Checkbox from '../../../ui/Checkbox';
+import { useIngredientsContext } from '../../../contexts/IngredientsCartContext';
 
 const IngredientCheckboxesLayout = styled.div`
   display: grid;
@@ -10,17 +11,13 @@ const IngredientCheckboxesLayout = styled.div`
 
 interface IngredientCheckboxesProps {
   ingredients: IIngredient[];
-  selectedIngredientTags: number[];
-  onCheckboxClick: (id: number) => void;
 }
 
-function IngredientCheckboxes({
-  ingredients,
-  selectedIngredientTags,
-  onCheckboxClick,
-}: IngredientCheckboxesProps) {
-  const handleCheckboxClick = (id: number) => {
-    onCheckboxClick(id);
+function IngredientCheckboxes({ ingredients }: IngredientCheckboxesProps) {
+  const ingredientsContext = useIngredientsContext();
+
+  const handleCheckboxClick = (ingredient: IIngredient) => {
+    ingredientsContext.addIngredient(ingredient);
   };
 
   return (
@@ -29,8 +26,8 @@ function IngredientCheckboxes({
         <Checkbox
           label={ingr.name}
           key={ingr.id}
-          checked={selectedIngredientTags.includes(ingr.id)}
-          onChange={() => handleCheckboxClick(ingr.id)}
+          checked={ingredientsContext.ingredientsIds.includes(ingr.id)}
+          onChange={() => handleCheckboxClick(ingr)}
         />
       ))}
     </IngredientCheckboxesLayout>

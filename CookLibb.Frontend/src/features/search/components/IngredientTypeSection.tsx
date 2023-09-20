@@ -21,9 +21,6 @@ function IngredientTypeSection({
   ingredientType,
 }: IngredientTypeSectionProps) {
   const [searchText, setSearchText] = useState<string>('');
-  const [selectedIngredientTags, setSelectedIngredientTags] = useState<
-    number[]
-  >([]);
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -35,15 +32,6 @@ function IngredientTypeSection({
     ingredient.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const handleCheckboxClick = (id: number) => {
-    setSelectedIngredientTags((prev) => {
-      if (prev.includes(id))
-        return prev.filter((selectedId) => selectedId !== id);
-
-      return [...prev, id];
-    });
-  };
-
   return (
     <Dropdown heading={ingredientType}>
       <IngredientsSection>
@@ -52,11 +40,7 @@ function IngredientTypeSection({
           value={searchText}
           onChange={handleSearchInputChange}
         />
-        <IngredientCheckboxes
-          ingredients={filteredIngredients}
-          selectedIngredientTags={selectedIngredientTags}
-          onCheckboxClick={handleCheckboxClick}
-        />
+        <IngredientCheckboxes ingredients={filteredIngredients} />
       </IngredientsSection>
     </Dropdown>
   );
