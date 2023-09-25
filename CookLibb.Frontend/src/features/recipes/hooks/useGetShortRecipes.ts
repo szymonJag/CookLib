@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { IShortRecipe } from '../../../interfaces/IRecipe';
 import { getShortRecipes } from '../../../services/apiRecipes';
 
-export function useGetRecipes(recipeName: string = '') {
+export function useGetShortRecipes(recipeName: string = '') {
   const { isLoading, data, error } = useQuery({
     queryKey: ['recipes'],
     queryFn: () => getShortRecipes(recipeName),

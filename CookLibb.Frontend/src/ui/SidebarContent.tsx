@@ -1,17 +1,20 @@
 import { styled } from 'styled-components';
 import Heading from './Heading';
-import { useEffect, useState } from 'react';
+// import { useEffect } from 'react';
 import Navigation from './Navigation';
-import ProductCart from './ProductCart';
+import ProductCart from '../features/search/components/IngredientCart';
 // import FadeInOut from './FadeInOut';
-import ProductsButton from './ProductsButton';
 import { useLocation } from 'react-router-dom';
+import { useIngredientsContext } from '../contexts/IngredientsCartContext';
+// import { useIngredientsContext } from '../contexts/IngredientsCartContext';
 
 const Nav = styled.nav`
   display: flex;
   flex-direction: column;
-  height: 100%;
   margin-top: 2rem;
+  max-height: calc(100vh - 20rem);
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 const HeadingInfo = styled(Heading)`
@@ -21,26 +24,23 @@ const HeadingInfo = styled(Heading)`
 
 function SidebarContent() {
   const location = useLocation();
-  const [showProducts, setShowProducts] = useState(false);
+  const ingredientsContext = useIngredientsContext();
+  const isCartVisible = ingredientsContext.isCartVisible;
   const { pathname } = location;
 
-  useEffect(() => {
-    if (pathname !== '/search') setShowProducts(false);
-  }, [location]);
+  // useEffect(() => {
+  //   if (pathname !== '/search') ingredientsContext.manageCartVisibility(false);
+  // }, [location, ingredientsContext]);
 
   console.log(`location`, pathname);
 
   return (
-    <Nav>
+    <>
       <HeadingInfo as='h3'>
-        {showProducts ? `Twoje produkty:` : `Menu:`}
+        {isCartVisible ? `Twoje produkty:` : `Menu:`}
       </HeadingInfo>
-      {showProducts ? <ProductCart /> : <Navigation />}
-      <ProductsButton
-        showProducts={showProducts}
-        onClick={() => setShowProducts((prev) => !prev)}
-      />
-    </Nav>
+      <Nav>{isCartVisible ? <ProductCart /> : <Navigation />}</Nav>
+    </>
   );
 }
 

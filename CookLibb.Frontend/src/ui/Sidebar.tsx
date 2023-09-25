@@ -2,6 +2,8 @@ import { styled } from 'styled-components';
 import logoImg from '../assets/images/image-removebg-preview.png';
 import Heading from './Heading';
 import SidebarContent from './SidebarContent';
+import ProductsButton from './ProductsButton';
+import { useIngredientsContext } from '../contexts/IngredientsCartContext';
 
 const SidebarLayout = styled.aside`
   padding: 2rem;
@@ -9,6 +11,7 @@ const SidebarLayout = styled.aside`
 
   display: flex;
   flex-direction: column;
+  max-height: 100vh;
 `;
 
 const Header = styled.header`
@@ -43,6 +46,9 @@ function Title() {
 }
 
 function Sidebar() {
+  const ingredientsContext = useIngredientsContext();
+  const isCartVisible = ingredientsContext.isCartVisible;
+
   return (
     <SidebarLayout>
       <Header>
@@ -50,6 +56,10 @@ function Sidebar() {
         <Title />
       </Header>
       <SidebarContent />
+      <ProductsButton
+        showProducts={isCartVisible}
+        onClick={() => ingredientsContext.manageCartVisibility(!isCartVisible)}
+      />
     </SidebarLayout>
   );
 }

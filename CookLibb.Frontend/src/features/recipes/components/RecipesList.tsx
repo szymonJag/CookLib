@@ -1,13 +1,15 @@
 import { useEffect, useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import RecipeCard from './RecipeCard';
-import { useGetRecipes } from '../hooks/useGetShortRecipes';
+import { useGetShortRecipes } from '../hooks/useGetShortRecipes';
 import { IShortRecipe } from '../../../interfaces/IRecipe';
 import Heading from '../../../ui/Heading';
 import Spinner from '../../../ui/Spinner';
 import Input from '../../../ui/Input';
 import RecipeTagsCheckboxes from './RecipeTagsCheckboxes';
 import { FormSection } from '../../addRecipe/components/AddRecipeForm';
+import IngredientSearchOperations from './IngredientSearchOperations';
+import { useIngredientsContext } from '../../../contexts/IngredientsCartContext';
 
 const RecipesListLayout = styled.div`
   display: flex;
@@ -24,22 +26,33 @@ const RecipeCardList = styled.div`
 `;
 
 const FilterSection = styled(FormSection)`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   background-color: transparent;
   padding: 0;
 `;
 
 function RecipesList() {
-  const { recipes, isLoading } = useGetRecipes();
+  const { recipes, isLoading } = useGetShortRecipes();
   const [filteredRecipes, setFilteredRecipes] = useState<IShortRecipe[]>(
     recipes || []
   );
-
+  const [matchingRecipes, setMatchingRecipes] = useState<IShortRecipe[]>([]);
   const [searchName, setSearchName] = useState<string>('');
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
+  const [isSearchingByIngredients, setIsSearchingByIngredients] =
+    useState<boolean>(false);
+  const ingredientsContext = useIngredientsContext();
+  const selectedIngredientsIds = ingredientsContext.ingredientsIds;
+
+  console.log(isSearchingByIngredients);
 
   useEffect(() => {
     if (recipes) {
-      const filtered = applyFilters(recipes, searchName, selectedTags);
+      const filtered = isSearchingByIngredients
+        ? applyFilters(matchingRecipes, searchName, selectedTags)
+        : applyFilters(recipes, searchName, selectedTags);
       setFilteredRecipes(filtered);
     }
   }, [recipes, searchName, selectedTags]);
@@ -56,6 +69,25 @@ function RecipesList() {
         ? prev.filter((tagId) => tagId !== id)
         : [...selectedTags, id]
     );
+  };
+
+  const handleResetButton = () => {
+    setIsSearchingByIngredients(false);
+    setFilteredRecipes(recipes);
+    setMatchingRecipes([]);
+  };
+
+  const handleSearchButton = () => {
+    setIsSearchingByIngredients(true);
+    const filteredRecipes = recipes.filter((recipe) => {
+      const matchingIngredients = recipe.ingredientsIds.filter((ingr) =>
+        selectedIngredientsIds.includes(ingr)
+      );
+      return matchingIngredients.length >= 2;
+    });
+
+    setFilteredRecipes(filteredRecipes);
+    setMatchingRecipes(filteredRecipes);
   };
 
   function applyFilters(
@@ -75,6 +107,10 @@ function RecipesList() {
   return (
     <RecipesListLayout>
       <FilterSection orientation='column'>
+        <IngredientSearchOperations
+          onResetButton={handleResetButton}
+          onSearchButton={handleSearchButton}
+        />
         <RecipeTagsCheckboxes
           onTagCheckboxChange={handleSelectTags}
           selectedTags={selectedTags}
@@ -111,11 +147,3 @@ function RecipesList() {
 }
 
 export default RecipesList;
-
-// function applyFilters(searchTerm: string, tags: number[]): IShortRecipe[] {
-//   return recipes.filter((ingr) => {
-//     const nameMatch: boolean = ingr.name.toLowerCase().includes(searchTerm);
-//     const typeMatch: boolean = typeId === 0 || ingr.type.id === typeId;
-//     return nameMatch && typeMatch;
-//   });
-// }

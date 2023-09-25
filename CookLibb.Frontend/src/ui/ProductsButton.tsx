@@ -1,8 +1,8 @@
-import { useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { TbFridge } from 'react-icons/tb';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import Button from './Button';
+import { useIngredientsContext } from '../contexts/IngredientsCartContext';
 
 const NavBtn = styled(Button)`
   margin-top: auto;
@@ -27,25 +27,23 @@ interface ProductsButtonProps {
 }
 
 function ProductsButton({ showProducts, onClick }: ProductsButtonProps) {
-  const location = useLocation();
-  const isButtonShow = location.pathname === '/search';
+  const ingredientsContext = useIngredientsContext();
+  const ingredientsLength = ingredientsContext.ingredients.length;
 
   return (
     <>
-      {isButtonShow && (
-        <NavBtn size='large' onClick={onClick}>
-          {showProducts ? (
-            <>
-              <AiOutlineArrowLeft />
-              Wróc do menu
-            </>
-          ) : (
-            <>
-              <TbFridge /> Wybrane produkty ({0})
-            </>
-          )}
-        </NavBtn>
-      )}
+      <NavBtn size='large' onClick={onClick}>
+        {showProducts ? (
+          <>
+            <AiOutlineArrowLeft />
+            Wróc do menu
+          </>
+        ) : (
+          <>
+            <TbFridge /> Wybrane produkty ({ingredientsLength})
+          </>
+        )}
+      </NavBtn>
     </>
   );
 }

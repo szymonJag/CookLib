@@ -1,5 +1,7 @@
 import { styled } from 'styled-components';
 import { AnimatedButton } from './Button';
+import Modal from './Modal';
+import AuthenticationForm from '../features/user/components/AuthenticationForm';
 
 const InfoLayout = styled.div`
   margin: 1rem 0;
@@ -14,7 +16,14 @@ function UserInfo() {
   return (
     <InfoLayout>
       <span>Aktualnie nie jesteś zalogowany</span>
-      <AnimatedButton size='small'>Zaloguj</AnimatedButton>
+      <Modal>
+        <Modal.Open opens='login-form'>
+          <AnimatedButton size='small'>Zaloguj</AnimatedButton>
+        </Modal.Open>
+        <Modal.Window name='login-form'>
+          <AuthenticationForm />
+        </Modal.Window>
+      </Modal>
     </InfoLayout>
   );
 }

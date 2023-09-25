@@ -66,7 +66,7 @@ function Navigation() {
       <Element>
         <StyledNavLink to='/search'>
           <FaSearch />
-          Szukaj przepisów
+          Wybierz produkty
         </StyledNavLink>
       </Element>
 

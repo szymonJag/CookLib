@@ -43,4 +43,5 @@ export interface IShortRecipe {
   images: string[];
   recipeTags: IRecipeTag[];
   ingredients: string[];
+  ingredientsIds: number[];
 }

@@ -9,13 +9,14 @@ import { createPortal } from 'react-dom';
 import { HiXMark } from 'react-icons/hi2';
 import styled from 'styled-components';
 import { useOutsideClick } from '../hooks/useOutsideClick';
+import Heading from './Heading';
 
 const StyledModal = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--color-grey-0);
+  background-color: var(--color-grey-50);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-lg);
   padding: 3.2rem 4rem;
@@ -39,11 +40,7 @@ const Button = styled.button`
   border: none;
   padding: 0.4rem;
   border-radius: var(--border-radius-sm);
-  transform: translateX(0.8rem);
   transition: all 0.2s;
-  position: absolute;
-  top: 1.2rem;
-  right: 1.9rem;
 
   &:hover {
     background-color: var(--color-grey-100);
@@ -107,6 +104,11 @@ interface WindowProps {
   name: string;
 }
 
+const WindowHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const Window: FC<WindowProps> = ({ children, name }) => {
   const { openName, close } = useContext(ModalContext)!;
   const ref = useOutsideClick(close);
@@ -116,9 +118,12 @@ const Window: FC<WindowProps> = ({ children, name }) => {
   return createPortal(
     <Overlay>
       <StyledModal ref={ref}>
-        <Button onClick={close}>
-          <HiXMark />
-        </Button>
+        <WindowHeader>
+          <Heading as='h3'>Rejestracja</Heading>
+          <Button onClick={close}>
+            <HiXMark />
+          </Button>
+        </WindowHeader>
         <div>
           {React.cloneElement(children as React.ReactElement, {
             onCloseModal: close,

@@ -4,6 +4,8 @@ import { IIngredient } from '../interfaces/IIngredient';
 interface IngredientsCartContextType {
   ingredients: IIngredient[];
   ingredientsIds: number[];
+  isCartVisible: boolean;
+  manageCartVisibility: (show: boolean) => void;
   addIngredient: (ingredient: IIngredient) => void;
   getIngredient: (ingredientId: number) => void;
   deleteIngredient: (ingredientId: number) => void;
@@ -16,6 +18,8 @@ interface IngredientsProviderProps {
 const IngredientsContext = createContext<IngredientsCartContextType>({
   ingredients: [],
   ingredientsIds: [],
+  isCartVisible: false,
+  manageCartVisibility: () => null,
   addIngredient: () => null,
   getIngredient: () => null,
   deleteIngredient: () => null,
@@ -23,10 +27,16 @@ const IngredientsContext = createContext<IngredientsCartContextType>({
 
 function IngredientsProvider({ children }: IngredientsProviderProps) {
   const [ingredients, setIngredients] = useState<IIngredient[]>([]);
+  const [isCartVisible, setIsCartVisible] = useState<boolean>(false);
   const ingredientsIds = ingredients.map((x) => x.id);
+
+  const manageCartVisibility = (show: boolean) => {
+    setIsCartVisible(show);
+  };
 
   const addIngredient = (ingredient: IIngredient) => {
     setIngredients((prev) => [...prev, ingredient]);
+    console.log(`INGREDINETS CONTEXT`, ingredientsIds);
   };
 
   const deleteIngredient = (id: number) => {
@@ -44,6 +54,8 @@ function IngredientsProvider({ children }: IngredientsProviderProps) {
       value={{
         ingredients,
         addIngredient,
+        isCartVisible,
+        manageCartVisibility,
         deleteIngredient,
         getIngredient,
         ingredientsIds,
