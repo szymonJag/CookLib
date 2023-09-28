@@ -5,6 +5,6 @@ namespace CookLib.ApplicationServices.API.Domain.Requests.Users
 {
     public class GetUserRequest : RequestBase, IRequest<GetUserResponse>
     {
-        public string Name { get; set; }
+        public string Username { get; set; }
     }
 }

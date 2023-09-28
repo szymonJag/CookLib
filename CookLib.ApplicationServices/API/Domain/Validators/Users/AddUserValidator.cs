@@ -7,10 +7,9 @@ namespace CookLib.ApplicationServices.API.Domain.Validators.Users
     {
         public AddUserValidator()
         {
-            RuleFor(x => x.Mail).EmailAddress();
+            // RuleFor(x => x.Mail).EmailAddress();
             RuleFor(x => x.Password).Length(6, 20);
             RuleFor(x => x.Username).Length(4, 20);
-            RuleFor(x => x.Role).NotEmpty();
         }
     }
 }

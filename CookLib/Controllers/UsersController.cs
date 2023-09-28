@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CookLib.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ApiControllerBase
@@ -17,7 +17,6 @@ namespace CookLib.Controllers
         {
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("getUsersByUsername/")]
         public async Task<IActionResult> GetUsers([FromQuery] GetUsersRequest request)
@@ -33,7 +32,7 @@ namespace CookLib.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [Route("getById/{id}")]
         public async Task<IActionResult> GetUserById([FromRoute] int id)
         {
@@ -51,7 +50,7 @@ namespace CookLib.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("add/")]
+        [Route("register/")]
         public async Task<IActionResult> AddUser([FromBody] AddUserRequest request)
         {
             return await this.HandleRequest<AddUserRequest, AddUserResponse>(request);

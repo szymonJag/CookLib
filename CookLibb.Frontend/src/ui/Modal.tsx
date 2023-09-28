@@ -9,13 +9,12 @@ import { createPortal } from 'react-dom';
 import { HiXMark } from 'react-icons/hi2';
 import styled from 'styled-components';
 import { useOutsideClick } from '../hooks/useOutsideClick';
-import Heading from './Heading';
+import { motion } from 'framer-motion';
 
-const StyledModal = styled.div`
-  position: fixed;
-  top: 50%;
+const StyledModal = styled(motion.div)`
+  /* top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   background-color: var(--color-grey-50);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-lg);
@@ -24,6 +23,8 @@ const StyledModal = styled.div`
 `;
 
 const Overlay = styled.div`
+  display: grid;
+  place-content: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -106,7 +107,7 @@ interface WindowProps {
 
 const WindowHeader = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 const Window: FC<WindowProps> = ({ children, name }) => {
@@ -117,9 +118,13 @@ const Window: FC<WindowProps> = ({ children, name }) => {
 
   return createPortal(
     <Overlay>
-      <StyledModal ref={ref}>
+      <StyledModal
+        ref={ref}
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.1 }}
+      >
         <WindowHeader>
-          <Heading as='h3'>Rejestracja</Heading>
           <Button onClick={close}>
             <HiXMark />
           </Button>

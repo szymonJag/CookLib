@@ -39,18 +39,20 @@ namespace CookLib.ApplicationServices.API.Handlers.User
                 };
             }
 
-            var queryByEmail = new GetUserByEmailQuery() { Name = request.Mail };
-            var userByEmail = await this.queryExecutor.Execute(queryByEmail);
+            // var queryByEmail = new GetUserByEmailQuery() { Name = request. };
+            // var userByEmail = await this.queryExecutor.Execute(queryByEmail);
 
-            if (userByEmail != null)
-            {
-                return new AddUserResponse()
-                {
-                    Error = new ErrorModel("User with given email already exists!")
-                };
-            }
+            // if (userByEmail != null)
+            // {
+            //     return new AddUserResponse()
+            //     {
+            //         Error = new ErrorModel("User with given email already exists!")
+            //     };
+            // }
 
             var user = this.mapper.Map<DataAccess.Entities.User>(request);
+            user.Mail = "test@mail.gmail.com";
+            user.Role = DataAccess.Entities.UserRole.Default;
             user.CreationDate = DateTime.UtcNow;
             user.Salt = this.hasher.SaltGenerator();
             user.HashedPassword = this.hasher.HashPassword(request.Password, user.Salt);

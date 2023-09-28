@@ -1,13 +1,16 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
+import { motion } from 'framer-motion';
 
 interface StyledFormRowProps {
   orientation?: 'vertical' | 'horizontal';
+  isVisible?: boolean;
 }
 
-const StyledFormRow = styled.div<StyledFormRowProps>`
+const StyledFormRow = styled(motion.div)<StyledFormRowProps>`
   display: grid;
   align-items: center;
+  visibility: ${(props) => (props.isVisible === false ? 'hidden' : 'visible')};
 
   grid-template-columns: ${(props) =>
     props.orientation === 'vertical' ? '1fr' : '24rem 1fr 1.2fr'};
@@ -48,6 +51,7 @@ interface FormRowProps {
   error?: string;
   children: ReactNode;
   orientation?: 'vertical' | 'horizontal';
+  isVisible?: boolean;
   htmlFor?: string;
 }
 
@@ -57,9 +61,15 @@ function FormRow({
   children,
   orientation,
   htmlFor,
+  isVisible,
 }: FormRowProps) {
   return (
-    <StyledFormRow orientation={orientation}>
+    <StyledFormRow
+      orientation={orientation}
+      isVisible={isVisible}
+      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, x: 100 }}
+    >
       {label && <Label htmlFor={htmlFor}>{label}</Label>}
       {children}
       {error && <Error>{error}</Error>}

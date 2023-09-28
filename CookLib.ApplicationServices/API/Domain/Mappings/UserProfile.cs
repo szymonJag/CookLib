@@ -27,9 +27,9 @@ namespace CookLib.ApplicationServices.API.Domain.Mappings
 
 
             CreateMap<AddUserRequest, User>()
-                .ForMember(x => x.Mail, y => y.MapFrom(z => z.Mail))
-                .ForMember(x => x.Username, y => y.MapFrom(z => z.Username))
-                .ForMember(x => x.Role, y => y.MapFrom(z => z.Role));
+                // .ForMember(x => x.Mail, y => y.MapFrom(z => z.Mail))
+                .ForMember(x => x.Username, y => y.MapFrom(z => z.Username));
+
 
 
             CreateMap<UpdateUserByIdRequest, User>()

@@ -21,7 +21,7 @@ namespace CookLib.ApplicationServices.API.Handlers.Users
         }
         public async Task<GetUserResponse> Handle(GetUserRequest request, CancellationToken cancellationToken)
         {
-            var query = new GetUserQuery() { Name = request.Name };
+            var query = new GetUserQuery() { Name = request.Username };
             var user = await this.queryExecutor.Execute(query);
 
             if (user == null)
