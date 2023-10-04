@@ -94,8 +94,11 @@ export const ButtonForm = styled(AnimatedButton)`
 export const InputFile = styled.input.attrs({
   type: 'file',
 })<ButtonProps>`
+  width: 13rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border: 1px solid var(--color-grey-400);
   &::file-selector-button {
-    cursor: pointer;
     display: none;
   }
 `;

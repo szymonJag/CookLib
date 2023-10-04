@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
 import { IngredientsProvider } from './contexts/IngredientsCartContext';
+import { UserProvider } from './contexts/UserContext';
 
 // import Error from './ui/Error';
 // import Search from './pages/Search';
@@ -30,27 +31,31 @@ function App() {
     <QueryClientProvider client={queryClient} contextSharing={true}>
       <ReactQueryDevtools initialIsOpen={false} />
       <GlobalStyles />
-      <IngredientsProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<AppLayout />}>
-              <Route index element={<Navigate replace to='recipes' />} />
-              <Route path='search' element={<Search />} />
-              <Route path='recipes' element={<Recipes />} />
-              <Route path='recipes/:recipeId' element={<Recipe />} />
-              <Route path='add-recipe' element={<AddRecipe />} />
-              <Route path='user' element={<User />} />
-              <Route path='admin' element={<Admin />} />
-              {/* <Route path='/admin/edit/product/:productId' element={<Admin />} /> */}
-              <Route path='recipes' element={<Recipes />} />
-              <Route path='/error' element={<PageNotFound />} />
-              <Route path='*' element={<PageNotFound />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </IngredientsProvider>
+
+      <BrowserRouter>
+        <UserProvider>
+          <IngredientsProvider>
+            <Routes>
+              <Route path='/' element={<AppLayout />}>
+                <Route index element={<Navigate replace to='recipes' />} />
+                <Route path='search' element={<Search />} />
+                <Route path='recipes' element={<Recipes />} />
+                <Route path='recipes/:recipeId' element={<Recipe />} />
+                <Route path='add-recipe' element={<AddRecipe />} />
+                <Route path='user' element={<User />} />
+                <Route path='admin' element={<Admin />} />
+                {/* <Route path='/admin/edit/product/:productId' element={<Admin />} /> */}
+                <Route path='recipes' element={<Recipes />} />
+                <Route path='/error' element={<PageNotFound />} />
+                <Route path='*' element={<PageNotFound />} />
+              </Route>
+            </Routes>
+          </IngredientsProvider>
+        </UserProvider>
+      </BrowserRouter>
+
       <Toaster
-        position='top-center'
+        position='bottom-left'
         gutter={12}
         containerStyle={{ margin: '8px' }}
         toastOptions={{

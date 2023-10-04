@@ -3,6 +3,7 @@ import { toast } from 'react-hot-toast';
 import { IAddRecipeRequest } from '../../../interfaces/IRecipe';
 import { addRecipe } from '../../../services/apiRecipes';
 import { uploadImage } from '../../../services/apiUploadImages';
+import { useUserContext } from '../../../contexts/UserContext';
 
 type CreateRecipeType = {
   recipe: IAddRecipeRequest;
@@ -11,10 +12,11 @@ type CreateRecipeType = {
 
 export function useCreateRecipe() {
   const queryClient = useQueryClient();
+  const userContext = useUserContext();
 
   const { isLoading: isCreating, mutate: createRecipeMt } = useMutation({
     mutationFn: ({ recipe, images }: CreateRecipeType) =>
-      addRecipeWithImage(recipe, images),
+      addRecipeWithImage(recipe, images, userContext.token),
     onSuccess: () => {
       toast.success('Recipe added');
       queryClient.invalidateQueries({
@@ -29,9 +31,13 @@ export function useCreateRecipe() {
 
   return { isCreating, createRecipeMt };
 }
-async function addRecipeWithImage(recipe: IAddRecipeRequest, images: FileList) {
+async function addRecipeWithImage(
+  recipe: IAddRecipeRequest,
+  images: FileList,
+  token: string
+) {
   try {
-    const recipeData = await addRecipe(recipe);
+    const recipeData = await addRecipe(recipe, token);
     console.log(`recipeData`, recipeData);
 
     if (images.length > 0) {

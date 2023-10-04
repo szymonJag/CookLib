@@ -1,4 +1,5 @@
-﻿using CookLib.ApplicationServices.API.Domain.Requests.Images;
+﻿using CookLib.ApplicationServices;
+using CookLib.ApplicationServices.API.Domain.Requests.Images;
 using CookLib.ApplicationServices.API.Domain.Responses.Images;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -16,11 +17,19 @@ namespace CookLib.Controllers
         }
 
         [HttpPost]
-        [Route("upload")]
-        public async Task<IActionResult> UploadImage(List<IFormFile> images, [FromQuery] int recipeId)
+        [Route("uploadRecipeImage")]
+        public async Task<IActionResult> UploadRecipeImages(List<IFormFile> images, [FromQuery] int recipeId)
         {
-            var request = new UploadImageRequest() { Images = images, RecipeId = recipeId };
-            return await this.HandleRequest<UploadImageRequest, UploadImageResponse>(request);
+            var request = new UploadRecipeImagesRequest() { Images = images, RecipeId = recipeId };
+            return await this.HandleRequest<UploadRecipeImagesRequest, UploadRecipeImagesResponse>(request);
+        }
+
+        [HttpPost]
+        [Route("uploadAvatar")]
+        public async Task<IActionResult> UploadImage(IFormFile image, [FromQuery] int userId)
+        {
+            var request = new UploadUserAvatarRequest() { Image = image, UserId = userId };
+            return await this.HandleRequest<UploadUserAvatarRequest, UploadUserAvatarRespone>(request);
         }
     }
 }

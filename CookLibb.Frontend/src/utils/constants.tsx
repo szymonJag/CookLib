@@ -5,6 +5,11 @@ export const PAGE_SIZE = 10;
 
 export const API_URL = `https://localhost:7059`;
 
+export enum UserRoles {
+  Admin = 1,
+  Default = 2,
+}
+
 export const IngredientTypes: IIngredientType[] = [
   { id: 0, name: 'Wybierz typ' },
   { id: 1, name: 'Zbożowe' },

@@ -46,6 +46,7 @@ namespace CookLib.DataAccess
                 .HasForeignKey(x => x.RecipeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+
             modelBuilder.Entity<FavoriteRecipe>()
                 .HasKey(x => new { x.UserId, x.RecipeId });
         }

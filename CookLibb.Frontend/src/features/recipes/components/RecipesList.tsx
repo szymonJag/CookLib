@@ -7,9 +7,9 @@ import Heading from '../../../ui/Heading';
 import Spinner from '../../../ui/Spinner';
 import Input from '../../../ui/Input';
 import RecipeTagsCheckboxes from './RecipeTagsCheckboxes';
-import { FormSection } from '../../addRecipe/components/AddRecipeForm';
 import IngredientSearchOperations from './IngredientSearchOperations';
 import { useIngredientsContext } from '../../../contexts/IngredientsCartContext';
+import { PageSection } from '../../../ui/PageSection';
 
 const RecipesListLayout = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ const RecipeCardList = styled.div`
   justify-items: center;
 `;
 
-const FilterSection = styled(FormSection)`
+const FilterSection = styled(PageSection)`
   display: flex;
   flex-direction: column;
   gap: 2rem;

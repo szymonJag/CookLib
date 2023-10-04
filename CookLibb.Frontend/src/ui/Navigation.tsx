@@ -5,6 +5,8 @@ import { GiNotebook } from 'react-icons/gi';
 import { MdAddCircleOutline, MdAdminPanelSettings } from 'react-icons/md';
 import { FiUsers } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+import { useUserContext } from '../contexts/UserContext';
+import { UserRoles } from '../utils/constants';
 
 const List = styled(motion.ul)`
   display: flex;
@@ -55,6 +57,10 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 function Navigation() {
+  const userContext = useUserContext();
+  const user = userContext.user;
+
+  const isAdmin = user?.role === UserRoles.Admin;
   return (
     <List initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
       <Element>
@@ -69,25 +75,30 @@ function Navigation() {
           Wybierz produkty
         </StyledNavLink>
       </Element>
-
-      <Element>
-        <StyledNavLink to='/add-recipe'>
-          <MdAddCircleOutline />
-          Dodaj przepis
-        </StyledNavLink>
-      </Element>
-      <Element>
-        <StyledNavLink to='/user'>
-          <FiUsers />
-          Panel użytkownika
-        </StyledNavLink>
-      </Element>
-      <Element>
-        <StyledNavLink to='/admin'>
-          <MdAdminPanelSettings />
-          Panel administratora
-        </StyledNavLink>
-      </Element>
+      {user !== null && (
+        <>
+          <Element>
+            <StyledNavLink to='/add-recipe'>
+              <MdAddCircleOutline />
+              Dodaj przepis
+            </StyledNavLink>
+          </Element>
+          <Element>
+            <StyledNavLink to='/user'>
+              <FiUsers />
+              Panel użytkownika
+            </StyledNavLink>
+          </Element>
+        </>
+      )}
+      {user !== null && isAdmin && (
+        <Element>
+          <StyledNavLink to='/admin'>
+            <MdAdminPanelSettings />
+            Panel administratora
+          </StyledNavLink>
+        </Element>
+      )}
     </List>
   );
 }

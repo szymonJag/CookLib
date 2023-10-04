@@ -3,6 +3,7 @@ import { IShortRecipe } from '../../../interfaces/IRecipe';
 import { BiTimeFive } from 'react-icons/bi';
 import { BsPeople } from 'react-icons/bs';
 import { AiOutlineHeart } from 'react-icons/ai';
+import { useUserContext } from '../../../contexts/UserContext';
 
 interface RecipeShortInfoLayoutProps {
   showText?: boolean;
@@ -30,8 +31,16 @@ const RecipeInfoItem = styled.div`
   padding: 0.5rem;
 `;
 
-const RecipeInfoItemFavourite = styled(RecipeInfoItem)`
-  cursor: pointer;
+const FavouriteButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  background-color: transparent;
+
   &:hover {
     background-color: var(--color-grey-300);
   }
@@ -43,12 +52,15 @@ interface RecipeShortInfoProps {
 }
 
 function RecipeShortInfo({ recipe, showText = false }: RecipeShortInfoProps) {
+  const userContext = useUserContext();
+  const isUserLogged = userContext.user === null;
+
   return (
     <RecipeShortInfoLayout showText={showText}>
-      <RecipeInfoItemFavourite>
+      <FavouriteButton disabled={isUserLogged}>
         <AiOutlineHeart />
         {showText && <span>Dodaj do ulubionych</span>}
-      </RecipeInfoItemFavourite>
+      </FavouriteButton>
       <RecipeInfoItem>
         <BiTimeFive />
         {showText && <span>Czas przygotowania</span>}

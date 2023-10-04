@@ -3,13 +3,14 @@ import { API_URL } from '../utils/constants';
 
 const API_URL_RECIPES = `${API_URL}/Recipes`;
 
-export async function addRecipe(recipe: IAddRecipeRequest) {
+export async function addRecipe(recipe: IAddRecipeRequest, token: string) {
   try {
     const url = `${API_URL_RECIPES}/addRecipe`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authentication: `${token}`,
       },
       body: JSON.stringify(recipe),
     });

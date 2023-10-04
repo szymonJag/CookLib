@@ -15,26 +15,7 @@ import Checkboxes from './TagCheckboxes';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 import { IAddRecipeRequest, IRecipeRequest } from '../../../interfaces/IRecipe';
 import { useCreateRecipe } from '../hooks/useCreateRecipe';
-
-interface SectionProps {
-  orientation?: 'column' | 'row';
-}
-
-export const FormSection = styled.div<SectionProps>`
-  display: flex;
-  flex-direction: ${(props) =>
-    props.orientation === 'column' ? 'column' : 'row'};
-  align-items: center;
-  justify-content: space-around;
-  background-color: var(--color-grey-200);
-  border-radius: var(--border-radius-md);
-  padding: 2rem;
-  gap: 4rem;
-`;
-
-FormSection.defaultProps = {
-  orientation: 'row',
-};
+import { PageSection } from '../../../ui/PageSection';
 
 const Row = styled.div`
   display: flex;
@@ -77,7 +58,6 @@ function AddRecipeForm() {
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { isCreating, createRecipeMt } = useCreateRecipe();
-
   const { register, handleSubmit } = useForm<FormValues>();
   const [selectedImages, setSelectedImage] = useState<FileList | null>(null);
 
@@ -109,8 +89,6 @@ function AddRecipeForm() {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    console.log(`selected files`, selectedImages);
-    console.log(`fjiles`, files);
     if (files) {
       setSelectedImage(files);
     }
@@ -190,7 +168,7 @@ function AddRecipeForm() {
         <Heading as='h3'>
           <StepText>Krok pierwszy </StepText>- podstawowe informacje
         </Heading>
-        <FormSection orientation='column'>
+        <PageSection orientation='column'>
           <Row>
             <FormRow label='Nazwa przepisu' orientation='vertical'>
               <Input
@@ -240,13 +218,13 @@ function AddRecipeForm() {
               Dodaj zdjęcia
             </Button>
           </FormRow>
-        </FormSection>
+        </PageSection>
       </RecipeStep>
       <RecipeStep>
         <Heading as='h3'>
           <StepText>Krok drugi </StepText> - dodaj składniki
         </Heading>
-        <FormSection>
+        <PageSection>
           <AddProductTable onAddIngredient={handleAddProduct} />
           <ProductsCart
             products={ingredients}
@@ -256,14 +234,14 @@ function AddRecipeForm() {
             onDeleteButton={handleDeleteProduct}
             onSelectButton={handleSelectMeasurement}
           />
-        </FormSection>
+        </PageSection>
       </RecipeStep>
       <RecipeStep>
         <Heading as='h3'>
           <StepText>Krok trzeci </StepText> - dodaj kroki przygotowania
         </Heading>
 
-        <FormSection orientation='column'>
+        <PageSection orientation='column'>
           <Buttons>
             <Button
               variation={'danger'}
@@ -289,18 +267,18 @@ function AddRecipeForm() {
               handleRemove={handleRemoveTextArea}
             />
           ))}
-        </FormSection>
+        </PageSection>
       </RecipeStep>
       <RecipeStep>
         <Heading as='h3'>
           <StepText>Krok czwarty </StepText> - dodaj tagi
         </Heading>
-        <FormSection>
+        <PageSection>
           <Checkboxes
             selectedTags={selectedTags}
             onTagCheckboxChange={handleTagCheckboxChange}
           />
-        </FormSection>
+        </PageSection>
       </RecipeStep>
       <Button type='submit' disabled={isCreating}>
         Dodaj kurwa przepisisko

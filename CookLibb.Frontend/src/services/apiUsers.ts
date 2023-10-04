@@ -44,7 +44,7 @@ export async function loginUser(user: IRequestAuthenticateUser) {
 
     const data = await handleResponse(response);
 
-    return data.data.id;
+    return data.data;
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.error(err.message);

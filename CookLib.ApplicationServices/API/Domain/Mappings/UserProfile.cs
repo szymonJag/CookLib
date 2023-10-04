@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.IO.Compression;
+using AutoMapper;
 using CookLib.ApplicationServices.API.Domain.Models;
 using CookLib.ApplicationServices.API.Domain.Requests.User;
 using CookLib.ApplicationServices.API.Domain.Requests.Users;
@@ -13,13 +14,14 @@ namespace CookLib.ApplicationServices.API.Domain.Mappings
             CreateMap<User, UserDTO>()
                 .ForMember(x => x.Mail, y => y.MapFrom(z => z.Mail))
                 .ForMember(x => x.Username, y => y.MapFrom(z => z.Username))
-                .ForMember(x => x.Role, y => y.MapFrom(z => z.Role.ToString()))
+                .ForMember(x => x.Role, y => y.MapFrom(z => z.Role))
                 .ForMember(x => x.CreationDate, y => y.MapFrom(z => z.CreationDate))
                 .ForMember(x => x.Favourites, y => y.MapFrom(z => z.Favorites.Select(fr => new UserFavouriteRecipesDTO
                 {
                     RecipeId = fr.RecipeId,
                     Name = fr.Recipe.Name
                 }).ToList()))
+                .ForMember(x => x.AvatarURL, y => y.MapFrom(z => z.AvatarURL))
                 .ReverseMap();
 
             CreateMap<FavoriteRecipe, UserFavouriteRecipesDTO>()

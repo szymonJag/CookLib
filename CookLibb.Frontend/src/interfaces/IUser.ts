@@ -1,8 +1,12 @@
+import { UserRoles } from '../utils/constants';
+
 export interface IUser {
+  id: number;
   username: string;
-  role: string;
+  role: UserRoles;
   mail: string;
   creationDate: Date;
+  avatarURL: string;
   //   comments: string[];
   // favourites: string[];
 }
@@ -18,6 +22,6 @@ export interface ErrorObject {
 
 export type AuthenticationResponseType =
   | number
-  | ErrorObject
+  // | ErrorObject
   | string
   | undefined;

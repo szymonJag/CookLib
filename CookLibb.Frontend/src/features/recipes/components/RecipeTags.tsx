@@ -23,7 +23,10 @@ function RecipeTags({ tags, selectedRecipeTags }: RecipeTagsProps) {
   return (
     <RecipeTagsLayout>
       {tags.map((tag, index) => (
-        <RecipeTagItem isSelected={selectedRecipeTags.includes(tag.tagId)}>
+        <RecipeTagItem
+          isSelected={selectedRecipeTags.includes(tag.tagId)}
+          key={tag.id}
+        >
           {tag.name}
           {index < tags.length - 1 && ', '}
         </RecipeTagItem>

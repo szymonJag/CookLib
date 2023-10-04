@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CookLib.Controllers
 {
-    [AllowAnonymous]
+    // [AllowAnonymous]
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ApiControllerBase
@@ -17,6 +17,7 @@ namespace CookLib.Controllers
         {
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("getUsersByUsername/")]
         public async Task<IActionResult> GetUsers([FromQuery] GetUsersRequest request)

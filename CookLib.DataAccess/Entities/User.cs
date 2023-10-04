@@ -21,6 +21,7 @@ namespace CookLib.DataAccess.Entities
 
         [Required]
         public DateTime CreationDate { get; set; }
+        public string AvatarURL { get; set; }
 
         [Required]
         public UserRole Role { get; set; }

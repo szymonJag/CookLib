@@ -22,12 +22,9 @@ export function useLoginUser() {
       });
     },
     onError: (err: Error) => {
-      console.log(`err`, err.message);
-      toast.error(`Something went wrong`);
+      toast.error(`Something went wrong. ${err.message}`);
     },
   });
-
-  console.log(data);
 
   return { isCreating, loginUserMt, data };
 }
