@@ -28,6 +28,7 @@ namespace CookLib.ApplicationServices.API.Handlers.Comments
             var command = new AddCommentCommand() { Parameter = commentToAdd };
             var added = await this.commandExecutor.Execute(command);
 
+
             if (added == null)
             {
                 return new AddCommentResponse()

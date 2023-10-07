@@ -3,11 +3,10 @@ using FluentValidation;
 
 namespace CookLib.ApplicationServices.API.Domain.Validators.FavouriteRecipes
 {
-    public class AddFavouriteRecipeValidator : AbstractValidator<AddFavouriteRecipeRequest>
+    public class AddFavouriteRecipeValidator : AbstractValidator<ToggleFavouriteRecipeRequest>
     {
         public AddFavouriteRecipeValidator()
         {
-            RuleFor(x => x.UserId).NotEmpty();
             RuleFor(x => x.RecipeId).NotEmpty();
         }
     }

@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 import Sidebar from './Sidebar';
 import { Outlet } from 'react-router-dom';
 import UserInfo from './UserInfo';
+// import { useUserContext } from '../contexts/UserContext';
 
 const Layout = styled.div`
   display: grid;
@@ -15,6 +16,9 @@ export const MainLayout = styled.main`
 `;
 
 function AppLayout() {
+  // const userContext = useUserContext();
+  // userContext.login();
+
   return (
     <Layout>
       <Sidebar />

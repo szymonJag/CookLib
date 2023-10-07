@@ -24,10 +24,12 @@ namespace CookLib.Controllers
         }
 
         [HttpPost]
-        [Route("add/")]
-        public async Task<IActionResult> AddFavouriteRecipe([FromBody] AddFavouriteRecipeRequest request)
+        [Authorize(Roles = "Default,Admin")]
+        [Route("toggleFavouriteRecipe/{id}")]
+        public async Task<IActionResult> ToggleFavouriteRecipe([FromRoute] int id)
         {
-            return await this.HandleRequest<AddFavouriteRecipeRequest, AddFavouriteRecipeResponse>(request);
+            var request = new ToggleFavouriteRecipeRequest() { RecipeId = id };
+            return await this.HandleRequest<ToggleFavouriteRecipeRequest, ToggleFavouriteRecipeResponse>(request);
         }
 
         [HttpDelete]

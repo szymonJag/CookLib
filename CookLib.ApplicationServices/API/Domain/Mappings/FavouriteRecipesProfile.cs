@@ -9,18 +9,17 @@ namespace CookLib.ApplicationServices.API.Domain.Mappings
     {
         public FavouriteRecipesProfile()
         {
-            CreateMap<FavouriteRecipeDTO, FavoriteRecipe>()
+            CreateMap<FavouriteRecipeDTO, FavouriteRecipe>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.UserId, y => y.MapFrom(z => z.UserId))
                 .ForMember(x => x.RecipeId, y => y.MapFrom(z => z.RecipeId))
                 .ReverseMap();
 
-            CreateMap<AddFavouriteRecipeRequest, FavoriteRecipe>()
-                .ForMember(x => x.UserId, y => y.MapFrom(z => z.UserId))
+            CreateMap<ToggleFavouriteRecipeRequest, FavouriteRecipe>()
                 .ForMember(x => x.RecipeId, y => y.MapFrom(z => z.RecipeId))
                 .ReverseMap();
 
-            CreateMap<FavoriteRecipe, UserFavouriteRecipesDTO>()
+            CreateMap<FavouriteRecipe, UserFavouriteRecipesDTO>()
                 .ForMember(x => x.RecipeId, y => y.MapFrom(z => z.RecipeId))
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Recipe.Name))
                 .ReverseMap();

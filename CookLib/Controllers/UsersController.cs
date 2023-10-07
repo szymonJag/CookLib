@@ -1,5 +1,7 @@
-﻿using CookLib.ApplicationServices.API.Domain.Requests.User;
+﻿using CookLib.ApplicationServices.API.Domain.Requests.FavouriteRecipes;
+using CookLib.ApplicationServices.API.Domain.Requests.User;
 using CookLib.ApplicationServices.API.Domain.Requests.Users;
+using CookLib.ApplicationServices.API.Domain.Responses.FavouriteRecipes;
 using CookLib.ApplicationServices.API.Domain.Responses.User;
 using CookLib.ApplicationServices.API.Domain.Responses.Users;
 using MediatR;

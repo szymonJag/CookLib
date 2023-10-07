@@ -22,14 +22,12 @@ function UserInfo() {
     setFormMode((prev) => (prev === 'login' ? 'register' : 'login'));
   };
 
-  console.log(`userContext.user?.avatarURL`, userContext.user?.avatarURL);
-
   return (
     <InfoLayout>
       {userContext.user !== null ? (
         <>
           <span>Cześć, {userContext.user.username}!</span>
-          <Avatar src={userContext.user.avatarURL} alt='avatar' />
+          <Avatar src={userContext.user?.avatarURL} alt='avatar' />
         </>
       ) : (
         <span>Aktualnie nie jesteś zalogowany</span>

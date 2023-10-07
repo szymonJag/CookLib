@@ -4,9 +4,11 @@ import { useRef, useState } from 'react';
 import { Avatar } from '../../../ui/Avatar';
 import { useUploadUserAvatar } from '../hooks/useUploadUserAvatar';
 import { useUserContext } from '../../../contexts/UserContext';
+import { UserSectionHeading } from './UserSectionHeading';
 
 const AvatarUploadLayout = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   gap: 1rem;
@@ -14,20 +16,22 @@ const AvatarUploadLayout = styled.div`
 
 const AvatarSection = styled.div`
   display: flex;
-  margin-left: auto;
+  align-items: center;
   gap: 1rem;
 `;
 
 function AvatarUpload() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedImages, setSelectedImage] = useState<FileList | null>(null);
-  const { loginUserMt } = useUploadUserAvatar();
+  const { uploadAvatarMt } = useUploadUserAvatar();
   const userContext = useUserContext();
   const userId = (userContext.user && userContext.user!.id) || 0;
 
   const handleButtonClick = () => {
-    if (selectedImages && selectedImages?.length > 0)
-      loginUserMt({ images: selectedImages, userId });
+    if (selectedImages && selectedImages?.length > 0) {
+      uploadAvatarMt({ images: selectedImages, userId });
+      setSelectedImage(null);
+    }
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,20 +44,19 @@ function AvatarUpload() {
 
   return (
     <AvatarUploadLayout>
-      <span>Twoje zdjęcie profilowe</span>
-      <Avatar src={userContext.user?.avatarURL} alt='avatar' />
-
+      <UserSectionHeading as='h3'>Zdjęcie profilowe</UserSectionHeading>
+      <Avatar src={userContext.user?.avatarURL} alt='avatar' size='medium' />
+      <InputFile
+        size='small'
+        variation='primary'
+        type='file'
+        accept='image/*'
+        maxLength={3}
+        multiple={false}
+        onChange={handleImageChange}
+        ref={fileInputRef}
+      />
       <AvatarSection>
-        <InputFile
-          size='small'
-          variation='primary'
-          type='file'
-          accept='image/*'
-          maxLength={3}
-          multiple={false}
-          onChange={handleImageChange}
-          ref={fileInputRef}
-        />
         <span>Wybierz plik a następnie</span>
         <Button
           onClick={handleButtonClick}

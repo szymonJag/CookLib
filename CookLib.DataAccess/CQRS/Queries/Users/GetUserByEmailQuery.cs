@@ -8,7 +8,7 @@ namespace CookLib.DataAccess.CQRS.Queries.Users
         public string Name { get; set; }
         public override async Task<User> Execute(CookLibContext context)
         {
-            return await context.Users.FirstOrDefaultAsync(x => x.Mail == Name);
+            return await context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Mail == Name);
         }
     }
 }

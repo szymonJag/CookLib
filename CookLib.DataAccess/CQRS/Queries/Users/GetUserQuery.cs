@@ -8,7 +8,7 @@ namespace CookLib.DataAccess.CQRS.Queries.Users
         public string Name { get; set; }
         public override Task<User> Execute(CookLibContext context)
         {
-            return context.Users.FirstOrDefaultAsync(x => x.Username == Name);
+            return context.Users.Include(x => x.Favourites).AsNoTracking().FirstOrDefaultAsync(x => x.Username == Name);
         }
     }
 }

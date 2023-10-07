@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import { IShortRecipe } from '../../../interfaces/IRecipe';
 import { BiTimeFive } from 'react-icons/bi';
 import { BsPeople } from 'react-icons/bs';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { useUserContext } from '../../../contexts/UserContext';
+import { useAddFavouriteRecipe } from '../hooks/useAddFavouriteRecipe';
 
 interface RecipeShortInfoLayoutProps {
   showText?: boolean;
@@ -53,12 +54,18 @@ interface RecipeShortInfoProps {
 
 function RecipeShortInfo({ recipe, showText = false }: RecipeShortInfoProps) {
   const userContext = useUserContext();
+  const { addFavouriteRecipeMt } = useAddFavouriteRecipe();
   const isUserLogged = userContext.user === null;
+  const isFavourite = userContext.user?.favouritesRecipesId.includes(recipe.id);
+
+  const handleAddFavourite = () => {
+    addFavouriteRecipeMt(recipe.id);
+  };
 
   return (
     <RecipeShortInfoLayout showText={showText}>
-      <FavouriteButton disabled={isUserLogged}>
-        <AiOutlineHeart />
+      <FavouriteButton disabled={isUserLogged} onClick={handleAddFavourite}>
+        {isFavourite ? <AiFillHeart /> : <AiOutlineHeart />}
         {showText && <span>Dodaj do ulubionych</span>}
       </FavouriteButton>
       <RecipeInfoItem>

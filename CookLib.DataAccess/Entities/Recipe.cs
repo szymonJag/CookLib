@@ -23,7 +23,7 @@ namespace CookLib.DataAccess.Entities
         public List<PreparationStep> PreparationSteps { get; set; } = new List<PreparationStep>();
         public List<Comment> Comments { get; set; } = new List<Comment>();
         public List<RecipeTag> RecipeTags { get; set; } = new List<RecipeTag>();
-        public List<FavoriteRecipe> UsersFavorite { get; set; }
+        public List<FavouriteRecipe> UsersFavourite { get; set; } = new List<FavouriteRecipe>();
         public List<Image> Images { get; set; }
 
         [Required]

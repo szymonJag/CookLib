@@ -10,6 +10,6 @@ namespace CookLib.ApplicationServices.API.Domain.Models
         public string CreationDate { get; set; }
         public UserRole Role { get; set; }
         public string AvatarURL { get; set; }
-        public List<UserFavouriteRecipesDTO> Favourites { get; set; }
+        public List<int> FavouritesRecipesId { get; set; }
     }
 }

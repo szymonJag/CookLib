@@ -1,5 +1,6 @@
 import { IIngredient } from '../interfaces/IIngredient';
 import { IRecipe } from '../interfaces/IRecipe';
+import { IUser } from '../interfaces/IUser';
 import { IngredientTypes } from './constants';
 
 export const IngredientsData: IIngredient[] = [
@@ -26,4 +27,14 @@ export const DefaultRecipe: IRecipe = {
   ingredients: [],
   preparationSteps: [],
   recipeTags: [],
+};
+
+export const DefaultUser: IUser = {
+  id: 10,
+  username: 'test1',
+  mail: 'test@mail.gmail.com',
+  creationDate: new Date(),
+  role: 2,
+  avatarURL:
+    'https://localhost:7059/ImagesStore\\ca69478e-b1a9-4afc-a34a-6bf7e3a4e169_545909.jpg',
 };

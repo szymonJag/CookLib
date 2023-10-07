@@ -46,8 +46,6 @@ function RecipesList() {
   const ingredientsContext = useIngredientsContext();
   const selectedIngredientsIds = ingredientsContext.ingredientsIds;
 
-  console.log(isSearchingByIngredients);
-
   useEffect(() => {
     if (recipes) {
       const filtered = isSearchingByIngredients

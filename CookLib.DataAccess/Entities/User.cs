@@ -27,7 +27,7 @@ namespace CookLib.DataAccess.Entities
         public UserRole Role { get; set; }
         public List<Comment> Comments { get; set; }
         public List<Recipe> Recipes { get; set; }
-        public List<FavoriteRecipe> Favorites { get; set; }
+        public List<FavouriteRecipe> Favourites { get; set; }
 
     }
 

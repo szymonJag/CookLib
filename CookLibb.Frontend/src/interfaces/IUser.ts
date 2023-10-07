@@ -8,7 +8,7 @@ export interface IUser {
   creationDate: Date;
   avatarURL: string;
   //   comments: string[];
-  // favourites: string[];
+  favouritesRecipesId: number[];
 }
 
 export interface IRequestAuthenticateUser {

@@ -41,7 +41,7 @@ namespace CookLib.ApplicationServices.API.Handlers.Users
             {
                 return new AuthenticateUserResponse()
                 {
-                    Error = new ErrorModel($"{ErrorType.NotAuthenticated} - bad password")
+                    Error = new ErrorModel($"{ErrorType.NotAuthenticated} - podano złe hasło")
                 };
             }
 

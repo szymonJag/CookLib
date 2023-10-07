@@ -1,13 +1,16 @@
 import { createContext, useContext, useState } from 'react';
 import { IUser } from '../interfaces/IUser';
 import { useNavigate } from 'react-router-dom';
+// import { DefaultUser } from '../utils/data';
 
 interface UserContextType {
   user: IUser | null;
   token: string;
   setAuthToken: (username: string, password: string) => void;
+  // login: () => void;
   login: (user: IUser) => void;
   logout: () => void;
+  setAvatarUrl: (url: string) => void;
 }
 
 interface UserProviderProps {
@@ -20,32 +23,56 @@ const UserContext = createContext<UserContextType>({
   setAuthToken: () => null,
   login: () => null,
   logout: () => null,
+  setAvatarUrl: () => null,
 });
 
 function UserProvider({ children }: UserProviderProps) {
-  const [userContext, setUserContext] = useState<IUser | null>(null);
+  const [userData, setUserData] = useState<IUser | null>(null);
   const [token, setToken] = useState<string>('');
 
   const navigate = useNavigate();
 
   const setAuthToken = (username: string, password: string) => {
     const base64Credentials = btoa(username + ':' + password);
+    console.log(`base64Credentials`, base64Credentials);
     setToken(base64Credentials);
+    console.log(`token chuj`, token);
   };
 
+  // const login = () => {
+  //   setUserData(DefaultUser);
+  //   setToken('dGVzdDE6Z3Qzb3Ay');
+  //   console.log(`token`, token);
+  // };
+
   const login = (user: IUser) => {
-    setUserContext(user);
+    setUserData(user);
+    console.log(`token`, token);
   };
 
   const logout = () => {
-    setUserContext(null);
+    setUserData(null);
     setToken('');
     navigate(`/recipes`);
   };
 
+  const setAvatarUrl = (url: string) => {
+    if (userData) {
+      const updatedUserData: IUser = { ...userData, avatarURL: url };
+      setUserData(updatedUserData);
+    }
+  };
+
   return (
     <UserContext.Provider
-      value={{ user: userContext, login, logout, token, setAuthToken }}
+      value={{
+        user: userData,
+        login,
+        logout,
+        token,
+        setAuthToken,
+        setAvatarUrl,
+      }}
     >
       {children}
     </UserContext.Provider>

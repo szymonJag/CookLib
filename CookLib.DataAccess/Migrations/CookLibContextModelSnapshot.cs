@@ -53,20 +53,25 @@ namespace CookLib.DataAccess.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("CookLib.DataAccess.Entities.FavoriteRecipe", b =>
+            modelBuilder.Entity("CookLib.DataAccess.Entities.FavouriteRecipe", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("RecipeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId", "RecipeId");
+                    b.HasKey("Id");
 
                     b.HasIndex("RecipeId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("FavouriteRecipes");
                 });
@@ -302,16 +307,16 @@ namespace CookLib.DataAccess.Migrations
                     b.Navigation("Recipe");
                 });
 
-            modelBuilder.Entity("CookLib.DataAccess.Entities.FavoriteRecipe", b =>
+            modelBuilder.Entity("CookLib.DataAccess.Entities.FavouriteRecipe", b =>
                 {
                     b.HasOne("CookLib.DataAccess.Entities.Recipe", "Recipe")
-                        .WithMany("UsersFavorite")
+                        .WithMany("UsersFavourite")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CookLib.DataAccess.Entities.User", "User")
-                        .WithMany("Favorites")
+                        .WithMany("Favourites")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -402,14 +407,14 @@ namespace CookLib.DataAccess.Migrations
 
                     b.Navigation("RecipeTags");
 
-                    b.Navigation("UsersFavorite");
+                    b.Navigation("UsersFavourite");
                 });
 
             modelBuilder.Entity("CookLib.DataAccess.Entities.User", b =>
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("Favorites");
+                    b.Navigation("Favourites");
 
                     b.Navigation("Recipes");
                 });

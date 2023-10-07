@@ -59,9 +59,33 @@ export async function loginUser(user: IRequestAuthenticateUser) {
   }
 }
 
+export async function getUserById(id: number) {
+  try {
+    const url = `${API_URL_USERS}/getById/${id}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await handleResponse(response);
+
+    return data.data;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(err.message);
+      const errObj: ErrorObject = { error: err.message };
+      console.log(errObj);
+      return errObj;
+    } else {
+      console.error('An unknown error occurred');
+      return { error: 'An unknown error occurred' };
+    }
+  }
+}
+
 async function handleResponse(response: Response) {
   const data = await response.json();
-  console.log('data', JSON.stringify(data));
 
   if (response.status !== 200) {
     let errorMessage = 'An error occurred';

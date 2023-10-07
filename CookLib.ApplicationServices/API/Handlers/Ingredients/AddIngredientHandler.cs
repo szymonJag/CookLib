@@ -42,6 +42,7 @@ namespace CookLib.ApplicationServices.API.Handlers.Ingredients
             var command = new AddIngredientCommand() { Parameter = ingredient };
             var ingredientDb = await commandExecutor.Execute(command);
 
+
             if (ingredientDb == null)
             {
                 return new AddIngredientResponse()
