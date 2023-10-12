@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CookLib.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [ApiController]
     [Route("[Controller]")]
     public class CommentsController : ApiControllerBase
@@ -17,7 +17,7 @@ namespace CookLib.Controllers
 
         [HttpGet]
         [Route("getByRecipeId/{id}")]
-        public async Task<IActionResult> GetAllCommentsByRecipeId(int id)
+        public async Task<IActionResult> GetAllCommentsByRecipeId([FromRoute] int id)
         {
             var request = new GetAllCommentsByRecipeIdRequest() { Id = id };
             return await this.HandleRequest<GetAllCommentsByRecipeIdRequest, GetAllCommentsByRecipeIdResponse>(request);

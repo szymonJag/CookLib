@@ -1,21 +1,21 @@
 import { toast } from 'react-hot-toast';
-import { toggleFavouriteRecipe } from '../../../services/apiRecipes';
 import { useUserContext } from '../../../contexts/UserContext';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { addComment } from '../../../services/apiComments';
+import { IAddCommentRequest } from '../../../interfaces/IComment';
 
-export function useAddFavouriteRecipe() {
+export function useAddComment() {
   const queryClient = useQueryClient();
   const userContext = useUserContext();
   const token = userContext.token;
-  console.log(`token mutation`, token);
 
-  const { isLoading: isAdding, mutate: addFavouriteRecipeMt } = useMutation(
-    (recipeId: number) => toggleFavouriteRecipe(recipeId, token),
+  const { isLoading: isAdding, mutate: addCommentMt } = useMutation(
+    (comment: IAddCommentRequest) => addComment(comment, token),
     {
       onSuccess: () => {
         toast.success(`Dodano do ulubionych!`);
         queryClient.invalidateQueries({
-          queryKey: ['favourites', 'user'],
+          queryKey: ['comments'],
         });
       },
       onError: (err: Error) => {
@@ -27,5 +27,5 @@ export function useAddFavouriteRecipe() {
     }
   );
 
-  return { isAdding, addFavouriteRecipeMt };
+  return { isAdding, addCommentMt };
 }

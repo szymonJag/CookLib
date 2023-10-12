@@ -5,6 +5,8 @@ import RecipePanelIngredients from './RecipePanelIngredients';
 import RecipeShortInfo from '../../recipes/components/RecipeShortInfo';
 import { mapRecipeToShortRecipe } from '../../../utils/mappers';
 import RecipeStep from './RecipePreparationStep';
+import StarsRating from '../../../ui/StarsRating';
+import RecipeCommentsSection from './RecipeCommentsSection';
 
 const RecipePanelLayout = styled.div`
   display: flex;
@@ -45,7 +47,9 @@ function RecipePanel({ recipe }: RecipePanelProps) {
           showText={true}
         />
       </div>
+      <StarsRating handleRatingClick={() => console.log('elo')} />
       <RecipeStep steps={recipe.preparationSteps} />
+      <RecipeCommentsSection recipe={recipe} />
     </RecipePanelLayout>
   );
 }

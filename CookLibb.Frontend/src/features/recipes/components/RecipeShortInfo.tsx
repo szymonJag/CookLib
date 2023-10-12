@@ -45,6 +45,10 @@ const FavouriteButton = styled.button`
   &:hover {
     background-color: var(--color-grey-300);
   }
+  &:active &:focus {
+    border: none;
+    outline: 12px solid blue;
+  }
 `;
 
 interface RecipeShortInfoProps {
@@ -60,6 +64,7 @@ function RecipeShortInfo({ recipe, showText = false }: RecipeShortInfoProps) {
 
   const handleAddFavourite = () => {
     addFavouriteRecipeMt(recipe.id);
+    userContext.toggleFavouriteRecipe(recipe.id);
   };
 
   return (

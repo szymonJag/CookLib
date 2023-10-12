@@ -11,6 +11,7 @@ interface UserContextType {
   login: (user: IUser) => void;
   logout: () => void;
   setAvatarUrl: (url: string) => void;
+  toggleFavouriteRecipe: (id: number) => void;
 }
 
 interface UserProviderProps {
@@ -24,6 +25,7 @@ const UserContext = createContext<UserContextType>({
   login: () => null,
   logout: () => null,
   setAvatarUrl: () => null,
+  toggleFavouriteRecipe: () => null,
 });
 
 function UserProvider({ children }: UserProviderProps) {
@@ -63,6 +65,21 @@ function UserProvider({ children }: UserProviderProps) {
     }
   };
 
+  const toggleFavouriteRecipe = (id: number) => {
+    if (userData) {
+      const isFavourite = userData.favouritesRecipesId.includes(id);
+      const fav = [...userData.favouritesRecipesId];
+      const newFavouritesList = isFavourite
+        ? fav.filter((favId) => favId !== id)
+        : [...fav, id];
+      const updatedData: IUser = {
+        ...userData,
+        favouritesRecipesId: newFavouritesList,
+      };
+      setUserData(updatedData);
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -72,6 +89,7 @@ function UserProvider({ children }: UserProviderProps) {
         token,
         setAuthToken,
         setAvatarUrl,
+        toggleFavouriteRecipe,
       }}
     >
       {children}

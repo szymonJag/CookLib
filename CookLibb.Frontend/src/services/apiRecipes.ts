@@ -32,7 +32,6 @@ export async function getRecipeById(id: number): Promise<IRecipe> {
   const url = `${API_URL_RECIPES}/getById/${id}`;
   const response = await fetch(url);
   const data = await response.json();
-  console.log(`getById`, data);
 
   return data.data;
 }

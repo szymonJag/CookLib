@@ -1,52 +1,61 @@
 import { styled } from 'styled-components';
-import Heading from './Heading';
 import { MouseEvent } from 'react';
+import Heading from './Heading';
 import Button from './Button';
 
-const TextAreaLayout = styled.div`
+const CommonTextAreaLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
   width: 80%;
 `;
 
-const Area = styled.textarea`
+const CommonArea = styled.textarea`
   height: 10rem;
   padding: 1rem;
 `;
 
-const TextAreaHeader = styled.div`
+const CommonTextAreaHeader = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-interface TextAreaProps {
+interface CommonTextAreaProps {
   value: string;
   onChange: (value: string) => void;
-  index: number;
-  handleRemove: (index: number) => void;
+  header?: string;
+  index?: number;
+  handleRemove?: (index: number) => void;
 }
 
-function TextArea({ value, onChange, index, handleRemove }: TextAreaProps) {
+function TextArea({
+  value,
+  onChange,
+  header,
+  index,
+  handleRemove,
+}: CommonTextAreaProps) {
   return (
-    <TextAreaLayout>
-      <TextAreaHeader>
-        <Heading as='h3'>Krok {index + 1}</Heading>
-
-        {index > 0 && (
-          <Button
-            size='small'
-            onClick={(e: MouseEvent) => {
-              e.preventDefault();
-              handleRemove(index);
-            }}
-          >
-            Usuń
-          </Button>
-        )}
-      </TextAreaHeader>
-      <Area value={value} onChange={(e) => onChange(e.target.value)} />
-    </TextAreaLayout>
+    <CommonTextAreaLayout>
+      {index !== undefined && (
+        <CommonTextAreaHeader>
+          <Heading as='h3'>Krok {index + 1}</Heading>
+          {index > 0 && (
+            <Button
+              size='small'
+              onClick={(e: MouseEvent) => {
+                e.preventDefault();
+                handleRemove && handleRemove(index);
+              }}
+            >
+              Usuń
+            </Button>
+          )}
+        </CommonTextAreaHeader>
+      )}
+      {header && <CommonTextAreaHeader>{header}</CommonTextAreaHeader>}
+      <CommonArea value={value} onChange={(e) => onChange(e.target.value)} />
+    </CommonTextAreaLayout>
   );
 }
 

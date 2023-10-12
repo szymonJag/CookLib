@@ -11,6 +11,12 @@ export interface IUser {
   favouritesRecipesId: number[];
 }
 
+export interface IShortUser {
+  id: number;
+  username: string;
+  avatarUrl: string;
+}
+
 export interface IRequestAuthenticateUser {
   username: string;
   password: string;

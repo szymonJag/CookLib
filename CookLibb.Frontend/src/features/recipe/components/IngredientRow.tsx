@@ -18,9 +18,6 @@ function IngredientRow({ ingredient }: IngredientRowProps) {
   const ingredientName = ingredient.ingredient.name;
   const measurement = formatMeasurement(amount, ingredient.measurement);
 
-  console.log(`ingredientsIDS`, ingredientsContext.ingredientsIds);
-  console.log(`ingredientsID`, ingredient.ingredient.id);
-
   return (
     <li>
       {ingredientsContext.ingredientsIds.includes(ingredient.ingredient.id) ? (

@@ -17,18 +17,22 @@ function UserBasicInformation() {
   return (
     <UserBasicInformationLayout>
       <UserSectionHeading as='h3'>Informacje o koncie</UserSectionHeading>
-      <UserBasicInformationRow data={user!.username}>
+      <UserBasicInformationRow data={user?.username}>
         Nazwa użytkownika:
       </UserBasicInformationRow>
-      <UserBasicInformationRow data={user!.mail}>Mail</UserBasicInformationRow>
+      <UserBasicInformationRow data={user?.mail}>Mail</UserBasicInformationRow>
       <UserBasicInformationRow
-        data={user!.creationDate.toLocaleDateString()}
+        data={
+          user?.creationDate instanceof Date
+            ? user?.creationDate.toLocaleDateString()
+            : ''
+        }
         showEditButton={false}
       >
         Data rejestracji:
       </UserBasicInformationRow>
       <UserBasicInformationRow
-        data={user!.role === 1 ? 'Administrator' : 'Użytkownik'}
+        data={user?.role === 1 ? 'Administrator' : 'Użytkownik'}
         showEditButton={false}
       >
         Rola:

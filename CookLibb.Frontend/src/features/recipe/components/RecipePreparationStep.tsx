@@ -15,7 +15,6 @@ interface RecipePreparationStepProps {
 }
 
 function RecipePreparationStep({ steps }: RecipePreparationStepProps) {
-  console.log(steps);
   return (
     <div>
       <Heading as='h2'>Przygotowanie</Heading>

@@ -9,13 +9,12 @@ import { useState, MouseEvent, useRef } from 'react';
 import { IIngredient } from '../../../interfaces/IIngredient';
 import { IIngredientMeasuremenet } from '../../../interfaces/IIngredientMeasurement';
 import Button, { InputFile } from '../../../ui/Button';
-import TextArea from '../../../ui/TextArea';
-// import { IRecipeTag } from '../../../interfaces/IRecipe';
 import Checkboxes from './TagCheckboxes';
 import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 import { IAddRecipeRequest, IRecipeRequest } from '../../../interfaces/IRecipe';
 import { useCreateRecipe } from '../hooks/useCreateRecipe';
 import { PageSection } from '../../../ui/PageSection';
+import AddStepTextArea from './AddStepTextArea';
 
 const Row = styled.div`
   display: flex;
@@ -255,7 +254,7 @@ function AddRecipeForm() {
             </Button>
           </Buttons>
           {textAreas.map((text, index) => (
-            <TextArea
+            <AddStepTextArea
               key={index}
               value={text}
               onChange={(newValue) => {
