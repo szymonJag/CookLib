@@ -45,3 +45,9 @@ export interface IShortRecipe {
   ingredients: string[];
   ingredientsIds: number[];
 }
+
+export interface IRecipeShortInfo {
+  id: number;
+  servingSize: number;
+  preparationTime: number;
+}

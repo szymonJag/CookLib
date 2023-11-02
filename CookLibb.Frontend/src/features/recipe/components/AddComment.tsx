@@ -6,6 +6,7 @@ import { useAddComment } from '../hooks/useAddComment';
 import { IRecipe } from '../../../interfaces/IRecipe';
 import { IAddCommentRequest } from '../../../interfaces/IComment';
 import { useUserContext } from '../../../contexts/UserContext';
+import Heading from '../../../ui/Heading';
 
 const CommentButton = styled(Button)``;
 
@@ -43,7 +44,7 @@ function AddComment({ recipe }: AddCommentProps) {
           Dodaj komentarz
         </CommentButton>
       ) : (
-        <span>Musisz się zalogować żeby dodawać komentarze</span>
+        <Heading as='h3'>Musisz się zalogować żeby dodawać komentarze</Heading>
       )}
     </AddCommentLayout>
   );

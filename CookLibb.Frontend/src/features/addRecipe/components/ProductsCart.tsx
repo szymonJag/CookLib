@@ -1,14 +1,18 @@
 import { styled } from 'styled-components';
 import Table from '../../../ui/Table';
-import { IProductMeasuremenet } from '../../../interfaces/IIngredientMeasurement';
+import { IIngredientMeasuremenet } from '../../../interfaces/IIngredientMeasurement';
 import ProductCartRow from './ProductCartRow';
 
 const ProductsCartLayout = styled.div`
   flex: 1;
 `;
 
+const TableStyled = styled(Table)`
+  align-self: flex-start;
+`;
+
 interface ProductsCartProps {
-  products: IProductMeasuremenet[];
+  products: IIngredientMeasuremenet[];
   onDeleteButton: (productId: number) => void;
   onSelectButton: (measurementId: number, productId: number) => void;
   onValueChange: (value: number, productId: number) => void;
@@ -22,7 +26,7 @@ function ProductsCart({
 }: ProductsCartProps) {
   return (
     <ProductsCartLayout>
-      <Table columns='.2fr 1fr 1fr .7fr' height='50rem'>
+      <TableStyled columns='.2fr 1fr 1fr .7fr' height='50rem'>
         <Table.Header>
           <span></span>
           <span>Nazwa</span>
@@ -33,7 +37,7 @@ function ProductsCart({
         <Table.Body
           data={products}
           error={'Dodaj produkty z listy obok'}
-          render={(product: IProductMeasuremenet) => (
+          render={(product: IIngredientMeasuremenet) => (
             <ProductCartRow
               onValueChange={(value: number) =>
                 onValueChange(value, product.product.id)
@@ -49,7 +53,7 @@ function ProductsCart({
             />
           )}
         />
-      </Table>
+      </TableStyled>
     </ProductsCartLayout>
   );
 }

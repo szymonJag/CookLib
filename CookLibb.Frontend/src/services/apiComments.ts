@@ -52,3 +52,25 @@ export async function getCommentsByRecipeId(recipeId: number, token: string) {
     console.error(`Error with adding product: ${err}`);
   }
 }
+
+export async function deleteCommentById(commentId: number, token: string) {
+  try {
+    const url = `${API_URL_COMMENTS}/delete/${commentId}`;
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Basic ${token}`,
+      },
+    });
+
+    console.log('response', response);
+    const data = await response.json();
+    if (response.status !== 200)
+      throw new Error(data[0].errors[0].errorMessage);
+
+    return data.data;
+  } catch (err) {
+    console.error(`Error with adding product: ${err}`);
+  }
+}

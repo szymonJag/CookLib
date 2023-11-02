@@ -4,7 +4,6 @@ import Heading from './Heading';
 import Navigation from './Navigation';
 import ProductCart from '../features/search/components/IngredientCart';
 // import FadeInOut from './FadeInOut';
-import { useLocation } from 'react-router-dom';
 import { useIngredientsContext } from '../contexts/IngredientsCartContext';
 // import { useIngredientsContext } from '../contexts/IngredientsCartContext';
 
@@ -23,16 +22,12 @@ const HeadingInfo = styled(Heading)`
 `;
 
 function SidebarContent() {
-  const location = useLocation();
   const ingredientsContext = useIngredientsContext();
   const isCartVisible = ingredientsContext.isCartVisible;
-  const { pathname } = location;
 
   // useEffect(() => {
   //   if (pathname !== '/search') ingredientsContext.manageCartVisibility(false);
   // }, [location, ingredientsContext]);
-
-  console.log(`location`, pathname);
 
   return (
     <>

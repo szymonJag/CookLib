@@ -6,10 +6,11 @@ import {
   BsFillArrowRightCircleFill,
 } from 'react-icons/bs';
 
-const SliderContainer = styled.div`
+const SliderContainer = styled.div<{ height: string; width: string }>`
   overflow: hidden;
   position: relative;
-  width: 100%;
+  height: ${(props) => props.height};
+  width: ${(props) => props.width};
 `;
 
 const SliderButton = styled.button`
@@ -47,17 +48,19 @@ const RightSliderButton = styled(SliderButton)`
   margin-right: 0.5rem;
 `;
 
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
+const Image = styled.img<{ height: string; width: string }>`
+  height: ${(props) => props.height};
+  width: ${(props) => props.width};
   object-fit: cover;
 `;
 
 interface SliderProps {
   images: string[];
+  height?: string;
+  width?: string;
 }
 
-const SliderComponent: React.FC<SliderProps> = ({ images }) => {
+const SliderComponent: React.FC<SliderProps> = ({ images, height, width }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handlePrevClick = () => {
@@ -73,11 +76,16 @@ const SliderComponent: React.FC<SliderProps> = ({ images }) => {
   };
 
   return (
-    <SliderContainer>
+    <SliderContainer height={height || '10rem'} width={width || '100%'}>
       <LeftSliderButton onClick={handlePrevClick}>
         <LeftIcon />
       </LeftSliderButton>
-      <Image src={images[currentImageIndex]} alt='Recipe' />
+      <Image
+        src={images[currentImageIndex]}
+        alt='Recipe'
+        height={height || '10rem'}
+        width={width || '100%'}
+      />
       <RightSliderButton onClick={handleNextClick}>
         <RightIcon />
       </RightSliderButton>

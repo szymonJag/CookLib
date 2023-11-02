@@ -13,6 +13,7 @@ const UserBasicInformationLayout = styled.div`
 function UserBasicInformation() {
   const userContext = useUserContext();
   const user = userContext.user;
+  console.log(user?.creationDate);
 
   return (
     <UserBasicInformationLayout>
@@ -22,11 +23,7 @@ function UserBasicInformation() {
       </UserBasicInformationRow>
       <UserBasicInformationRow data={user?.mail}>Mail</UserBasicInformationRow>
       <UserBasicInformationRow
-        data={
-          user?.creationDate instanceof Date
-            ? user?.creationDate.toLocaleDateString()
-            : ''
-        }
+        data={user?.creationDate.toString()}
         showEditButton={false}
       >
         Data rejestracji:

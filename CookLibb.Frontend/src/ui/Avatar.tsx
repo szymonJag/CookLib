@@ -8,8 +8,8 @@ export const Avatar = styled.img<AvatarProps>`
   ${(props) =>
     props.size === 'small' &&
     css`
-      width: 4rem;
-      height: 4rem;
+      width: 5rem;
+      height: 5rem;
     `}
   ${(props) =>
     props.size === 'medium' &&
@@ -20,8 +20,8 @@ export const Avatar = styled.img<AvatarProps>`
     ${(props) =>
     props.size === 'large' &&
     css`
-      width: 4rem;
-      height: 4rem;
+      width: 15rem;
+      height: 15rem;
     `}
 
   border-radius: 50%;

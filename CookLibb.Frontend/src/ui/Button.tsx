@@ -70,7 +70,7 @@ const Button = styled.button<ButtonProps>`
 `;
 
 export const AnimatedButton = styled(Button)`
-  margin-top: auto;
+  /* margin-top: auto; */
   display: flex;
   align-items: center;
   justify-content: center;

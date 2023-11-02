@@ -7,7 +7,9 @@ import Heading from '../../../ui/Heading';
 const RecipeCommentListLayout = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 2rem;
+  margin-top: 2rem;
 `;
 
 interface RecipeCommentListProps {

@@ -1,4 +1,6 @@
-﻿using CookLib.ApplicationServices.API.Domain.Requests.Recipes;
+﻿using CookLib.ApplicationServices.API.Domain.Requests.FavouriteRecipes;
+using CookLib.ApplicationServices.API.Domain.Requests.Recipes;
+using CookLib.ApplicationServices.API.Domain.Responses.FavouriteRecipes;
 using CookLib.ApplicationServices.API.Domain.Responses.Recipes;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -76,5 +78,15 @@ namespace CookLib.Controllers
             request.Id = id;
             return this.HandleRequest<UpdateRecipeByIdRequest, UpdateRecipeByIdResponse>(request);
         }
+
+        [HttpGet]
+        [Route("getFavouritesByUserId/{id}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAllFavouriteRecipesByUserId([FromRoute] int id)
+        {
+            var request = new GetAllFavouriteRecipesByUserIdRequest() { Id = id };
+            return await this.HandleRequest<GetAllFavouriteRecipesByUserIdRequest, GetAllFavouriteRecipesByUserIdResponse>(request);
+        }
+
     }
 }

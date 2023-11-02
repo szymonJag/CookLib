@@ -35,8 +35,10 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, recipeTags }) => {
 
   return (
     <RecipeCardContainer>
-      <SliderComponent images={images} />
-      <RecipeShortInfo recipe={recipe} />
+      <>
+        <SliderComponent images={images} height='15rem' />
+        <RecipeShortInfo recipe={recipe} />
+      </>
       <RecipeInfo recipe={recipe} selectedRecipeTags={recipeTags} />
     </RecipeCardContainer>
   );

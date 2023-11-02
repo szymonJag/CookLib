@@ -38,7 +38,13 @@ const StepText = styled.span`
 const RecipeStep = styled.div`
   display: flex;
   flex-direction: column;
+  justify-items: flex-start;
   gap: 1rem;
+`;
+
+const StyledFormRow = styled(FormRow)`
+  align-self: center;
+  background-color: red;
 `;
 
 const Buttons = styled.div`
@@ -197,7 +203,7 @@ function AddRecipeForm() {
               />
             </FormRow>
           </Row>
-          <FormRow orientation='vertical'>
+          <StyledFormRow orientation='horizontal'>
             <InputFile
               size='small'
               variation='primary'
@@ -216,7 +222,7 @@ function AddRecipeForm() {
             >
               Dodaj zdjęcia
             </Button>
-          </FormRow>
+          </StyledFormRow>
         </PageSection>
       </RecipeStep>
       <RecipeStep>

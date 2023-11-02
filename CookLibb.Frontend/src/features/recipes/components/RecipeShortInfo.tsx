@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IShortRecipe } from '../../../interfaces/IRecipe';
+import { IRecipeShortInfo } from '../../../interfaces/IRecipe';
 import { BiTimeFive } from 'react-icons/bi';
 import { BsPeople } from 'react-icons/bs';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
@@ -8,14 +8,16 @@ import { useAddFavouriteRecipe } from '../hooks/useAddFavouriteRecipe';
 
 interface RecipeShortInfoLayoutProps {
   showText?: boolean;
+  color?: string;
 }
 
 const RecipeShortInfoLayout = styled.div<RecipeShortInfoLayoutProps>`
-  background-color: var(--color-grey-50);
+  /* background-color: ${(props) => props.color}; */
+  background-color: ${({ color }) =>
+    color ? 'var(--color-grey-300)' : 'none'};
+
   display: flex;
   border: 1px solid var(--color-grey-300);
-
-  border-top: none;
 
   & > *:not(:last-child) {
     border-right: ${({ showText }) =>
@@ -27,9 +29,8 @@ const RecipeInfoItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.3rem;
   flex: 1;
-  padding: 0.5rem;
 `;
 
 const FavouriteButton = styled.button`
@@ -52,15 +53,17 @@ const FavouriteButton = styled.button`
 `;
 
 interface RecipeShortInfoProps {
-  recipe: IShortRecipe;
+  recipe: IRecipeShortInfo;
   showText?: boolean;
 }
 
 function RecipeShortInfo({ recipe, showText = false }: RecipeShortInfoProps) {
   const userContext = useUserContext();
-  const { addFavouriteRecipeMt } = useAddFavouriteRecipe();
+  const { addFavouriteRecipeMt, isAdding } = useAddFavouriteRecipe();
   const isUserLogged = userContext.user === null;
   const isFavourite = userContext.user?.favouritesRecipesId.includes(recipe.id);
+
+  const isDisabled = isUserLogged || isAdding;
 
   const handleAddFavourite = () => {
     addFavouriteRecipeMt(recipe.id);
@@ -69,7 +72,7 @@ function RecipeShortInfo({ recipe, showText = false }: RecipeShortInfoProps) {
 
   return (
     <RecipeShortInfoLayout showText={showText}>
-      <FavouriteButton disabled={isUserLogged} onClick={handleAddFavourite}>
+      <FavouriteButton disabled={isDisabled} onClick={handleAddFavourite}>
         {isFavourite ? <AiFillHeart /> : <AiOutlineHeart />}
         {showText && <span>Dodaj do ulubionych</span>}
       </FavouriteButton>

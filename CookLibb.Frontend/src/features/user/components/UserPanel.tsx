@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { PageSection } from '../../../ui/PageSection';
 import Heading from '../../../ui/Heading';
 import UserInformation from './UserInformation';
+import FavouriteRecipesList from './FavouriteRecipesList';
 
 const UserPanelLayout = styled.div`
   display: flex;
@@ -25,11 +26,13 @@ function UserPanel() {
         </PageSection>
       </UserPanelStep>
       <UserPanelStep>
-        <Heading as='h2'>Dodane przepisy</Heading>
-        <PageSection>chuj</PageSection>
+        <Heading as='h2'>Ulubione przepisy</Heading>
+        <PageSection>
+          <FavouriteRecipesList />
+        </PageSection>
       </UserPanelStep>
       <UserPanelStep>
-        <Heading as='h2'>Ulubione przepisy</Heading>
+        <Heading as='h2'>Dodane przepisy</Heading>
         <PageSection>chuj</PageSection>
       </UserPanelStep>
     </UserPanelLayout>

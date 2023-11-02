@@ -21,6 +21,7 @@ const DeleteIcon = styled(GiCancel)`
 
   &:hover {
     transform: scale(1.1);
+    fill: var(--color-red-800);
   }
 `;
 

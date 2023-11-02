@@ -2,7 +2,7 @@
 
 namespace CookLib.ApplicationServices.API.Domain.Responses.FavouriteRecipes
 {
-    public class GetAllFavouriteRecipesByUserIdResponse : ResponseBase<List<FavouriteRecipeDTO>>
+    public class GetAllFavouriteRecipesByUserIdResponse : ResponseBase<List<ShortRecipeDTO>>
     {
     }
 }

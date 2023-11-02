@@ -1,13 +1,12 @@
 import React, { useContext, ReactNode, FC } from 'react';
 import styled from 'styled-components';
 
-const StyledTable = styled.div`
+const StyledTable = styled.div<{ maxHeight: string }>`
   border: 1px solid var(--color-grey-200);
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
-  border-radius: 7px;
   overflow: hidden;
-  height: 40rem;
+  width: 100%;
 `;
 
 interface CommonRowProps {
@@ -50,8 +49,10 @@ const StyledRow = styled(CommonRow)`
     border-bottom: 1px solid var(--color-grey-100);
   }
 
+  &:last-child {
+  }
   &:hover {
-    background-color: rgb(224, 224, 224);
+    background-color: var(--color-grey-100);
   }
 `;
 
@@ -102,7 +103,7 @@ const Table: FC<TableProps> & TableStaticProps = ({
 }) => {
   return (
     <TableContext.Provider value={{ columns, height }}>
-      <StyledTable role='table' style={{ height }}>
+      <StyledTable role='table' maxHeight={height || 'unset'}>
         {children}
       </StyledTable>
     </TableContext.Provider>

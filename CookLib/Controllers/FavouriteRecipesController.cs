@@ -15,13 +15,13 @@ namespace CookLib.Controllers
         {
         }
 
-        [HttpGet]
-        [Route("userId/{id}")]
-        public async Task<IActionResult> GetAllFavouriteRecipesByUserId([FromRoute] int id)
-        {
-            var request = new GetAllFavouriteRecipesByUserIdRequest() { Id = id };
-            return await this.HandleRequest<GetAllFavouriteRecipesByUserIdRequest, GetAllFavouriteRecipesByUserIdResponse>(request);
-        }
+        // [HttpGet]
+        // [Route("userId/{id}")]
+        // public async Task<IActionResult> GetAllFavouriteRecipesByUserId([FromRoute] int id)
+        // {
+        //     var request = new GetAllFavouriteRecipesByUserIdRequest() { Id = id };
+        //     return await this.HandleRequest<GetAllFavouriteRecipesByUserIdRequest, GetAllFavouriteRecipesByUserIdResponse>(request);
+        // }
 
         [HttpPost]
         [Authorize(Roles = "Default,Admin")]

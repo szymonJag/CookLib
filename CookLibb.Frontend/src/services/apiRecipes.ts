@@ -59,10 +59,8 @@ export async function toggleFavouriteRecipe(recipeId: number, token: string) {
 
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
-
     headers.append('Access-Control-Allow-Origin', 'http://127.0.0.1:5173');
     headers.append('Access-Control-Allow-Credentials', 'true');
-
     headers.append('Authorization', 'Basic ' + token);
 
     const url = `${API_URL_FAVOURITE}/toggleFavouriteRecipe/${recipeId}`;
@@ -80,5 +78,27 @@ export async function toggleFavouriteRecipe(recipeId: number, token: string) {
     return data.data;
   } catch (err) {
     console.error(`Error with adding favourite recipe: ${err}`);
+  }
+}
+
+export async function getUserFavouritesRecipes(id: number, token: string) {
+  try {
+    const url = `${API_URL_RECIPES}/getFavouritesByUserId/${id}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authentication: `Basic ${token}`,
+        'Access-Control-Allow-Origin': 'no-cors',
+      },
+    });
+    const data = await response.json();
+
+    if (response.status !== 200)
+      throw new Error(data[0].errors[0].errorMessage);
+
+    return data.data;
+  } catch (err) {
+    console.error(err);
   }
 }

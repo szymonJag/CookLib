@@ -39,7 +39,7 @@ function RecipePanel({ recipe }: RecipePanelProps) {
     <RecipePanelLayout>
       <div>
         <RecipePanelWelcome>
-          <RecipePanelSlider images={recipeImages} />
+          <RecipePanelSlider images={recipeImages} height='100%' />
           <RecipePanelIngredients ingredients={recipeIngredients} />
         </RecipePanelWelcome>
         <RecipeShortInfo
