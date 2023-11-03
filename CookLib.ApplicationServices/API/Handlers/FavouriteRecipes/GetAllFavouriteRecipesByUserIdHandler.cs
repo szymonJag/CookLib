@@ -3,6 +3,7 @@ using CookLib.ApplicationServices.API.Domain.ErrorHandling;
 using CookLib.ApplicationServices.API.Domain.Models;
 using CookLib.ApplicationServices.API.Domain.Requests.FavouriteRecipes;
 using CookLib.ApplicationServices.API.Domain.Responses.FavouriteRecipes;
+using CookLib.DataAccess;
 using CookLib.DataAccess.CQRS.Queries;
 using CookLib.DataAccess.CQRS.Queries.FavouriteRecipes;
 using CookLib.DataAccess.CQRS.Queries.Recipes;
@@ -34,27 +35,13 @@ namespace CookLib.ApplicationServices.API.Handlers.FavouriteRecipes
                 };
             }
 
-            // if (request.AuthenticatedUserId != favouriteRecipes[0].UserId)
-            // {
-            //     return new GetAllFavouriteRecipesByUserIdResponse()
-            //     {
-            //         Error = new ErrorModel(ErrorType.Unauthorized)
-            //     };
-            // }
-
             var favouritesRecipesIds = favouriteRecipes.Select(x => x.RecipeId).ToList();
-            var favouritesRecipes = new List<Recipe>();
-
-            foreach (var fav in favouritesRecipesIds)
-            {
-                var favQuery = new GetRecipeByIdQuery() { Id = fav };
-                var fetched = await this.queryExecutor.Execute(favQuery);
-                favouritesRecipes.Add(fetched);
-            }
+            var recipesQuery = new GetRecipesByIdsQuery() { Ids = favouritesRecipesIds };
+            var favourites = this.queryExecutor.Execute(recipesQuery);
 
             return new GetAllFavouriteRecipesByUserIdResponse()
             {
-                Data = this.mapper.Map<List<ShortRecipeDTO>>(favouritesRecipes)
+                Data = this.mapper.Map<List<ShortRecipeDTO>>(favourites)
             };
         }
     }

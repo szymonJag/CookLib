@@ -5,6 +5,7 @@ import { BsPeople } from 'react-icons/bs';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { useUserContext } from '../../../contexts/UserContext';
 import { useAddFavouriteRecipe } from '../hooks/useAddFavouriteRecipe';
+import Button from '../../../ui/Button';
 
 interface RecipeShortInfoLayoutProps {
   showText?: boolean;
@@ -15,7 +16,7 @@ const RecipeShortInfoLayout = styled.div<RecipeShortInfoLayoutProps>`
   /* background-color: ${(props) => props.color}; */
   background-color: ${({ color }) =>
     color ? 'var(--color-grey-300)' : 'none'};
-
+  padding: 0.5rem;
   display: flex;
   border: 1px solid var(--color-grey-300);
 
@@ -29,7 +30,7 @@ const RecipeInfoItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.3rem;
+  gap: 0.7rem;
   flex: 1;
 `;
 
@@ -55,9 +56,16 @@ const FavouriteButton = styled.button`
 interface RecipeShortInfoProps {
   recipe: IRecipeShortInfo;
   showText?: boolean;
+  handleAddServings?: () => void;
+  handleRemoveServings?: () => void;
 }
 
-function RecipeShortInfo({ recipe, showText = false }: RecipeShortInfoProps) {
+function RecipeShortInfo({
+  recipe,
+  showText = false,
+  handleAddServings,
+  handleRemoveServings,
+}: RecipeShortInfoProps) {
   const userContext = useUserContext();
   const { addFavouriteRecipeMt, isAdding } = useAddFavouriteRecipe();
   const isUserLogged = userContext.user === null;
@@ -84,7 +92,21 @@ function RecipeShortInfo({ recipe, showText = false }: RecipeShortInfoProps) {
       <RecipeInfoItem>
         <BsPeople />
         {showText && <span>Porcja dla osób</span>}
+        {showText && (
+          <Button
+            size='small'
+            disabled={recipe.servingSize === 1}
+            onClick={handleRemoveServings}
+          >
+            -
+          </Button>
+        )}
         <span>{recipe.servingSize}</span>
+        {showText && (
+          <Button size='small' onClick={handleAddServings}>
+            +
+          </Button>
+        )}
       </RecipeInfoItem>
     </RecipeShortInfoLayout>
   );

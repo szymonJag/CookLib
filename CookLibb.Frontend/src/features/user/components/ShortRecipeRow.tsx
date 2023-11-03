@@ -16,6 +16,10 @@ const Buttons = styled.div`
   justify-content: center;
 `;
 
+const HeadingRow = styled(Heading)`
+  text-align: center;
+`;
+
 interface ShortRecipeRowProps {
   shortRecipe: IShortRecipe;
 }
@@ -38,7 +42,7 @@ function ShortRecipeRow({ shortRecipe }: ShortRecipeRowProps) {
   return (
     <Table.Row>
       <SliderComponent images={shortRecipe.images} height='auto' width='100%' />
-      <Heading as='h3'>{shortRecipe.name}</Heading>
+      <HeadingRow as='h2'>{shortRecipe.name}</HeadingRow>
       <Buttons>
         <Button
           variation='secondary'

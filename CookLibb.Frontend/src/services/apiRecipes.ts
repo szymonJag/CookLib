@@ -102,3 +102,25 @@ export async function getUserFavouritesRecipes(id: number, token: string) {
     console.error(err);
   }
 }
+
+export async function getRecipesCreatedByUser(userId: number, token: string) {
+  try {
+    const url = `${API_URL_RECIPES}/getRecipesCreatedByUserId/${userId}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authentication: `Basic ${token}`,
+        'Access-Control-Allow-Origin': 'no-cors',
+      },
+    });
+    const data = await response.json();
+
+    if (response.status !== 200)
+      throw new Error(data[0].errors[0].errorMessage);
+
+    return data.data;
+  } catch (err) {
+    console.error(err);
+  }
+}

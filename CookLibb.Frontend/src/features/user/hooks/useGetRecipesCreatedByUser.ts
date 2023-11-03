@@ -3,11 +3,11 @@ import { useUserContext } from '../../../contexts/UserContext';
 import { getUserFavouritesRecipes } from '../../../services/apiRecipes';
 import { IShortRecipe } from '../../../interfaces/IRecipe';
 
-export function useGetUserFavouritesRecipes(userId: number) {
+export function useGetRecipesCreatedByUser(userId: number) {
   const context = useUserContext();
   const token = context.token;
   const { isLoading, data, error } = useQuery({
-    queryKey: ['favourites'],
+    queryKey: ['created'],
     queryFn: () => getUserFavouritesRecipes(userId, token),
   });
 

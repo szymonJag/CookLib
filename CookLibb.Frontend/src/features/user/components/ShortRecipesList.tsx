@@ -13,7 +13,7 @@ interface ShortRecipeListProps {
 
 function ShortRecipeList({ shortRecipeList }: ShortRecipeListProps) {
   return (
-    <Table columns='1fr 1.5fr 1.5fr' height='60rem'>
+    <Table columns=' 1.2fr 1fr 1.5fr' height='60rem'>
       <Table.Header>
         <TableHeaderText>Galeria</TableHeaderText>
         <TableHeaderText>Nazwa</TableHeaderText>
