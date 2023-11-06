@@ -84,6 +84,28 @@ export async function getUserById(id: number) {
   }
 }
 
+export async function getAllUsers(name: string = '', token: string) {
+  try {
+    const queryParams = new URLSearchParams({ Username: name });
+    const params = name.length > 0 ? `?${queryParams.toString()}` : '';
+    const url = `${API_URL_USERS}/getUsersByUsername${params}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Basic ${token}`,
+      },
+    });
+    const data = await response.json();
+
+    if (data.error) throw new Error(data.error);
+
+    return data.data;
+  } catch (err) {
+    console.error(`Error with fetching users: ${err}`);
+  }
+}
+
 async function handleResponse(response: Response) {
   const data = await response.json();
 

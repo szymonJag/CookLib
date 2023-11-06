@@ -1,8 +1,8 @@
-import Form from '../../../../ui/Form';
-import FormRow from '../../../../ui/FormRow';
-import Input from '../../../../ui/Input';
-import { ButtonForm } from '../../../../ui/Button';
-import { IngredientTypes } from '../../../../utils/constants';
+import Form from '../../../ui/Form';
+import FormRow from '../../../ui/FormRow';
+import Input from '../../../ui/Input';
+import { ButtonForm } from '../../../ui/Button';
+import { IngredientTypes } from '../../../utils/constants';
 import { styled } from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { InputSelect } from './IngredientForm';

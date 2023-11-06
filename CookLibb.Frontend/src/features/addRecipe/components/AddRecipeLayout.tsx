@@ -1,11 +1,11 @@
-import { Layout } from '../../../ui/SiteSections';
+import { PanelLayout } from '../../../ui/SiteSections';
 import AddRecipeForm from './AddRecipeForm';
 
 function AddRecipeLayout() {
   return (
-    <Layout>
+    <PanelLayout>
       <AddRecipeForm />
-    </Layout>
+    </PanelLayout>
   );
 }
 

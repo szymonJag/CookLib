@@ -1,12 +1,12 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import Input from '../../../../ui/Input';
-import Table from '../../../../ui/Table';
+import Input from '../../../ui/Input';
+import Table from '../../../ui/Table';
 import { styled } from 'styled-components';
-import Select from '../../../../ui/Select';
-import { IngredientTypes } from '../../../../utils/constants';
-import { IIngredient } from '../../../../interfaces/IIngredient';
-import { useIngredients } from '../../hooks/Products/useGetIngredients';
-import Spinner from '../../../../ui/Spinner';
+import Select from '../../../ui/Select';
+import { IngredientTypes } from '../../../utils/constants';
+import { IIngredient } from '../../../interfaces/IIngredient';
+import { useIngredients } from '../hooks/useGetIngredients';
+import Spinner from '../../../ui/Spinner';
 import IngredientRow from './IngredientRow';
 
 const InputName = styled(Input)`

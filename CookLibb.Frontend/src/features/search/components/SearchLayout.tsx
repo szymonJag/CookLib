@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Heading from '../../../ui/Heading';
-import { useIngredients } from '../../admin/hooks/Products/useGetIngredients';
+import { useIngredients } from '../../admin/hooks/useGetIngredients';
 import { useState, useEffect } from 'react';
 import { IIngredient } from '../../../interfaces/IIngredient';
 import Spinner from '../../../ui/Spinner';

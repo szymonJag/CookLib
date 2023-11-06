@@ -25,7 +25,7 @@ function FavouriteRecipeList({ shortRecipeList }: FavouriteRecipeListProps) {
         render={(recipe: IShortRecipe) => (
           <FavouriteRecipeRow shortRecipe={recipe} key={recipe.id} />
         )}
-      ></Table.Body>
+      />
     </Table>
   );
 }

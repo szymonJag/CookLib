@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateIngredient } from '../../../../services/apiIngredients';
+import { updateIngredient } from '../../../services/apiIngredients';
 import { toast } from 'react-hot-toast';
-import { IUpdateIngredientRequest } from '../../../../interfaces/IIngredient';
+import { IUpdateIngredientRequest } from '../../../interfaces/IIngredient';
 // import { IProduct } from '../../../../interfaces/IProduct';
 
 interface IUpdateProps {

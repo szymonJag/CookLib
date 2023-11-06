@@ -1,4 +1,4 @@
-import AdminLayout from '../features/admin/AdminLayout';
+import AdminLayout from '../features/admin/components/AdminPanel';
 import { PageContent } from '../ui/PageContent';
 import RouteHeading from '../ui/RouteHeading';
 
@@ -7,7 +7,7 @@ function Admin() {
     <>
       <RouteHeading text='Panel administratora' />
       <PageContent>
-        <AdminLayout />;
+        <AdminLayout />
       </PageContent>
     </>
   );

@@ -1,10 +1,10 @@
 import { styled } from 'styled-components';
-import { IIngredient } from '../../../../interfaces/IIngredient';
-import Table from '../../../../ui/Table';
-import Button from '../../../../ui/Button';
-import Modal from '../../../../ui/Modal';
-import ConfirmDelete from '../../../../ui/ConfirmDelete';
-import { useDeleteIngredient } from '../../hooks/Products/useDeleteIngredient';
+import { IIngredient } from '../../../interfaces/IIngredient';
+import Table from '../../../ui/Table';
+import Button from '../../../ui/Button';
+import Modal from '../../../ui/Modal';
+import ConfirmDelete from '../../../ui/ConfirmDelete';
+import { useDeleteIngredient } from '../hooks/useDeleteIngredient';
 
 interface IngredientRowProps {
   ingredient: IIngredient;

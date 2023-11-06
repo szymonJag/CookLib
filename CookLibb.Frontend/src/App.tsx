@@ -42,6 +42,7 @@ function App() {
                 <Route path='recipes' element={<Recipes />} />
                 <Route path='recipes/:recipeId' element={<Recipe />} />
                 <Route path='add-recipe' element={<AddRecipe />} />
+                <Route path='edit-recipe/:recipeId' element={<AddRecipe />} />
                 <Route path='user' element={<User />} />
                 <Route path='admin' element={<Admin />} />
                 {/* <Route path='/admin/edit/product/:productId' element={<Admin />} /> */}

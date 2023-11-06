@@ -1,17 +1,17 @@
 import { styled } from 'styled-components';
-import Form from '../../../../ui/Form';
-import FormRow from '../../../../ui/FormRow';
-import Input from '../../../../ui/Input';
-import { IngredientTypes } from '../../../../utils/constants';
-import { ButtonForm } from '../../../../ui/Button';
+import Form from '../../../ui/Form';
+import FormRow from '../../../ui/FormRow';
+import Input from '../../../ui/Input';
+import { IngredientTypes } from '../../../utils/constants';
+import { ButtonForm } from '../../../ui/Button';
 import { useForm, FieldErrors, SubmitHandler } from 'react-hook-form';
 import {
   IAddIngredientRequest,
   IUpdateIngredientRequest,
-} from '../../../../interfaces/IIngredient';
-import { useCreateProduct } from '../../hooks/Products/useCreateIngredient';
-import { useUpdateProduct } from '../../hooks/Products/useUpdateIngredient';
-import Select, { StyledSelect } from '../../../../ui/Select';
+} from '../../../interfaces/IIngredient';
+import { useCreateProduct } from '../hooks/useCreateIngredient';
+import { useUpdateProduct } from '../hooks/useUpdateIngredient';
+import Select, { StyledSelect } from '../../../ui/Select';
 import { useEffect } from 'react';
 
 const ProductFormStyle = styled.div`

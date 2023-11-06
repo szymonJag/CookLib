@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getIngredients } from '../../../../services/apiIngredients';
-import { IIngredient } from '../../../../interfaces/IIngredient';
+import { getIngredients } from '../../../services/apiIngredients';
+import { IIngredient } from '../../../interfaces/IIngredient';
 // import { IProduct } from '../../../../interfaces/IProduct';
 
 export function useIngredients() {

@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import Input from '../../../ui/Input';
 import { styled } from 'styled-components';
 import { IIngredient } from '../../../interfaces/IIngredient';
-import { useIngredients } from '../../admin/hooks/Products/useGetIngredients';
+import { useIngredients } from '../../admin/hooks/useGetIngredients';
 import Table from '../../../ui/Table';
 import Select from '../../../ui/Select';
 import { IngredientTypes } from '../../../utils/constants';

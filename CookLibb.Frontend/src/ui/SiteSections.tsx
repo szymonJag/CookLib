@@ -1,12 +1,13 @@
 import { styled } from 'styled-components';
 
-export const SiteSections = styled.div`
+export const PanelSection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 `;
 
-export const Layout = styled.div`
+export const PanelLayout = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 5rem;
 `;

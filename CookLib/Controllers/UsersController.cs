@@ -21,7 +21,7 @@ namespace CookLib.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        [Route("getUsersByUsername/")]
+        [Route("getUsersByUsername")]
         public async Task<IActionResult> GetUsers([FromQuery] GetUsersRequest request)
         {
             return await this.HandleRequest<GetUsersRequest, GetUsersResponse>(request);

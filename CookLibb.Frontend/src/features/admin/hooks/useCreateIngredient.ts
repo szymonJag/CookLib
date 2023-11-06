@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addIngredient } from '../../../../services/apiIngredients';
+import { addIngredient } from '../../../services/apiIngredients';
 import { toast } from 'react-hot-toast';
-import { IAddIngredientRequest } from '../../../../interfaces/IIngredient';
+import { IAddIngredientRequest } from '../../../interfaces/IIngredient';
 
 export function useCreateProduct() {
   const queryClient = useQueryClient();

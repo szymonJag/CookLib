@@ -4,9 +4,9 @@ import Heading from '../../../ui/Heading';
 import SliderComponent from '../../../ui/Slider';
 import Table from '../../../ui/Table';
 import Button from '../../../ui/Button';
-import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useDeleteCreatedRecipe } from '../hooks/useDeleteCreatedRecipe';
+import { useQueryClient } from '@tanstack/react-query';
 
 const Buttons = styled.div`
   display: flex;
@@ -24,9 +24,13 @@ interface CreatedRecipeRowProps {
 }
 
 function CreatedRecipeRow({ shortRecipe }: CreatedRecipeRowProps) {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { deleteCreatedRecipeMt, isDeleting } = useDeleteCreatedRecipe();
+  const queryClient = useQueryClient();
+
+  const handleDelete = () => {
+    deleteCreatedRecipeMt(shortRecipe.id);
+  };
 
   queryClient.invalidateQueries({
     queryKey: ['created'],
@@ -46,11 +50,25 @@ function CreatedRecipeRow({ shortRecipe }: CreatedRecipeRowProps) {
         <Button>Edytuj</Button>
         <Button
           variation='danger'
-          onClick={() => deleteCreatedRecipeMt(shortRecipe.id)}
+          onClick={() => handleDelete()}
           disabled={isDeleting}
         >
           Usuń
         </Button>
+        {/* <Modal>
+          <Modal.Open opens='delete-product'>
+            <Button
+              variation='danger'
+              onClick={() => console.log('elo')}
+              disabled={isDeleting}
+            >
+              Usuń
+            </Button>
+          </Modal.Open>
+          <Modal.Window name='delete-product'>
+            <ConfirmDeleteCreatedRecipe recipeId={shortRecipe.id} />
+          </Modal.Window>
+        </Modal> */}
       </Buttons>
     </Table.Row>
   );

@@ -53,7 +53,7 @@ function FavouriteRecipeRow({ shortRecipe }: ShortRecipeRowProps) {
           onClick={() => handleDeleteFromFavourites(shortRecipe.id)}
           disabled={isAdding}
         >
-          Usuń
+          Usuń z ulubionych
         </Button>
       </Buttons>
     </Table.Row>
