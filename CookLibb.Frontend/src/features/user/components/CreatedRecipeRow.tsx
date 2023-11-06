@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 import { IShortRecipe } from '../../../interfaces/IRecipe';
+import Heading from '../../../ui/Heading';
 import SliderComponent from '../../../ui/Slider';
 import Table from '../../../ui/Table';
 import Button from '../../../ui/Button';
-import Heading from '../../../ui/Heading';
-import { useNavigate } from 'react-router-dom';
-import { useAddFavouriteRecipe } from '../../recipes/hooks/useAddFavouriteRecipe';
-import { useUserContext } from '../../../contexts/UserContext';
 import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import { useDeleteCreatedRecipe } from '../hooks/useDeleteCreatedRecipe';
 
 const Buttons = styled.div`
   display: flex;
@@ -20,23 +19,17 @@ const HeadingRow = styled(Heading)`
   text-align: center;
 `;
 
-interface ShortRecipeRowProps {
+interface CreatedRecipeRowProps {
   shortRecipe: IShortRecipe;
 }
 
-function ShortRecipeRow({ shortRecipe }: ShortRecipeRowProps) {
-  const navigate = useNavigate();
-  const { addFavouriteRecipeMt } = useAddFavouriteRecipe();
-  const userContext = useUserContext();
+function CreatedRecipeRow({ shortRecipe }: CreatedRecipeRowProps) {
   const queryClient = useQueryClient();
-
-  const handleDeleteFromFavourites = () => {
-    addFavouriteRecipeMt(shortRecipe.id);
-    userContext.toggleFavouriteRecipe(shortRecipe.id);
-  };
+  const navigate = useNavigate();
+  const { deleteCreatedRecipeMt, isDeleting } = useDeleteCreatedRecipe();
 
   queryClient.invalidateQueries({
-    queryKey: ['favourites'],
+    queryKey: ['created'],
   });
 
   return (
@@ -50,7 +43,12 @@ function ShortRecipeRow({ shortRecipe }: ShortRecipeRowProps) {
         >
           Pokaż
         </Button>
-        <Button variation='danger' onClick={handleDeleteFromFavourites}>
+        <Button>Edytuj</Button>
+        <Button
+          variation='danger'
+          onClick={() => deleteCreatedRecipeMt(shortRecipe.id)}
+          disabled={isDeleting}
+        >
           Usuń
         </Button>
       </Buttons>
@@ -58,4 +56,4 @@ function ShortRecipeRow({ shortRecipe }: ShortRecipeRowProps) {
   );
 }
 
-export default ShortRecipeRow;
+export default CreatedRecipeRow;

@@ -12,6 +12,5 @@ export function useGetUserFavouritesRecipes(userId: number) {
   });
 
   const favourites: IShortRecipe[] = data;
-  console.log(`fav`, favourites);
   return { isLoading, favourites, error };
 }

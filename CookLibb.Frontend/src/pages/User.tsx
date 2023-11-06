@@ -7,7 +7,7 @@ function User() {
   const queryClient = useQueryClient();
 
   queryClient.invalidateQueries({
-    queryKey: ['favourites'],
+    queryKey: ['favourites', 'created'],
   });
 
   return (

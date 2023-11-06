@@ -37,7 +37,7 @@ namespace CookLib.ApplicationServices.API.Handlers.FavouriteRecipes
 
             var favouritesRecipesIds = favouriteRecipes.Select(x => x.RecipeId).ToList();
             var recipesQuery = new GetRecipesByIdsQuery() { Ids = favouritesRecipesIds };
-            var favourites = this.queryExecutor.Execute(recipesQuery);
+            var favourites = await this.queryExecutor.Execute(recipesQuery);
 
             return new GetAllFavouriteRecipesByUserIdResponse()
             {

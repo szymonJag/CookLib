@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useUserContext } from '../../../contexts/UserContext';
-import { getUserFavouritesRecipes } from '../../../services/apiRecipes';
+import { getRecipesCreatedByUser } from '../../../services/apiRecipes';
 import { IShortRecipe } from '../../../interfaces/IRecipe';
 
 export function useGetRecipesCreatedByUser(userId: number) {
@@ -8,10 +8,9 @@ export function useGetRecipesCreatedByUser(userId: number) {
   const token = context.token;
   const { isLoading, data, error } = useQuery({
     queryKey: ['created'],
-    queryFn: () => getUserFavouritesRecipes(userId, token),
+    queryFn: () => getRecipesCreatedByUser(userId, token),
   });
 
-  const favourites: IShortRecipe[] = data;
-  console.log(`fav`, favourites);
-  return { isLoading, favourites, error };
+  const created: IShortRecipe[] = data;
+  return { isLoading, created, error };
 }

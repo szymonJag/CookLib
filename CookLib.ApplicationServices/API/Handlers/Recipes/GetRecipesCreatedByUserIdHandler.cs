@@ -29,7 +29,7 @@ public class GetRecipesCreatedByUserIdHandler : IRequestHandler<GetRecipesCreate
         }
 
         var createdRecipesQuery = new GetRecipesByIdsQuery() { Ids = createdRecipesIds };
-        var created = this.queryExecutor.Execute(createdRecipesQuery);
+        var created = await this.queryExecutor.Execute(createdRecipesQuery);
 
         return new GetRecipesCreatedByUserIdResponse()
         {

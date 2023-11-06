@@ -94,6 +94,8 @@ export async function getUserFavouritesRecipes(id: number, token: string) {
     });
     const data = await response.json();
 
+    console.log(`data`, data);
+
     if (response.status !== 200)
       throw new Error(data[0].errors[0].errorMessage);
 
@@ -115,6 +117,31 @@ export async function getRecipesCreatedByUser(userId: number, token: string) {
       },
     });
     const data = await response.json();
+
+    if (response.status !== 200)
+      throw new Error(data[0].errors[0].errorMessage);
+
+    return data.data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function deleteCreatedRecipe(userId: number, token: string) {
+  try {
+    const url = `${API_URL_RECIPES}/deleteRecipeById/${userId}`;
+    console.log(`url`, url);
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Basic ${token}`,
+        'Access-Control-Allow-Origin': 'no-cors',
+      },
+    });
+    const data = await response.json();
+
+    console.log(`token`, token);
 
     if (response.status !== 200)
       throw new Error(data[0].errors[0].errorMessage);

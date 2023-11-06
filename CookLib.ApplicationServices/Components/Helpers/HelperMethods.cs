@@ -6,6 +6,7 @@ namespace CookLib.ApplicationServices.Components.Helpers
     {
         public bool IsAuthorOrAdmin(int userId, int authorId, string role)
         {
+
             return (userId == authorId || role == UserRole.Admin.ToString()) ? true : false;
         }
     }

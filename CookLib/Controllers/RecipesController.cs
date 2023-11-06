@@ -81,7 +81,7 @@ namespace CookLib.Controllers
             return await this.HandleRequest<AddRecipeRequest, AddRecipeResponse>(request);
         }
 
-        [Authorize(Roles = "Default Admin")]
+        [Authorize]
         [HttpDelete]
         [Route("deleteRecipeById/{id}")]
         public async Task<IActionResult> DeleteRecipeById([FromRoute] int id)

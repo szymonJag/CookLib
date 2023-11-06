@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 import { IShortRecipe } from '../../../interfaces/IRecipe';
 import Table from '../../../ui/Table';
-import ShortRecipeRow from './ShortRecipeRow';
+import CreatedRecipeRow from './CreatedRecipeRow';
 
 const TableHeaderText = styled.span`
   text-align: center;
 `;
 
-interface ShortRecipeListProps {
+interface CreatedRecipeListProps {
   shortRecipeList: IShortRecipe[];
 }
 
-function ShortRecipeList({ shortRecipeList }: ShortRecipeListProps) {
+function CreatedRecipesList({ shortRecipeList }: CreatedRecipeListProps) {
   return (
     <Table columns=' 1.2fr 1fr 1.5fr' height='60rem'>
       <Table.Header>
@@ -21,13 +21,13 @@ function ShortRecipeList({ shortRecipeList }: ShortRecipeListProps) {
       </Table.Header>
       <Table.Body
         data={shortRecipeList}
-        error='Brak ulubionych przepisów'
+        error='Brak dodanych przepisów'
         render={(recipe: IShortRecipe) => (
-          <ShortRecipeRow shortRecipe={recipe} key={recipe.id} />
+          <CreatedRecipeRow shortRecipe={recipe} key={recipe.id} />
         )}
       ></Table.Body>
     </Table>
   );
 }
 
-export default ShortRecipeList;
+export default CreatedRecipesList;
