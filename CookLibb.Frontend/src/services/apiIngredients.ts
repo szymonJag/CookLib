@@ -58,7 +58,10 @@ export async function deleteIngredientById(ingredientId: number) {
   }
 }
 
-export async function addIngredient(ingredient: IAddIngredientRequest) {
+export async function addIngredient(
+  ingredient: IAddIngredientRequest,
+  token: string
+) {
   try {
     console.log('fetch add product');
     const url = `${API_URL_INGREDIENTS}/add`;
@@ -66,6 +69,7 @@ export async function addIngredient(ingredient: IAddIngredientRequest) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Basic ${token}`,
       },
       body: JSON.stringify(ingredient),
     });

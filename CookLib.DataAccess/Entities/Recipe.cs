@@ -21,6 +21,7 @@ namespace CookLib.DataAccess.Entities
 
         public List<RecipeIngredient> Ingredients { get; set; } = new List<RecipeIngredient>();
         public List<PreparationStep> PreparationSteps { get; set; } = new List<PreparationStep>();
+        public RecipeStatus Status { get; set; }
         public List<Comment> Comments { get; set; } = new List<Comment>();
         public List<RecipeTag> RecipeTags { get; set; } = new List<RecipeTag>();
         public List<FavouriteRecipe> UsersFavourite { get; set; } = new List<FavouriteRecipe>();

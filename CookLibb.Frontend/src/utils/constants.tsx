@@ -10,6 +10,12 @@ export enum UserRoles {
   Default = 2,
 }
 
+export enum RecipeStatus {
+  Oczekujący = 0,
+  Zweryfikowany,
+  Zablokowany,
+}
+
 export const dateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
   month: '2-digit',

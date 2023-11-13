@@ -2,15 +2,17 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addIngredient } from '../../../services/apiIngredients';
 import { toast } from 'react-hot-toast';
 import { IAddIngredientRequest } from '../../../interfaces/IIngredient';
+import { useUserContext } from '../../../contexts/UserContext';
 
 export function useCreateProduct() {
   const queryClient = useQueryClient();
+  const userContext = useUserContext();
+  const token = userContext.token;
 
   const { isLoading: isCreating, mutate: createProductMt } = useMutation(
-    async (product: IAddIngredientRequest) => addIngredient(product), // Pass the async addProduct function directly
+    async (product: IAddIngredientRequest) => addIngredient(product, token),
     {
       onSuccess: (data) => {
-        // The data parameter here will hold the response from the addProduct function
         console.log(`data`, data);
         toast.success(`Produkt ${data.name} został dodany!`);
         queryClient.invalidateQueries({

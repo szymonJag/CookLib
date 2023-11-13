@@ -36,7 +36,7 @@ export async function getRecipeById(id: number): Promise<IRecipe> {
   return data.data;
 }
 
-export async function getShortRecipes(recipeName: string) {
+export async function getShortRecipes(recipeName: string = '') {
   try {
     const parameters = recipeName.length > 0 ? `?Name=${recipeName}` : '';
     const url = `${API_URL_RECIPES}/getShortAll${parameters}`;

@@ -19,9 +19,10 @@ namespace CookLib.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("getAll/")]
-        public async Task<IActionResult> GetRecipes([FromQuery] GetAllRecipesRequest request)
+        [Route("getAll/{status}")]
+        public async Task<IActionResult> GetRecipes([FromQuery] GetAllRecipesRequest request, [FromRoute] RecipeStatus status)
         {
+            request.Status = status;
             return await this.HandleRequest<GetAllRecipesRequest, GetAllRecipesResponse>(request);
         }
 

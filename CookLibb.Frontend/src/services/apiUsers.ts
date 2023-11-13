@@ -106,6 +106,42 @@ export async function getAllUsers(name: string = '', token: string) {
   }
 }
 
+export async function changeUserRole(userId: number, token: string) {
+  try {
+    const url = `${API_URL_USERS}/changeUserRole/${userId}`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Basic ${token}`,
+      },
+    });
+    const data = await handleResponse(response);
+
+    return data.data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function deleteUserById(userId: number, token: string) {
+  try {
+    const url = `${API_URL_USERS}/delete/${userId}`;
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Basic ${token}`,
+      },
+    });
+    const data = await handleResponse(response);
+
+    return data.data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 async function handleResponse(response: Response) {
   const data = await response.json();
 

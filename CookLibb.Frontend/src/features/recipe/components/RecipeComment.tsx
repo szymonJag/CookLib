@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { IComment } from '../../../interfaces/IComment';
 import { Avatar } from '../../../ui/Avatar';
 import Heading from '../../../ui/Heading';
-import { dateOptions } from '../../../utils/constants';
+import { UserRoles, dateOptions } from '../../../utils/constants';
 import { AiFillDelete } from 'react-icons/ai';
 import Modal from '../../../ui/Modal';
 import DeleteCommentModal from './DeleteCommentModal';
@@ -90,7 +90,7 @@ function RecipeComment({ comment }: RecipeCommentProps) {
               dateOptions
             )}
           </RecipeCommentDate>
-          {user?.id === comment.author.id ? (
+          {user?.id === comment.author.id || user?.role === UserRoles.Admin ? (
             <Modal>
               <Modal.Open opens='delete-comment'>
                 <DeleteIconActive />

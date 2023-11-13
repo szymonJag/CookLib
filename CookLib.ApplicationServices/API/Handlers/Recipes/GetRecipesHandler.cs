@@ -21,7 +21,7 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
         }
         public async Task<GetAllRecipesResponse> Handle(GetAllRecipesRequest request, CancellationToken cancellationToken)
         {
-            var query = new GetRecipesQuery() { Name = request.Name };
+            var query = new GetRecipesQuery() { Name = request.Name, Status = request.Status };
             var recipes = await this.queryExecutor.Execute(query);
 
             if (recipes == null)

@@ -13,6 +13,7 @@ namespace CookLib.ApplicationServices.API.Domain.Models
         public List<PreparationStepDTO> PreparationSteps { get; set; }
         public List<CommentDTO> Comments { get; set; }
         public List<RecipeTagDTO> RecipeTags { get; set; }
+        public RecipeStatus Status { get; set; }
         public List<Image> Images { get; set; }
         public AuthorDTO Author { get; set; }
     }

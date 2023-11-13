@@ -6,6 +6,7 @@
         public string Name { get; set; }
         public int ServingSize { get; set; }
         public int PreparationTime { get; set; }
+        public RecipeStatus Status { get; set; }
         public List<string> Images { get; set; }
         public List<RecipeTagDTO> RecipeTags { get; set; }
         public List<string> Ingredients { get; set; } = new List<string>();

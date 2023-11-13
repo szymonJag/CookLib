@@ -1,4 +1,5 @@
-﻿using CookLib.ApplicationServices.API.Domain.Requests.FavouriteRecipes;
+﻿using CookLib.ApplicationServices;
+using CookLib.ApplicationServices.API.Domain.Requests.FavouriteRecipes;
 using CookLib.ApplicationServices.API.Domain.Requests.User;
 using CookLib.ApplicationServices.API.Domain.Requests.Users;
 using CookLib.ApplicationServices.API.Domain.Responses.FavouriteRecipes;
@@ -81,6 +82,16 @@ namespace CookLib.Controllers
         public async Task<IActionResult> AuthenticateUser([FromBody] AuthenticateUserRequest request)
         {
             return await this.HandleRequest<AuthenticateUserRequest, AuthenticateUserResponse>(request);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [Route("changeUserRole/{id}")]
+        public async Task<IActionResult> ChangeUserRole([FromRoute] int id)
+        {
+            var request = new ChangeUserRoleRequest() { UserId = id };
+
+            return await this.HandleRequest<ChangeUserRoleRequest, ChangeUserRoleResponse>(request);
         }
     }
 
