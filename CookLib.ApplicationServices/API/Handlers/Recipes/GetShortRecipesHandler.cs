@@ -22,7 +22,7 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
 
         public async Task<GetAllShortRecipesResponse> Handle(GetAllShortRecipesRequest request, CancellationToken cancellationToken)
         {
-            var query = new GetShortRecipesQuery() { Name = request.Name };
+            var query = new GetShortRecipesQuery() { Name = request.Name, Status = request.Status };
             var recipes = await this.queryExecutor.Execute(query);
 
             if (recipes == null)

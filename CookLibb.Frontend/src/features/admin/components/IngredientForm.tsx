@@ -11,16 +11,13 @@ import {
 } from '../../../interfaces/IIngredient';
 import { useCreateProduct } from '../hooks/useCreateIngredient';
 import { useUpdateProduct } from '../hooks/useUpdateIngredient';
-import Select, { StyledSelect } from '../../../ui/Select';
+import { StyledSelect } from '../../../ui/Select';
 import { useEffect } from 'react';
 
 const ProductFormStyle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`;
-export const InputSelect = styled(Select)`
-  width: auto;
 `;
 
 const Buttons = styled.div`

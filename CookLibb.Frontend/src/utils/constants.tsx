@@ -14,6 +14,7 @@ export enum RecipeStatus {
   Oczekujący = 0,
   Zweryfikowany,
   Zablokowany,
+  Wszystkie,
 }
 
 export const dateOptions: Intl.DateTimeFormatOptions = {

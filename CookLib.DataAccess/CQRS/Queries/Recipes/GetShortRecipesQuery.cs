@@ -9,18 +9,27 @@ namespace CookLib.DataAccess.CQRS.Queries.Recipes
     public RecipeStatus Status { get; set; }
     public override async Task<List<Recipe>> Execute(CookLibContext context)
     {
-      var recipes = await context.Recipes
+      var query = context.Recipes
                     .Include(x => x.RecipeTags)
                       .ThenInclude(x => x.Tag)
                     .Include(x => x.Images)
                     .Include(x => x.Ingredients)
                       .ThenInclude(x => x.Ingredient)
-                    .AsNoTracking()
-                    .ToListAsync();
+                    .AsNoTracking();
 
-      return string.IsNullOrEmpty(this.Name) ?
-                            recipes.ToList() :
-                            recipes.Where(x => x.Name.ToLower().Contains(this.Name.ToLower())).ToList();
+      if (!string.IsNullOrEmpty(Name))
+      {
+        query = query.Where(x => x.Name.ToLower().Contains(Name.ToLower()));
+      }
+
+      if (Status != RecipeStatus.Wszystkie)
+      {
+        query = query.Where(x => x.Status == Status);
+      }
+
+      var recipes = await query.ToListAsync();
+
+      return recipes;
     }
   }
 }

@@ -19,10 +19,9 @@ namespace CookLib.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("getAll/{status}")]
-        public async Task<IActionResult> GetRecipes([FromQuery] GetAllRecipesRequest request, [FromRoute] RecipeStatus status)
+        [Route("getAll/")]
+        public async Task<IActionResult> GetRecipes([FromQuery] GetAllRecipesRequest request)
         {
-            request.Status = status;
             return await this.HandleRequest<GetAllRecipesRequest, GetAllRecipesResponse>(request);
         }
 
@@ -68,12 +67,6 @@ namespace CookLib.Controllers
             return await this.HandleRequest<GetRecipesByIngredientsIdRequest, GetRecipesByIngredientsIdResponse>(request);
         }
 
-        //[HttpPost]
-        //[Route("getByTagsId/")]
-        //public async Task<IActionResult> GetRecipesByTagsId([FromBody] GetRecipesByTagsIdRequest request)
-        //{
-        //    return await this.HandleRequest<GetRecipesByTagsIdRequest, GetRecipesByTagsIdResponse>(request);
-        //}
         [AllowAnonymous]
         [HttpPost]
         [Route("addRecipe/")]
@@ -81,6 +74,15 @@ namespace CookLib.Controllers
         {
             return await this.HandleRequest<AddRecipeRequest, AddRecipeResponse>(request);
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [Route("changeRecipeStatus/")]
+        public async Task<IActionResult> ChangeRecipeStatus([FromQuery] ChangeRecipeStatusRequest request)
+        {
+            return await this.HandleRequest<ChangeRecipeStatusRequest, ChangeRecipeStatusResponse>(request);
+        }
+
 
         [Authorize]
         [HttpDelete]

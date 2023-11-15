@@ -11,11 +11,22 @@ import { useState } from 'react';
 import { IRecipeIngredient } from '../../../interfaces/IIngredient';
 import Button from '../../../ui/Button';
 import { useNavigate } from 'react-router-dom';
+import { RecipeStatus, UserRoles } from '../../../utils/constants';
+import RecipeStatusSelect from './RecipeStatusSelect';
+import { useUserContext } from '../../../contexts/UserContext';
+import { useChangeRecipeStatus } from '../hooks/useChangeRecipeStatus';
+import { useQueryClient } from '@tanstack/react-query';
 
 const RecipePanelLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+`;
+
+const RecipeStatusSection = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 `;
 
 const RecipePanelWelcome = styled.div`
@@ -50,8 +61,25 @@ function RecipePanel({ recipe }: RecipePanelProps) {
   );
   const [servingSize, setServingSize] = useState(shortRecipe.servingSize);
   const navigate = useNavigate();
+  const [selectedStatus, setSelectedStatus] = useState<RecipeStatus>(
+    recipe.status
+  );
+  const userContext = useUserContext();
+  const isUserAdmin = userContext.user?.role === UserRoles.Admin;
+  const { isChanging, changeRecipeStatusMt } = useChangeRecipeStatus();
+  const queryClient = useQueryClient();
 
-  // const recipeIngredients = recipe.ingredients;
+  queryClient.invalidateQueries({
+    queryKey: ['recipe'],
+  });
+
+  const handleStatusChange = (status: RecipeStatus) => {
+    setSelectedStatus(status);
+  };
+
+  const handleSaveRecipeStatusChange = () => {
+    changeRecipeStatusMt({ recipeId: recipe.id, newStatus: selectedStatus });
+  };
 
   const handleAddServings = () => {
     setServingSize((prevServingSize) => prevServingSize + 1);
@@ -92,6 +120,24 @@ function RecipePanel({ recipe }: RecipePanelProps) {
         <Button size='small' variation='secondary' onClick={() => navigate(-1)}>
           Wróć
         </Button>
+        {isUserAdmin && (
+          <RecipeStatusSection>
+            <span>Zmień status</span>
+            <RecipeStatusSelect
+              value={selectedStatus}
+              onChange={handleStatusChange}
+            />
+            <Button
+              size='small'
+              variation='secondary'
+              disabled={isChanging || recipe.status === selectedStatus}
+              onClick={handleSaveRecipeStatusChange}
+            >
+              Zapisz
+            </Button>
+          </RecipeStatusSection>
+        )}
+
         <Button size='small' onClick={() => navigate('/recipes')}>
           Strona główna
         </Button>

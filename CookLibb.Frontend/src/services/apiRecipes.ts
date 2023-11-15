@@ -1,5 +1,6 @@
 import { IAddRecipeRequest, IRecipe } from '../interfaces/IRecipe';
-import { API_URL } from '../utils/constants';
+import { API_URL, RecipeStatus } from '../utils/constants';
+import { handleResponse } from './apiBase';
 
 const API_URL_RECIPES = `${API_URL}/Recipes`;
 const API_URL_FAVOURITE = `${API_URL}/FavouriteRecipes`;
@@ -36,12 +37,29 @@ export async function getRecipeById(id: number): Promise<IRecipe> {
   return data.data;
 }
 
-export async function getShortRecipes(recipeName: string = '') {
+export async function getShortRecipes(
+  recipeName: string = '',
+  recipeStatus: RecipeStatus,
+  token: string
+) {
   try {
-    const parameters = recipeName.length > 0 ? `?Name=${recipeName}` : '';
-    const url = `${API_URL_RECIPES}/getShortAll${parameters}`;
+    console.log(`recipeStatus`, recipeStatus);
 
-    const response = await fetch(url);
+    const nameQuery = recipeName.length > 0 ? `?Name=${recipeName}` : '';
+    const statusQuery = recipeStatus
+      ? `?Status=${recipeStatus}`
+      : `?Status=${RecipeStatus.Wszystkie}`;
+    const url = `${API_URL_RECIPES}/getShortAll${nameQuery}${statusQuery}`;
+
+    console.log(url);
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authentication: `Basic ${token}`,
+      },
+    });
     const data = await response.json();
     console.log(`data`, data);
 
@@ -130,7 +148,6 @@ export async function getRecipesCreatedByUser(userId: number, token: string) {
 export async function deleteCreatedRecipe(userId: number, token: string) {
   try {
     const url = `${API_URL_RECIPES}/deleteRecipeById/${userId}`;
-    console.log(`url`, url);
     const response = await fetch(url, {
       method: 'DELETE',
       headers: {
@@ -141,10 +158,30 @@ export async function deleteCreatedRecipe(userId: number, token: string) {
     });
     const data = await response.json();
 
-    console.log(`token`, token);
-
     if (response.status !== 200)
       throw new Error(data[0].errors[0].errorMessage);
+
+    return data.data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function changeRecipeStatus(
+  recipeId: number,
+  newStatus: RecipeStatus,
+  token: string
+) {
+  try {
+    const url = `${API_URL_RECIPES}/changeRecipeStatus?RecipeId=${recipeId}&NewStatus=${newStatus}`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Basic ${token}`,
+      },
+    });
+    const data = await handleResponse(response);
 
     return data.data;
   } catch (err) {

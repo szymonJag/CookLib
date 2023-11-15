@@ -8,6 +8,7 @@ import Heading from './Heading';
 import { IShortRecipe } from '../interfaces/IRecipe';
 import { useQueryClient } from '@tanstack/react-query';
 import { useDeleteCreatedRecipe } from '../features/user/hooks/useDeleteCreatedRecipe';
+import { RecipeStatus } from '../utils/constants';
 
 const HeadingRow = styled(Heading)`
   text-align: center;
@@ -38,7 +39,7 @@ function RecipeRow({ recipe }: RecipeRowProps) {
     <Table.Row>
       <SliderComponent images={recipe.images} height='auto' width='100%' />
       <HeadingRow as='h2'>{recipe.name}</HeadingRow>
-      <HeadingRow as='h3'>Zaakceptowane</HeadingRow>
+      <HeadingRow as='h3'>{RecipeStatus[recipe.status]}</HeadingRow>
       <ActionButtons>
         <Button
           variation='secondary'
