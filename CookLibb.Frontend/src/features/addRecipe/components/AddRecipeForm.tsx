@@ -5,7 +5,7 @@ import Input from '../../../ui/Input';
 import Heading from '../../../ui/Heading';
 import AddProductTable from './AddProductTable';
 import ProductsCart from './ProductsCart';
-import { useState, MouseEvent, useRef } from 'react';
+import { useState, MouseEvent, useRef, useEffect } from 'react';
 import { IIngredient } from '../../../interfaces/IIngredient';
 import { IIngredientMeasuremenet } from '../../../interfaces/IIngredientMeasurement';
 import Button, { InputFile } from '../../../ui/Button';
@@ -15,6 +15,9 @@ import { IAddRecipeRequest, IRecipeRequest } from '../../../interfaces/IRecipe';
 import { useCreateRecipe } from '../hooks/useCreateRecipe';
 import { PageSection } from '../../../ui/PageSection';
 import AddStepTextArea from './AddStepTextArea';
+import { useParams } from 'react-router-dom';
+import { useGetRecipe } from '../../recipes/hooks/useGetRecipe';
+import { mapMeasurementToId } from '../../../utils/helpers';
 
 const Row = styled.div`
   display: flex;
@@ -58,13 +61,50 @@ type FormValues = IRecipeRequest;
 // export type FileList = File[];
 
 function AddRecipeForm() {
+  const { recipe } = useGetRecipe();
+  const { isCreating, createRecipeMt } = useCreateRecipe();
+  const { register, handleSubmit, setValue } = useForm<FormValues>();
+  const { recipeId } = useParams<{ recipeId?: string }>();
+
   const [ingredients, setIngredients] = useState<IIngredientMeasuremenet[]>([]);
   const [textAreas, setTextAreas] = useState<string[]>(['']);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const { isCreating, createRecipeMt } = useCreateRecipe();
-  const { register, handleSubmit } = useForm<FormValues>();
   const [selectedImages, setSelectedImage] = useState<FileList | null>(null);
+  const [editMode] = useState<boolean>(recipeId !== undefined);
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (editMode && recipe) {
+      console.log(`recipe fetchedingredients`, recipe.ingredients);
+
+      const fetchedIngredients: IIngredientMeasuremenet[] =
+        recipe.ingredients.map((ingr) => {
+          const { id, kcal, name, type } = ingr.ingredient;
+
+          const mappedIngredient: IIngredientMeasuremenet = {
+            amount: ingr.amount,
+            measurementId: mapMeasurementToId(ingr.measurement),
+            product: { id, kcal, name, type },
+          };
+
+          return mappedIngredient;
+        });
+
+      const preparationSteps: string[] = recipe.preparationSteps.map(
+        (step) => step.description
+      );
+
+      const tags: number[] = recipe.recipeTags.map((tag) => tag.tagId);
+
+      setIngredients(fetchedIngredients);
+      setTextAreas(preparationSteps);
+      setSelectedTags(tags);
+      setValue('name', recipe.name);
+      setValue('preparationTime', recipe.preparationTime);
+      setValue('servingSize', recipe.servingSize);
+    }
+  }, [recipeId, recipe]);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const recipe: IAddRecipeRequest = {

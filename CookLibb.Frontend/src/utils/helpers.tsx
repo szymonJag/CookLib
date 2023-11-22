@@ -1,3 +1,5 @@
+import { MeasurementTypes } from './constants';
+
 export function formatIngredients(items: string[], slice: number): string {
   if (items.length === 0) return '';
   if (items.length <= slice) return items.join(', ');
@@ -67,3 +69,11 @@ function formatNoun(
 
   return plural5Plus;
 }
+
+export const mapMeasurementToId = (measurementName: string): number => {
+  const measurementType = MeasurementTypes.find((type) =>
+    type.name.includes(measurementName)
+  );
+
+  return measurementType ? measurementType.id : 0;
+};

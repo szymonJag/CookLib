@@ -5,7 +5,8 @@ export interface IIngredient {
   type: IIngredientType;
 }
 
-export interface IRecipeIngredient extends IIngredient {
+export interface IRecipeIngredient {
+  ingredient: IIngredient;
   amount: number;
   measurement: string;
 }

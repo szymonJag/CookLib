@@ -18,10 +18,11 @@ const Inpt = styled(Input)`
 `;
 interface AmountInputProps {
   onValueChange: (value: number) => void;
+  initialValue: number;
 }
 
-function AmountInput({ onValueChange }: AmountInputProps) {
-  const [inputValue, setInputValue] = useState<number>(0);
+function AmountInput({ onValueChange, initialValue }: AmountInputProps) {
+  const [inputValue, setInputValue] = useState<number>(initialValue || 0);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = parseInt(event.target.value);

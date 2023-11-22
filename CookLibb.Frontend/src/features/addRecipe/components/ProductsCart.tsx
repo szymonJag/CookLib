@@ -24,6 +24,8 @@ function ProductsCart({
   onSelectButton,
   onValueChange,
 }: ProductsCartProps) {
+  console.log(`products`, products);
+
   return (
     <ProductsCartLayout>
       <TableStyled columns='.2fr 1fr 1fr .7fr' height='50rem'>
@@ -42,7 +44,7 @@ function ProductsCart({
               onValueChange={(value: number) =>
                 onValueChange(value, product.product.id)
               }
-              productMeasurement={product}
+              product={product}
               key={product.product.id}
               onDeleteButton={() => {
                 onDeleteButton(product.product.id);

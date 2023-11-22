@@ -47,7 +47,9 @@ function RecipeRow({ recipe }: RecipeRowProps) {
         >
           Pokaż
         </Button>
-        <Button>Edytuj</Button>
+        <Button onClick={() => navigate(`/edit-recipe/${recipe.id}`)}>
+          Edytuj
+        </Button>
         <Button
           variation='danger'
           onClick={() => handleDelete()}
