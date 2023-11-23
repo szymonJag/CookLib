@@ -1,4 +1,8 @@
-import { IAddRecipeRequest, IRecipe } from '../interfaces/IRecipe';
+import {
+  IAddRecipeRequest,
+  IRecipe,
+  IRecipeRequest,
+} from '../interfaces/IRecipe';
 import { API_URL, RecipeStatus } from '../utils/constants';
 import { handleResponse } from './apiBase';
 
@@ -176,6 +180,30 @@ export async function changeRecipeStatus(
     const url = `${API_URL_RECIPES}/changeRecipeStatus?RecipeId=${recipeId}&NewStatus=${newStatus}`;
     const response = await fetch(url, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Basic ${token}`,
+      },
+    });
+    const data = await handleResponse(response);
+
+    return data.data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function editRecipe(
+  recipe: IRecipeRequest,
+  recipeId: number = 0,
+  token: string
+) {
+  try {
+    const url = `${API_URL_RECIPES}/update/${recipeId}`;
+    console.log(url);
+    const response = await fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(recipe),
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Basic ${token}`,

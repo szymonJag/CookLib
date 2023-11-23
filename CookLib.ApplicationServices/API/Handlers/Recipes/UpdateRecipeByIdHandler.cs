@@ -1,12 +1,15 @@
-﻿using AutoMapper;
+﻿using System.Reflection.Metadata.Ecma335;
+using AutoMapper;
 using CookLib.ApplicationServices.API.Domain.ErrorHandling;
 using CookLib.ApplicationServices.API.Domain.Models;
 using CookLib.ApplicationServices.API.Domain.Requests.Recipes;
 using CookLib.ApplicationServices.API.Domain.Responses.Recipes;
 using CookLib.ApplicationServices.Components.Helpers;
 using CookLib.DataAccess.CQRS.Commands;
+using CookLib.DataAccess.CQRS.Commands.RecipeIngredients;
 using CookLib.DataAccess.CQRS.Commands.Recipes;
 using CookLib.DataAccess.CQRS.Queries;
+using CookLib.DataAccess.CQRS.Queries.RecipeIngredients;
 using CookLib.DataAccess.CQRS.Queries.Recipes;
 using CookLib.DataAccess.Entities;
 using MediatR;
@@ -30,9 +33,9 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
         public async Task<UpdateRecipeByIdResponse> Handle(UpdateRecipeByIdRequest request, CancellationToken cancellationToken)
         {
             var query = new GetRecipeByIdQuery() { Id = request.Id };
-            var getRecipe = await this.queryExecutor.Execute(query);
+            var recipe = await this.queryExecutor.Execute(query);
 
-            if (getRecipe == null)
+            if (recipe == null)
             {
                 return new UpdateRecipeByIdResponse()
                 {
@@ -40,7 +43,7 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
                 };
             }
 
-            var isAbleToUpdate = this.helper.IsAuthorOrAdmin(request.AuthenticatedUserId, getRecipe.AuthorId, request.AuthenticatedRole);
+            var isAbleToUpdate = this.helper.IsAuthorOrAdmin(request.AuthenticatedUserId, recipe.AuthorId, request.AuthenticatedRole);
 
             if (!isAbleToUpdate)
             {
@@ -50,16 +53,40 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
                 };
             }
 
-            var mappedCommand = this.mapper.Map<Recipe>(request);
-            mappedCommand.AuthorId = getRecipe.AuthorId;
-            mappedCommand.CreateDate = getRecipe.CreateDate;
+            var updatedRecipe = new Recipe()
+            {
+                Id = request.Id,
+                Name = request.Name,
+                PreparationTime = request.PreparationTime,
+                ServingSize = request.ServingSize,
+                AuthorId = request.AuthorId,
+                CreateDate = recipe.CreateDate,
+                Status = RecipeStatus.Oczekujący,
+            };
+
+            var recipeIngredientsQuery = new GetAllIngredientByRecipeIdQuery() { Id = request.Id };
+            var recipeIngredients = await this.queryExecutor.Execute(recipeIngredientsQuery);
+
+            foreach (var ingredient in recipeIngredients)
+            {
+                var deleteIngredientCommand = new DeleteRecipeIngredientByIdCommand() { Parameter = ingredient };
+                await this.commandExecutor.Execute(deleteIngredientCommand);
+            }
+
+            foreach (var ingredient in request.Ingredients)
+            {
+                var mappedRecipeIngredient = this.mapper.Map<RecipeIngredient>(ingredient);
+                var addRecipeIngredientCommand = new AddRecipeIngredientCommand() { Parameter = mappedRecipeIngredient };
+                await commandExecutor.Execute(addRecipeIngredientCommand);
+            }
 
             var command = new UpdateRecipeByIdCommand()
             {
-                Parameter = mappedCommand,
+                Parameter = updatedRecipe,
             };
-            var updatedRecipe = await this.commandExecutor.Execute(command);
-            var response = new UpdateRecipeByIdResponse() { Data = this.mapper.Map<RecipeDTO>(updatedRecipe) };
+
+            var updatedRecipeDb = await this.commandExecutor.Execute(command);
+            var response = new UpdateRecipeByIdResponse() { Data = this.mapper.Map<RecipeDTO>(updatedRecipeDb) };
 
             return response;
         }

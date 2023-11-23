@@ -20,6 +20,7 @@ export interface IAddRecipeRequest extends IRecipeRequest {
   recipeTags: number[];
   authorId: number;
   ingredients: IAddRecipeIngredient[];
+  recipeId?: number;
 }
 
 export interface IRecipe {

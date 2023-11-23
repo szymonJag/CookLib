@@ -12,11 +12,11 @@ type CreateRecipeType = {
 
 export function useCreateRecipe() {
   const queryClient = useQueryClient();
-  const userContext = useUserContext();
+  const { token } = useUserContext();
 
   const { isLoading: isCreating, mutate: createRecipeMt } = useMutation({
     mutationFn: ({ recipe, images }: CreateRecipeType) =>
-      addRecipeWithImage(recipe, images, userContext.token),
+      addRecipeWithImage(recipe, images, token),
     onSuccess: () => {
       toast.success('Recipe added');
       queryClient.invalidateQueries({
@@ -31,6 +31,7 @@ export function useCreateRecipe() {
 
   return { isCreating, createRecipeMt };
 }
+
 async function addRecipeWithImage(
   recipe: IAddRecipeRequest,
   images: FileList,

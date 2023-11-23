@@ -30,17 +30,7 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
         {
             DateTime currentDate = DateTime.Now;
             var query = new GetRecipesQuery() { Name = request.Name };
-            var recipeFromDb = await this.queryExecutor.Execute(query);
 
-            //if (recipeFromDb.Any())
-            //{
-            //    return new AddRecipeResponse()
-            //    {
-            //        Error = new ErrorModel("Recipe with given name already exists")
-            //    };
-            //}
-
-            //var recipeRequest = new RecipeRequestDTO() { AuthorId = request.AuthorId, Name = request.Name, PreparationTime = request.PreparationTime, ServingSize = request.ServingSize, CreateDate = currentDate };
             var recipeRequest = this.mapper.Map<RecipeRequestDTO>(request);
             recipeRequest.CreateDate = currentDate;
             var recipeToAdd = this.mapper.Map<DataAccess.Entities.Recipe>(recipeRequest);

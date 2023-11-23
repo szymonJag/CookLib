@@ -93,6 +93,7 @@ namespace CookLib.Controllers
             return await this.HandleRequest<DeleteRecipeByIdRequest, DeleteRecipeByIdResponse>(request);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("update/{id}")]
         public Task UpdateRecipeById([FromRoute] int id, [FromBody] UpdateRecipeByIdRequest request)

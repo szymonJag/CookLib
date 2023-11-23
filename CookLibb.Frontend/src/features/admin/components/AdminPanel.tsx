@@ -4,7 +4,7 @@ import { PanelLayout, PanelSection } from '../../../ui/SiteSections';
 import UsersSection from './UsersSection';
 import RecipesTable from '../../../ui/RecipesTable';
 import { useGetAllRecipes } from '../hooks/useGetAllRecipes';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IShortRecipe } from '../../../interfaces/IRecipe';
 import { RecipeStatus } from '../../../utils/constants';
 import { useQueryClient } from '@tanstack/react-query';
@@ -12,24 +12,32 @@ import { useQueryClient } from '@tanstack/react-query';
 function AdminLayout() {
   const queryClient = useQueryClient();
   const { recipes } = useGetAllRecipes();
-  const [recipesState] = useState<IShortRecipe[]>(
-    recipes &&
-      recipes.sort((a, b) => {
-        if (
-          a.status === RecipeStatus.Oczekujący &&
-          b.status !== RecipeStatus.Oczekujący
-        ) {
-          return -1;
-        } else if (
-          a.status !== RecipeStatus.Oczekujący &&
-          b.status === RecipeStatus.Oczekujący
-        ) {
-          return 1;
-        } else {
-          return 0;
-        }
-      })
+  const [recipesState, setReciepesState] = useState<IShortRecipe[] | undefined>(
+    undefined
   );
+
+  useEffect(() => {
+    if (recipes) {
+      setReciepesState(
+        recipes &&
+          recipes.sort((a, b) => {
+            if (
+              a.status === RecipeStatus.Oczekujący &&
+              b.status !== RecipeStatus.Oczekujący
+            ) {
+              return -1;
+            } else if (
+              a.status !== RecipeStatus.Oczekujący &&
+              b.status === RecipeStatus.Oczekujący
+            ) {
+              return 1;
+            } else {
+              return 0;
+            }
+          })
+      );
+    }
+  }, [recipes]);
   queryClient.invalidateQueries({
     queryKey: ['admin-recipes'],
   });

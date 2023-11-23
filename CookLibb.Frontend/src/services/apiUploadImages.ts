@@ -1,4 +1,5 @@
 import { API_URL } from '../utils/constants';
+import { handleResponse } from './apiBase';
 
 const API_UPLOAD_URL = `${API_URL}/UploadImages`;
 
@@ -24,6 +25,32 @@ export async function uploadImage(images: FileList, recipeId: number) {
 
     if (response.status !== 200)
       throw new Error(data[0].errors[0].errorMessage);
+
+    return data.data;
+  } catch (err) {
+    console.error(`Error with uploading image: ${err}`);
+  }
+}
+
+export async function editImage(images: FileList, recipeId: number = 0) {
+  try {
+    const url = `${API_UPLOAD_URL}/editImage?recipeId=${recipeId}`;
+
+    if (images.length === 0) return;
+
+    const formData = new FormData();
+
+    for (let i = 0; i < images.length; i++) {
+      console.log(images[i]);
+      formData.append('images', images[i]);
+    }
+
+    const response = await fetch(url, {
+      method: 'PUT',
+      body: formData,
+    });
+
+    const data = await handleResponse(response);
 
     return data.data;
   } catch (err) {

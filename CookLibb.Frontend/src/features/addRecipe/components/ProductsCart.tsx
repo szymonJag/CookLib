@@ -24,8 +24,6 @@ function ProductsCart({
   onSelectButton,
   onValueChange,
 }: ProductsCartProps) {
-  console.log(`products`, products);
-
   return (
     <ProductsCartLayout>
       <TableStyled columns='.2fr 1fr 1fr .7fr' height='50rem'>

@@ -10,8 +10,9 @@ namespace CookLib.DataAccess
         {
             var optionsBuilder = new DbContextOptionsBuilder<CookLibContext>();
             optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=CookLib;Integrated Security=True;TrustServerCertificate=True");
-
             return new CookLibContext(optionsBuilder.Options);
         }
     }
 }
+
+

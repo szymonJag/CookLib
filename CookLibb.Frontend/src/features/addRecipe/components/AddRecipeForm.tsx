@@ -18,6 +18,7 @@ import AddStepTextArea from './AddStepTextArea';
 import { useParams } from 'react-router-dom';
 import { useGetRecipe } from '../../recipes/hooks/useGetRecipe';
 import { mapMeasurementToId } from '../../../utils/helpers';
+import { useEditRecipe } from '../hooks/useEditRecipe';
 
 const Row = styled.div`
   display: flex;
@@ -57,12 +58,17 @@ const Buttons = styled.div`
   justify-content: space-between;
 `;
 
+const PageSectionSteps = styled(PageSection)`
+  align-items: center;
+`;
+
 type FormValues = IRecipeRequest;
 // export type FileList = File[];
 
 function AddRecipeForm() {
   const { recipe } = useGetRecipe();
   const { isCreating, createRecipeMt } = useCreateRecipe();
+  const { isEditing, editRecipeMt } = useEditRecipe();
   const { register, handleSubmit, setValue } = useForm<FormValues>();
   const { recipeId } = useParams<{ recipeId?: string }>();
 
@@ -108,6 +114,7 @@ function AddRecipeForm() {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const recipe: IAddRecipeRequest = {
+      recipeId: Number(recipeId),
       authorId: 1,
       name: data.name,
       preparationTime: data.preparationTime,
@@ -124,8 +131,9 @@ function AddRecipeForm() {
       }),
       recipeTags: selectedTags,
     };
-
-    if (selectedImages) createRecipeMt({ recipe, images: selectedImages });
+    if (editMode) editRecipeMt({ recipe, images: selectedImages });
+    if (!editMode && selectedImages)
+      createRecipeMt({ recipe, images: selectedImages });
   };
 
   function onError(errors: FieldErrors) {
@@ -286,7 +294,7 @@ function AddRecipeForm() {
           <StepText>Krok trzeci </StepText> - dodaj kroki przygotowania
         </Heading>
 
-        <PageSection orientation='column'>
+        <PageSectionSteps orientation='column'>
           <Buttons>
             <Button
               variation={'danger'}
@@ -312,7 +320,7 @@ function AddRecipeForm() {
               handleRemove={handleRemoveTextArea}
             />
           ))}
-        </PageSection>
+        </PageSectionSteps>
       </RecipeStep>
       <RecipeStep>
         <Heading as='h3'>
@@ -325,8 +333,8 @@ function AddRecipeForm() {
           />
         </PageSection>
       </RecipeStep>
-      <Button type='submit' disabled={isCreating}>
-        Dodaj kurwa przepisisko
+      <Button type='submit' disabled={isCreating || isEditing} size='large'>
+        {editMode ? 'Edytuj' : 'Dodaj'} przepis
       </Button>
     </RecipeForm>
   );

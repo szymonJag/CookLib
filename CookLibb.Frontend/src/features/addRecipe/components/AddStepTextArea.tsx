@@ -13,6 +13,8 @@ const TextAreaLayout = styled.div`
 const Area = styled.textarea`
   height: 10rem;
   padding: 1rem;
+  background-color: var(--color-grey-100);
+  font-size: 1.6rem;
 `;
 
 const TextAreaHeader = styled.div`

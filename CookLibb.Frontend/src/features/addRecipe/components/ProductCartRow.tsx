@@ -48,8 +48,6 @@ function ProductCartRow({
     onValueChange(value);
   };
 
-  console.log(`product row id ${product.product.id}`, product);
-
   return (
     <Table.Row>
       <DeleteIcon
