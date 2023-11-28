@@ -19,12 +19,14 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
         private readonly IMapper mapper;
         private readonly ICommandExecutor commandExecutor;
         private readonly IQueryExecutor queryExecutor;
+        private readonly IHandlerHelpers helpers;
 
-        public AddRecipeHandler(IMapper mapper, ICommandExecutor commandExecutor, IQueryExecutor queryExecutor)
+        public AddRecipeHandler(IMapper mapper, ICommandExecutor commandExecutor, IQueryExecutor queryExecutor, IHandlerHelpers helpers)
         {
             this.mapper = mapper;
             this.commandExecutor = commandExecutor;
             this.queryExecutor = queryExecutor;
+            this.helpers = helpers;
         }
         public async Task<AddRecipeResponse> Handle(AddRecipeRequest request, CancellationToken cancellationToken)
         {
@@ -36,19 +38,12 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
             var recipeToAdd = this.mapper.Map<DataAccess.Entities.Recipe>(recipeRequest);
 
             var commandAddRecipe = new AddRecipeCommand() { Parameter = recipeToAdd };
-            var commandAddRecipeIngredient = new AddRecipeIngredientCommand();
             var commandAddPreparationStep = new AddPreparationStepCommand();
             var commandAddRecipeTag = new AddRecipeTagCommand();
 
             var recipeDb = await commandExecutor.Execute(commandAddRecipe);
 
-            foreach (var ingredient in request.Ingredients)
-            {
-                var mappedIngredient = this.mapper.Map<DataAccess.Entities.RecipeIngredient>(ingredient);
-                mappedIngredient.RecipeId = recipeDb.Id;
-                commandAddRecipeIngredient.Parameter = mappedIngredient;
-                await commandExecutor.Execute(commandAddRecipeIngredient);
-            }
+            helpers.AddIngredientsToDb(request.Ingredients, recipeDb.Id);
 
             foreach (var step in request.PreparationSteps)
             {

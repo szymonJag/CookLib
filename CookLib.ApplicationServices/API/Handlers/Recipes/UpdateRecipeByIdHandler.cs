@@ -22,13 +22,15 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
         private readonly IQueryExecutor queryExecutor;
         private readonly ICommandExecutor commandExecutor;
         private readonly IHelperMethods helper;
+        private readonly IHandlerHelpers handlerHelpers;
 
-        public UpdateRecipeByIdHandler(IMapper mapper, IQueryExecutor queryExecutor, ICommandExecutor commandExecutor, IHelperMethods helper)
+        public UpdateRecipeByIdHandler(IMapper mapper, IQueryExecutor queryExecutor, ICommandExecutor commandExecutor, IHelperMethods helper, IHandlerHelpers handlerHelpers)
         {
             this.mapper = mapper;
             this.queryExecutor = queryExecutor;
             this.commandExecutor = commandExecutor;
             this.helper = helper;
+            this.handlerHelpers = handlerHelpers;
         }
         public async Task<UpdateRecipeByIdResponse> Handle(UpdateRecipeByIdRequest request, CancellationToken cancellationToken)
         {
@@ -73,12 +75,7 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
                 await this.commandExecutor.Execute(deleteIngredientCommand);
             }
 
-            foreach (var ingredient in request.Ingredients)
-            {
-                var mappedRecipeIngredient = this.mapper.Map<RecipeIngredient>(ingredient);
-                var addRecipeIngredientCommand = new AddRecipeIngredientCommand() { Parameter = mappedRecipeIngredient };
-                await commandExecutor.Execute(addRecipeIngredientCommand);
-            }
+            handlerHelpers.AddIngredientsToDb(request.Ingredients, request.Id);
 
             var command = new UpdateRecipeByIdCommand()
             {
