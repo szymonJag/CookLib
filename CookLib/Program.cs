@@ -1,3 +1,4 @@
+using CookLib.ApplicationServices;
 using CookLib.ApplicationServices.API.Domain.Mappings;
 using CookLib.ApplicationServices.API.Domain.Responses;
 using CookLib.ApplicationServices.API.Domain.Validators.Ingredients;
@@ -29,6 +30,7 @@ builder.Services.AddTransient<IHasher, Hasher>();
 builder.Services.AddTransient<IQueryExecutor, QueryExecutor>();
 builder.Services.AddTransient<ICommandExecutor, CommandExecutor>();
 builder.Services.AddTransient<IHelperMethods, HelperMethods>();
+builder.Services.AddTransient<IHandlerHelpers, HandlerHelpers>();
 builder.Services.AddAuthentication("BasicAuthentication")
     .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 

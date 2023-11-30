@@ -38,27 +38,12 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
             var recipeToAdd = this.mapper.Map<DataAccess.Entities.Recipe>(recipeRequest);
 
             var commandAddRecipe = new AddRecipeCommand() { Parameter = recipeToAdd };
-            var commandAddPreparationStep = new AddPreparationStepCommand();
-            var commandAddRecipeTag = new AddRecipeTagCommand();
-
             var recipeDb = await commandExecutor.Execute(commandAddRecipe);
 
-            helpers.AddIngredientsToDb(request.Ingredients, recipeDb.Id);
+            helpers.AddRecipeIngredientsToDb(request.Ingredients, recipeDb.Id);
+            helpers.AddRecipePreparationStepsToDb(request.PreparationSteps, recipeDb.Id);
+            helpers.AddRecipeTagsToDb(request.RecipeTags, recipeDb.Id);
 
-            foreach (var step in request.PreparationSteps)
-            {
-                var mappedPreparationStep = this.mapper.Map<DataAccess.Entities.PreparationStep>(step);
-                mappedPreparationStep.RecipeId = recipeDb.Id;
-                commandAddPreparationStep.Parameter = mappedPreparationStep;
-                await commandExecutor.Execute(commandAddPreparationStep);
-            }
-
-            foreach (var tag in request.RecipeTags)
-            {
-                var recipeTag = new DataAccess.Entities.RecipeTag() { RecipeId = recipeDb.Id, TagId = Convert.ToInt32(tag) };
-                commandAddRecipeTag.Parameter = recipeTag;
-                await commandExecutor.Execute(commandAddRecipeTag);
-            }
 
             if (recipeDb == null)
             {
@@ -73,7 +58,6 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
 
             return new AddRecipeResponse()
             {
-
                 Data = mapper.Map<RecipeDTO>(addedRecipe)
             };
 

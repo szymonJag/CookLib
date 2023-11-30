@@ -34,6 +34,13 @@ namespace CookLib.ApplicationServices.API.Domain.Mappings
                 .ForMember(x => x.RecipeId, y => y.MapFrom(z => z.RecipeId))
                 .ForMember(x => x.Amount, y => y.MapFrom(z => z.Amount))
                 .ForMember(x => x.Measurement, y => y.MapFrom(z => z.Measurement));
+
+            CreateMap<RecipeIngredientRequestDTO, RecipeIngredient>()
+            .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Amount))
+            .ForMember(dest => dest.Measurement, opt => opt.MapFrom(src => (Measurement)src.MeasurementTypeId))
+            .ForMember(dest => dest.IngredientId, opt => opt.MapFrom(src => src.IngredientId));
+
+
         }
     }
 }

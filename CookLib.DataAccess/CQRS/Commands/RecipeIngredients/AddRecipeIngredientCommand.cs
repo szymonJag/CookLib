@@ -1,4 +1,5 @@
 ﻿using CookLib.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace CookLib.DataAccess.CQRS.Commands.RecipeIngredients
 {
@@ -6,8 +7,9 @@ namespace CookLib.DataAccess.CQRS.Commands.RecipeIngredients
     {
         public override async Task<RecipeIngredient> Execute(CookLibContext context)
         {
+            context.RecipeIngredients.AsNoTracking();
             await context.RecipeIngredients.AddAsync(this.Parameter);
-            await context.SaveChangesAsync();
+
             return this.Parameter;
         }
     }

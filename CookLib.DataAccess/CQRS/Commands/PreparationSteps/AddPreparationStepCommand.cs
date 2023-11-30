@@ -1,4 +1,5 @@
 ﻿using CookLib.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace CookLib.DataAccess.CQRS.Commands.PreparationSteps
 {
@@ -6,8 +7,9 @@ namespace CookLib.DataAccess.CQRS.Commands.PreparationSteps
     {
         public override async Task<PreparationStep> Execute(CookLibContext context)
         {
+            context.PreparationSteps.AsNoTracking();
             await context.PreparationSteps.AddAsync(this.Parameter);
-            await context.SaveChangesAsync();
+            context.SaveChanges();
             return this.Parameter;
         }
     }

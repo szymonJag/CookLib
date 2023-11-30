@@ -4,13 +4,17 @@ using CookLib.ApplicationServices.API.Domain.ErrorHandling;
 using CookLib.ApplicationServices.API.Domain.Models;
 using CookLib.ApplicationServices.API.Domain.Requests.Recipes;
 using CookLib.ApplicationServices.API.Domain.Responses.Recipes;
+using CookLib.ApplicationServices.API.Handlers.PreparationSteps;
+using CookLib.ApplicationServices.API.Handlers.RecipeTags;
 using CookLib.ApplicationServices.Components.Helpers;
 using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Commands.RecipeIngredients;
 using CookLib.DataAccess.CQRS.Commands.Recipes;
 using CookLib.DataAccess.CQRS.Queries;
+using CookLib.DataAccess.CQRS.Queries.PreparationSteps;
 using CookLib.DataAccess.CQRS.Queries.RecipeIngredients;
 using CookLib.DataAccess.CQRS.Queries.Recipes;
+using CookLib.DataAccess.CQRS.Queries.RecipeTags;
 using CookLib.DataAccess.Entities;
 using MediatR;
 
@@ -62,27 +66,29 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
                 PreparationTime = request.PreparationTime,
                 ServingSize = request.ServingSize,
                 AuthorId = request.AuthorId,
+                PreparationSteps = this.mapper.Map<List<PreparationStep>>(request.PreparationSteps),
+                RecipeTags = request.RecipeTags.Select(tagId => new RecipeTag
+                {
+                    RecipeId = recipe.Id,
+                    TagId = tagId,
+                }).ToList(),
+                Ingredients = request.Ingredients.Select(ingredient =>
+                {
+                    var mappedIngredient = this.mapper.Map<RecipeIngredient>(ingredient);
+                    mappedIngredient.RecipeId = recipe.Id;
+                    return mappedIngredient;
+                }).ToList(),
                 CreateDate = recipe.CreateDate,
                 Status = RecipeStatus.Oczekujący,
             };
-
-            var recipeIngredientsQuery = new GetAllIngredientByRecipeIdQuery() { Id = request.Id };
-            var recipeIngredients = await this.queryExecutor.Execute(recipeIngredientsQuery);
-
-            foreach (var ingredient in recipeIngredients)
-            {
-                var deleteIngredientCommand = new DeleteRecipeIngredientByIdCommand() { Parameter = ingredient };
-                await this.commandExecutor.Execute(deleteIngredientCommand);
-            }
-
-            handlerHelpers.AddIngredientsToDb(request.Ingredients, request.Id);
 
             var command = new UpdateRecipeByIdCommand()
             {
                 Parameter = updatedRecipe,
             };
-
             var updatedRecipeDb = await this.commandExecutor.Execute(command);
+
+
             var response = new UpdateRecipeByIdResponse() { Data = this.mapper.Map<RecipeDTO>(updatedRecipeDb) };
 
             return response;
