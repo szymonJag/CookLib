@@ -25,14 +25,14 @@ namespace CookLib.ApplicationServices.API.Domain.Mappings
                 .ReverseMap();
 
             CreateMap<Recipe, ShortRecipeDTO>()
-               .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-               .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-               .ForMember(dest => dest.ServingSize, opt => opt.MapFrom(src => src.ServingSize))
-               .ForMember(dest => dest.PreparationTime, opt => opt.MapFrom(src => src.PreparationTime))
-               .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(img => img.ImagePath).ToList()))
+               .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+               .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
+               .ForMember(x => x.ServingSize, y => y.MapFrom(z => z.ServingSize))
+               .ForMember(x => x.PreparationTime, y => y.MapFrom(z => z.PreparationTime))
+               .ForMember(x => x.Images, y => y.MapFrom(z => z.Images.Select(img => img.ImagePath).ToList()))
                .ForMember(x => x.RecipeTags, y => y.MapFrom(z => z.RecipeTags))
-               .ForMember(dest => dest.Ingredients, opt => opt.MapFrom(src => src.Ingredients.Select(x => x.Ingredient.Name)))
-               .ForMember(dest => dest.IngredientsIds, opt => opt.MapFrom(src => src.Ingredients.Select(x => x.IngredientId)))
+               .ForMember(x => x.Ingredients, y => y.MapFrom(z => z.Ingredients.Select(x => x.Ingredient.Name)))
+               .ForMember(x => x.IngredientsIds, y => y.MapFrom(z => z.Ingredients.Select(x => x.IngredientId)))
                .ForMember(x => x.Status, y => y.MapFrom(z => z.Status))
                .ReverseMap();
 
@@ -51,14 +51,14 @@ namespace CookLib.ApplicationServices.API.Domain.Mappings
                 .ReverseMap();
 
             CreateMap<UpdateRecipeByIdRequest, Recipe>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.PreparationTime, opt => opt.MapFrom(src => src.PreparationTime))
-            .ForMember(dest => dest.ServingSize, opt => opt.MapFrom(src => src.ServingSize))
-            .ForMember(dest => dest.AuthorId, opt => opt.MapFrom(src => src.AuthorId))
-            .ForMember(dest => dest.PreparationSteps, opt => opt.MapFrom(src => src.PreparationSteps))
-            .ForMember(dest => dest.RecipeTags, opt => opt.MapFrom(src => src.RecipeTags))
-            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => RecipeStatus.Oczekujący));
+            .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+            .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
+            .ForMember(x => x.PreparationTime, y => y.MapFrom(z => z.PreparationTime))
+            .ForMember(x => x.ServingSize, y => y.MapFrom(z => z.ServingSize))
+            .ForMember(x => x.AuthorId, y => y.MapFrom(z => z.AuthorId))
+            .ForMember(x => x.PreparationSteps, y => y.MapFrom(z => z.PreparationSteps))
+            .ForMember(x => x.RecipeTags, y => y.MapFrom(z => z.RecipeTags))
+            .ForMember(x => x.Status, y => y.MapFrom(z => RecipeStatus.Oczekujący));
 
 
             CreateMap<Recipe, UserFavouriteRecipesDTO>()

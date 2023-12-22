@@ -16,7 +16,6 @@ const RecipeShortInfoLayout = styled.div<RecipeShortInfoLayoutProps>`
   /* background-color: ${(props) => props.color}; */
   background-color: ${({ color }) =>
     color ? 'var(--color-grey-300)' : 'none'};
-  padding: 0.5rem;
   display: flex;
   border: 1px solid var(--color-grey-300);
 
@@ -40,7 +39,7 @@ const FavouriteButton = styled.button`
   justify-content: center;
   gap: 1rem;
   flex: 1;
-  padding: 0.5rem;
+  padding: 0.7rem;
   border: none;
   background-color: transparent;
 

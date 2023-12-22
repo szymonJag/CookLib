@@ -2,6 +2,7 @@ import { IPreparationStep } from './IPreparationStep';
 import { IAddRecipeIngredient, IRecipeIngredient } from './IIngredient';
 import { IImage } from './IImages';
 import { RecipeStatus } from '../utils/constants';
+import { IUser } from './IUser';
 
 export interface IRecipeTag {
   id: number;
@@ -23,6 +24,13 @@ export interface IAddRecipeRequest extends IRecipeRequest {
   recipeId?: number;
 }
 
+export interface IUpdateRecipeRequest extends IRecipeRequest {
+  preparationSteps: IPreparationStep[];
+  recipeTags: number[];
+  authorId: number;
+  ingredients: IAddRecipeIngredient[];
+}
+
 export interface IRecipe {
   id: number;
   name: string;
@@ -35,7 +43,7 @@ export interface IRecipe {
   // comments: IComments;
   recipeTags: IRecipeTag[];
   images: IImage[];
-  // author: IUser;
+  author: IUser;
 }
 
 export interface IShortRecipe {

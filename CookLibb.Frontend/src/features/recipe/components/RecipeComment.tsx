@@ -7,6 +7,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import Modal from '../../../ui/Modal';
 import DeleteCommentModal from './DeleteCommentModal';
 import { useUserContext } from '../../../contexts/UserContext';
+import UserInformationModal from '../../admin/components/UserInformationModal';
 
 const RecipeCommentLayout = styled.div`
   display: flex;
@@ -50,6 +51,13 @@ const RecipeCommentUser = styled.div`
   gap: 1rem;
   margin-right: auto;
   align-items: center;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+
+  &:hover {
+    background-color: var(--color-grey-300);
+  }
 `;
 
 const RecipeCommentDate = styled.span`
@@ -79,10 +87,12 @@ function RecipeComment({ comment }: RecipeCommentProps) {
   return (
     <RecipeCommentLayout>
       <RecipeCommentHeader>
-        <RecipeCommentUser>
-          <Avatar src={comment.author.avatarUrl} />
-          <Heading as='h3'>{comment.author.username}</Heading>
-        </RecipeCommentUser>
+        <UserInformationModal user={user}>
+          <RecipeCommentUser>
+            <Avatar src={comment.author.avatarUrl} />
+            <Heading as='h3'>{comment.author.username}</Heading>
+          </RecipeCommentUser>
+        </UserInformationModal>
         <RecipeCommentHeaderRight>
           <RecipeCommentDate>
             {new Date(comment.creationDate).toLocaleString(

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CookLib.ApplicationServices.API.Domain.ErrorHandling;
 using CookLib.ApplicationServices.API.Domain.Models;
+using CookLib.DataAccess;
 using CookLib.DataAccess.CQRS.Commands;
 using CookLib.DataAccess.CQRS.Commands.Recipes;
 using CookLib.DataAccess.CQRS.Queries;
@@ -37,12 +38,16 @@ public class ChangeRecipeStatusHandler : IRequestHandler<ChangeRecipeStatusReque
 
         recipe.Status = request.NewStatus;
 
-        var command = new UpdateRecipeByIdCommand() { Parameter = recipe };
+        var recipeStatusModel = new ChangeRecipeStatusModel() { RecipeId = request.RecipeId, NewRecipeStatus = request.NewStatus };
+
+        var command = new ChangeRecipeStatusCommand() { Parameter = recipeStatusModel };
         var updatedRecipe = await this.commandExecutor.Execute(command);
 
         return new ChangeRecipeStatusResponse()
         {
-            Data = this.mapper.Map<RecipeDTO>(updatedRecipe)
+            Data = updatedRecipe
         };
     }
 }
+
+

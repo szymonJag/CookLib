@@ -7,7 +7,7 @@ import { useUserContext } from '../../../contexts/UserContext';
 
 type CreateRecipeType = {
   recipe: IAddRecipeRequest;
-  images: FileList;
+  images: FileList | null;
 };
 
 export function useCreateRecipe() {
@@ -34,14 +34,14 @@ export function useCreateRecipe() {
 
 async function addRecipeWithImage(
   recipe: IAddRecipeRequest,
-  images: FileList,
+  images: FileList | null,
   token: string
 ) {
   try {
     const recipeData = await addRecipe(recipe, token);
     console.log(`recipeData`, recipeData);
 
-    if (images.length > 0) {
+    if (images !== null) {
       const recipeId = recipeData.id;
       await uploadImage(images, recipeId);
     }

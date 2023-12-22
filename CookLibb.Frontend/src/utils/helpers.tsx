@@ -77,3 +77,14 @@ export const mapMeasurementToId = (measurementName: string): number => {
 
   return measurementType ? measurementType.id : 0;
 };
+
+export const calculateNumberOfDays = (date: string): number => {
+  const givenDate = new Date(date);
+  const today = new Date();
+
+  const numberOfDays = Math.floor(
+    (today.getTime() - givenDate.getTime()) / (1000 * 60 * 60 * 24)
+  );
+
+  return numberOfDays;
+};

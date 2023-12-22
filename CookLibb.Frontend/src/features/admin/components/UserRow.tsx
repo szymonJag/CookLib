@@ -5,6 +5,7 @@ import Button from '../../../ui/Button';
 import { useChangeUserRole } from '../hooks/useChangeUserRole';
 import DeleteUserModal from './DeleteUserModal';
 import Buttons from '../../../ui/Buttons';
+import UserInformationModal from './UserInformationModal';
 
 interface UserRowProps {
   user: IUser;
@@ -20,9 +21,9 @@ function UserRow({ user }: UserRowProps) {
       <span>{user.mail}</span>
       <span>{role}</span>
       <Buttons>
-        <Button size='small' variation='secondary'>
-          Wyświetl
-        </Button>
+        <UserInformationModal user={user}>
+          <Button variation='secondary'>Więcej</Button>
+        </UserInformationModal>
         <Button
           size='small'
           variation='primary'

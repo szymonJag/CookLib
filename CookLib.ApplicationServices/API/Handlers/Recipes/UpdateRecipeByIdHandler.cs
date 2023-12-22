@@ -89,9 +89,13 @@ namespace CookLib.ApplicationServices.API.Handlers.Recipes
             var updatedRecipeDb = await this.commandExecutor.Execute(command);
 
 
-            var response = new UpdateRecipeByIdResponse() { Data = this.mapper.Map<RecipeDTO>(updatedRecipeDb) };
+            var responseData = this.mapper.Map<RecipeDTO>(updatedRecipeDb);
 
-            return response;
+
+            return new UpdateRecipeByIdResponse()
+            {
+                Data = responseData
+            };
         }
     }
 }

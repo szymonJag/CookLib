@@ -33,6 +33,7 @@ function AddComment({ recipe }: AddCommentProps) {
       description: description,
       recipeId: recipe.id,
     };
+    setDescription('');
     addCommentMt(comment);
   };
 

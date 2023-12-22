@@ -34,7 +34,7 @@ async function editRecipeWithImage(
 ) {
   try {
     await editRecipe(recipe, recipe.recipeId, token);
-    if (images) {
+    if (images !== null) {
       console.log(images);
     }
   } catch (err) {

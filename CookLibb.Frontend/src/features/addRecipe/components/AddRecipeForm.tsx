@@ -19,6 +19,7 @@ import { useParams } from 'react-router-dom';
 import { useGetRecipe } from '../../recipes/hooks/useGetRecipe';
 import { mapMeasurementToId } from '../../../utils/helpers';
 import { useEditRecipe } from '../hooks/useEditRecipe';
+import { useUserContext } from '../../../contexts/UserContext';
 
 const Row = styled.div`
   display: flex;
@@ -80,10 +81,12 @@ function AddRecipeForm() {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  const { user } = useUserContext();
+
+  // if (recipe) console.log(`recipe`, recipe);
+
   useEffect(() => {
     if (editMode && recipe) {
-      console.log(`recipe fetchedingredients`, recipe.ingredients);
-
       const fetchedIngredients: IIngredientMeasuremenet[] =
         recipe.ingredients.map((ingr) => {
           const { id, kcal, name, type } = ingr.ingredient;
@@ -113,9 +116,9 @@ function AddRecipeForm() {
   }, [recipeId, recipe]);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const recipe: IAddRecipeRequest = {
+    const recipeRequest: IAddRecipeRequest = {
       recipeId: Number(recipeId),
-      authorId: 1,
+      authorId: editMode ? recipe!.author.id : user!.id,
       name: data.name,
       preparationTime: data.preparationTime,
       servingSize: Number(data.servingSize),
@@ -129,11 +132,15 @@ function AddRecipeForm() {
       preparationSteps: textAreas.map((step, index) => {
         return { id: 0, step: index + 1, description: step };
       }),
-      recipeTags: selectedTags,
+      recipeTags: [...new Set(selectedTags)],
     };
-    if (editMode) editRecipeMt({ recipe, images: selectedImages });
-    if (!editMode && selectedImages)
-      createRecipeMt({ recipe, images: selectedImages });
+
+    console.log(`new recipe to update`, JSON.stringify(recipeRequest));
+
+    if (!editMode)
+      createRecipeMt({ recipe: recipeRequest, images: selectedImages });
+    if (editMode)
+      editRecipeMt({ recipe: recipeRequest, images: selectedImages });
   };
 
   function onError(errors: FieldErrors) {
@@ -164,12 +171,12 @@ function AddRecipeForm() {
 
   const handleAddTextArea = (e: MouseEvent) => {
     e.preventDefault();
-    setTextAreas((prevTextAreas) => [...prevTextAreas, '']); // Add an empty text area
+    setTextAreas((prevTextAreas) => [...prevTextAreas, '']);
   };
   const handleRemoveTextArea = (index: number) => {
     if (textAreas.length > 1)
-      setTextAreas(
-        (prevTextAreas) => prevTextAreas.filter((_, i) => i !== index) // Remove the text area at the specified index
+      setTextAreas((prevTextAreas) =>
+        prevTextAreas.filter((_, i) => i !== index)
       );
   };
 

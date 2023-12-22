@@ -10,6 +10,7 @@ import { HiXMark } from 'react-icons/hi2';
 import styled from 'styled-components';
 import { useOutsideClick } from '../hooks/useOutsideClick';
 import { motion } from 'framer-motion';
+import Heading from './Heading';
 
 const StyledModal = styled(motion.div)`
   /* top: 50%;
@@ -103,14 +104,20 @@ const Open: FC<OpenProps> = ({ children, opens }) => {
 interface WindowProps {
   children: ReactNode;
   name: string;
+  header?: string;
 }
 
 const WindowHeader = styled.div`
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 3rem;
 `;
 
-const Window: FC<WindowProps> = ({ children, name }) => {
+const CloseButton = styled(Button)`
+  margin-left: auto;
+`;
+
+const Window: FC<WindowProps> = ({ children, name, header }) => {
   const { openName, close } = useContext(ModalContext)!;
   const ref = useOutsideClick(close);
 
@@ -125,9 +132,10 @@ const Window: FC<WindowProps> = ({ children, name }) => {
         transition={{ duration: 0.1 }}
       >
         <WindowHeader>
-          <Button onClick={close}>
+          <Heading as='h2'>{header}</Heading>
+          <CloseButton onClick={close}>
             <HiXMark />
-          </Button>
+          </CloseButton>
         </WindowHeader>
         <div>
           {React.cloneElement(children as React.ReactElement, {
